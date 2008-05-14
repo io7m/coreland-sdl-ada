@@ -19,6 +19,7 @@ package SDL is
   for uint16'size use 16;
   for uint32'size use 32;
 
+  type int_ptr is access all c.int;
   type int8_ptr is access all int8;
   type int16_ptr is access all int16;
   type int32_ptr is access all int32;
@@ -26,6 +27,7 @@ package SDL is
   type uint16_ptr is access all uint16;
   type uint32_ptr is access all uint32;
 
+  pragma convention (c, int_ptr);
   pragma convention (c, int8);
   pragma convention (c, int16);
   pragma convention (c, int32);

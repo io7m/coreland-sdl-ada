@@ -1,8 +1,10 @@
 with SDL.video;
 
-package SDL.Mouse is
+package SDL.mouse is
   package vid renames SDL.video;
 
+  type mouse_button_state is new uint8;
+  pragma convention (c, mouse_button_state);
   type cursor_area_save is array (0 .. 1) of uint8_ptr;
   pragma convention (c, cursor_area_save);
 
@@ -57,4 +59,4 @@ package SDL.Mouse is
   pragma import (c, ShowCursor, "SDL_ShowCursor");
   pragma import (c, show_cursor, "SDL_ShowCursor");
 
-end SDL.Mouse;
+end SDL.mouse;

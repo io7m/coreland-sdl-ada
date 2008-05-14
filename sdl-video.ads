@@ -4,7 +4,7 @@
 
 with interfaces.c;
 
-package SDL.Video is
+package SDL.video is
   package c renames interfaces.c;
 
   -- Defines a rectangular area.
@@ -359,4 +359,4 @@ package SDL.Video is
   function MUSTLOCK (surf: Surface_ptr) return boolean;
   pragma inline (MUSTLOCK);
 
-end SDL.Video;
+end SDL.video;

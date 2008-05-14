@@ -3,8 +3,10 @@
 default: all
 
 all:\
-sdl-ada.a sdl-error.ali sdl-error.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali \
-sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+sdl-ada.a sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
+sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
+sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali \
+sdl-video.o sdl.ali sdl.o
 
 ada-bind:\
 conf-adabind conf-systype conf-adatype
@@ -66,8 +68,10 @@ mk-systype:\
 conf-cc
 
 sdl-ada.a:\
-cc-slib sdl-ada.sld sdl-error.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
-	./cc-slib sdl-ada sdl-error.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+cc-slib sdl-ada.sld sdl-error.o sdl-events.o sdl-joystick.o sdl-keyboard.o \
+sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+	./cc-slib sdl-ada sdl-error.o sdl-events.o sdl-joystick.o sdl-keyboard.o \
+	sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
 
 sdl-error.ali:\
 ada-compile sdl-error.adb sdl-error.ads
@@ -75,6 +79,35 @@ ada-compile sdl-error.adb sdl-error.ads
 
 sdl-error.o:\
 sdl-error.ali
+
+sdl-events.ali:\
+ada-compile sdl-events.ads sdl-events.ads sdl-mouse.ads sdl-keyboard.ads \
+sdl-joystick.ads
+	./ada-compile sdl-events.ads
+
+sdl-events.o:\
+sdl-events.ali
+
+sdl-joystick.ali:\
+ada-compile sdl-joystick.ads sdl-joystick.ads
+	./ada-compile sdl-joystick.ads
+
+sdl-joystick.o:\
+sdl-joystick.ali
+
+sdl-keyboard.ali:\
+ada-compile sdl-keyboard.ads sdl-keyboard.ads sdl-keysym.ads
+	./ada-compile sdl-keyboard.ads
+
+sdl-keyboard.o:\
+sdl-keyboard.ali
+
+sdl-keysym.ali:\
+ada-compile sdl-keysym.ads sdl-keysym.ads
+	./ada-compile sdl-keysym.ads
+
+sdl-keysym.o:\
+sdl-keysym.ali
 
 sdl-mouse.ali:\
 ada-compile sdl-mouse.ads sdl-mouse.ads sdl-video.ads
@@ -107,8 +140,10 @@ sdl.ali
 clean-all: obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f sdl-ada.a sdl-error.ali sdl-error.o sdl-mouse.ali sdl-mouse.o \
-	sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+	rm -f sdl-ada.a sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
+	sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
+	sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali \
+	sdl-video.o sdl.ali sdl.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-systype mk-ctxt
 

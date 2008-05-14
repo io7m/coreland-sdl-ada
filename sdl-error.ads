@@ -1,7 +1,7 @@
 with interfaces.c;
 with interfaces.c.strings;
 
-package SDL.Error is
+package SDL.error is
   package c renames interfaces.c;
   package cs renames interfaces.c.strings;
 
@@ -11,7 +11,6 @@ package SDL.Error is
   pragma import (c, GetError, "SDL_GetError");
   pragma inline (get_error);
 
-  -- SDL_LASTERROR marks the highest numbered predefined error.
   type errorcode is new c.int;
 
   ENOMEM:    constant errorcode := 0;
@@ -30,4 +29,4 @@ package SDL.Error is
   pragma import (c, ClearError, "SDL_ClearError");
   pragma import (c, clear_error, "SDL_ClearError");
 
-end SDL.Error;
+end SDL.error;

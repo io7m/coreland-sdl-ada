@@ -3,6 +3,18 @@
 pragma source_file_name(sdl.error, spec_file_name => "sdl-error.ads");
 pragma source_file_name(sdl.error, body_file_name => "sdl-error.adb");
 
+-- ./sdl-events.apk
+pragma source_file_name(sdl.events, spec_file_name => "sdl-events.ads");
+
+-- ./sdl-joystick.apk
+pragma source_file_name(sdl.joystick, spec_file_name => "sdl-joystick.ads");
+
+-- ./sdl-keyboard.apk
+pragma source_file_name(sdl.keyboard, spec_file_name => "sdl-keyboard.ads");
+
+-- ./sdl-keysym.apk
+pragma source_file_name(sdl.keysym, spec_file_name => "sdl-keysym.ads");
+
 -- ./sdl-mouse.apk
 pragma source_file_name(sdl.mouse, spec_file_name => "sdl-mouse.ads");
 

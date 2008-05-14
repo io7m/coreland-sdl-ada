@@ -1,4 +1,4 @@
-package SDL.Timer is
+package SDL.timer is
 
   -- Callback function for AddTimer
   type add_timer_callback is
@@ -41,4 +41,4 @@ package SDL.Timer is
   pragma import (c, SetTimer, "SDL_SetTimer");
   pragma import (c, set_timer, "SDL_SetTimer");
 
-end SDL.Timer;
+end SDL.timer;
