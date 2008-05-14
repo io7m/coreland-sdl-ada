@@ -1,0 +1,11 @@
+
+-- ./sdl-error.apk
+pragma source_file_name(sdl.error, spec_file_name => "sdl-error.ads");
+pragma source_file_name(sdl.error, body_file_name => "sdl-error.adb");
+
+-- ./sdl-video.apk
+pragma source_file_name(sdl.video, spec_file_name => "sdl-video.ads");
+pragma source_file_name(sdl.video, body_file_name => "sdl-video.adb");
+
+-- ./sdl.apk
+pragma source_file_name(sdl, spec_file_name => "sdl.ads");
