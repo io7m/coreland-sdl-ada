@@ -3,7 +3,8 @@
 default: all
 
 all:\
-sdl-ada.a sdl-error.ali sdl-error.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+sdl-ada.a sdl-error.ali sdl-error.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali \
+sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 
 ada-bind:\
 conf-adabind conf-systype conf-adatype
@@ -65,8 +66,8 @@ mk-systype:\
 conf-cc
 
 sdl-ada.a:\
-cc-slib sdl-ada.sld sdl-error.o sdl-video.o sdl.o
-	./cc-slib sdl-ada sdl-error.o sdl-video.o sdl.o
+cc-slib sdl-ada.sld sdl-error.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+	./cc-slib sdl-ada sdl-error.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
 
 sdl-error.ali:\
 ada-compile sdl-error.adb sdl-error.ads
@@ -74,6 +75,20 @@ ada-compile sdl-error.adb sdl-error.ads
 
 sdl-error.o:\
 sdl-error.ali
+
+sdl-mouse.ali:\
+ada-compile sdl-mouse.ads sdl-mouse.ads sdl-video.ads
+	./ada-compile sdl-mouse.ads
+
+sdl-mouse.o:\
+sdl-mouse.ali
+
+sdl-timer.ali:\
+ada-compile sdl-timer.ads sdl-timer.ads
+	./ada-compile sdl-timer.ads
+
+sdl-timer.o:\
+sdl-timer.ali
 
 sdl-video.ali:\
 ada-compile sdl-video.adb sdl-video.ads
@@ -92,8 +107,8 @@ sdl.ali
 clean-all: obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f sdl-ada.a sdl-error.ali sdl-error.o sdl-video.ali sdl-video.o sdl.ali \
-	sdl.o
+	rm -f sdl-ada.a sdl-error.ali sdl-error.o sdl-mouse.ali sdl-mouse.o \
+	sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-systype mk-ctxt
 

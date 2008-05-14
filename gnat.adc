@@ -3,6 +3,12 @@
 pragma source_file_name(sdl.error, spec_file_name => "sdl-error.ads");
 pragma source_file_name(sdl.error, body_file_name => "sdl-error.adb");
 
+-- ./sdl-mouse.apk
+pragma source_file_name(sdl.mouse, spec_file_name => "sdl-mouse.ads");
+
+-- ./sdl-timer.apk
+pragma source_file_name(sdl.timer, spec_file_name => "sdl-timer.ads");
+
 -- ./sdl-video.apk
 pragma source_file_name(sdl.video, spec_file_name => "sdl-video.ads");
 pragma source_file_name(sdl.video, body_file_name => "sdl-video.adb");
