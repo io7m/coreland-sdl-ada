@@ -166,8 +166,8 @@ package SDL.video is
   procedure blit_surface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect);
   procedure blit_surface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect);
 
-  pragma import (c, BlitSurface, "SDL_BlitSurface");
-  pragma import (c, blit_surface, "SDL_BlitSurface");
+  pragma import (c, BlitSurface, "SDL_UpperBlit");
+  pragma import (c, blit_surface, "SDL_UpperBlit");
 
   -- Converts a surface to the same format as another surface.
   function ConvertSurface (src: Surface_ptr; fmt: PixelFormat_ptr;

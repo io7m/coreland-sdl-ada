@@ -111,8 +111,7 @@ EOF
   if [ $alif -eq 1 ]
   then
   cat <<EOF
-  {INST_COPY, "$pre.$suf", 0, $dlibdir, 0, 0, 0444},
-  {INST_COPY, "$pre.$suf", 0, $slibdir, 0, 0, 0444},
+  {INST_COPY, "$pre.$suf", 0, $incdir, 0, 0, 0444},
 EOF
   fi
 

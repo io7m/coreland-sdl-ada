@@ -7,10 +7,10 @@ ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
 ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o \
 inst-copy inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
 install_error.o installer installer.o instchk instchk.o insthier.o sdl-ada-conf \
-sdl-ada-conf.o sdl-ada.a sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
-sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
-sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali \
-sdl-video.o sdl.ali sdl.o
+sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o \
+sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali \
+sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o \
+sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -65,6 +65,10 @@ conf-cc mk-cctype
 conf-ldtype:\
 conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
+
+conf-sosuffix:\
+mk-sosuffix
+	./mk-sosuffix > conf-sosuffix.tmp && mv conf-sosuffix.tmp conf-sosuffix
 
 conf-systype:\
 mk-systype
@@ -220,6 +224,9 @@ conf-ld conf-systype conf-cctype
 mk-mk-ctxt:\
 conf-cc
 
+mk-sosuffix:\
+conf-systype
+
 mk-systype:\
 conf-cc
 
@@ -232,10 +239,17 @@ cc-compile sdl-ada-conf.c ctxt.h
 	./cc-compile sdl-ada-conf.c
 
 sdl-ada.a:\
-cc-slib sdl-ada.sld sdl-error.o sdl-events.o sdl-joystick.o sdl-keyboard.o \
-sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
-	./cc-slib sdl-ada sdl-error.o sdl-events.o sdl-joystick.o sdl-keyboard.o \
-	sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+cc-slib sdl-ada.sld sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
+sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+	./cc-slib sdl-ada sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
+	sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+
+sdl-audio.ali:\
+ada-compile sdl-audio.adb
+	./ada-compile sdl-audio.adb
+
+sdl-audio.o:\
+sdl-audio.ali
 
 sdl-error.ali:\
 ada-compile sdl-error.adb sdl-error.ads
@@ -309,12 +323,13 @@ obj_clean:
 	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
 	inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
 	inst-link.o install_core.o install_error.o installer installer.o instchk \
-	instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-error.ali \
-	sdl-error.o sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o \
-	sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali \
-	sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+	instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-audio.ali \
+	sdl-audio.o sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
+	sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
+	sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali \
+	sdl-video.o sdl.ali sdl.o
 ext_clean:
-	rm -f conf-adatype conf-cctype conf-ldtype conf-systype mk-ctxt
+	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
 regen:\
 ada-srcmap ada-srcmap-all

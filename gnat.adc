@@ -1,4 +1,7 @@
 
+-- ./sdl-audio.apk
+pragma source_file_name(sdl.audio, spec_file_name => "sdl-audio.ads");
+
 -- ./sdl-error.apk
 pragma source_file_name(sdl.error, spec_file_name => "sdl-error.ads");
 pragma source_file_name(sdl.error, body_file_name => "sdl-error.adb");

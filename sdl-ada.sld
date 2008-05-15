@@ -1,3 +1,4 @@
+sdl-audio.o
 sdl-error.o
 sdl-events.o
 sdl-joystick.o
