@@ -5,7 +5,7 @@ package body SDL.Video is
 
     use type c.int;
   begin
-    if (surf.offset /= 0) or ((surf.flags and uint32 (check_flags)) /= 0) then
+    if (surf.offset /= 0) or ((surf.flags and check_flags) /= 0) then
       return true;
     else
       return false;

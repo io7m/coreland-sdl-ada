@@ -7,6 +7,33 @@ with interfaces.c;
 package SDL.video is
   package c renames interfaces.c;
 
+  -- Surface flags.
+  type surface_flags is new uint32;
+  pragma convention (c, surface_flags);
+
+  -- Available for SDL_CreateRGBSurface() or SDL_SetVideoMode()
+  SWSURFACE:   constant surface_flags := 16#00000000#;
+  HWSURFACE:   constant surface_flags := 16#00000001#;
+  ASYNCBLIT:   constant surface_flags := 16#00000004#;
+
+  -- Available for SDL_SetVideoMode()
+  ANYFORMAT:   constant surface_flags := 16#10000000#;
+  HWPALETTE:   constant surface_flags := 16#20000000#;
+  DOUBLEBUF:   constant surface_flags := 16#40000000#;
+  FULLSCREEN:  constant surface_flags := 16#80000000#;
+  OPENGL:      constant surface_flags := 16#00000002#;
+  OPENGLBLIT:  constant surface_flags := 16#0000000A#;
+  RESIZABLE:   constant surface_flags := 16#00000010#;
+  NOFRAME:     constant surface_flags := 16#00000020#;
+
+  -- Used internally (read-only)
+  HWACCEL:     constant surface_flags := 16#00000100#;
+  SRCCOLORKEY: constant surface_flags := 16#00001000#;
+  RLEACCELOK:  constant surface_flags := 16#00002000#;
+  RLEACCEL:    constant surface_flags := 16#00004000#;
+  SRCALPHA:    constant surface_flags := 16#00010000#;
+  PREALLOC:    constant surface_flags := 16#01000000#;
+
   -- Defines a rectangular area.
   type Rect is record
     x: int16;
@@ -40,23 +67,23 @@ package SDL.video is
 
   -- Stores surface format information
   type PixelFormat is record
-    palette: Palette_ptr;
-    BitsPerPixel: uint8;
+          palette: Palette_ptr;
+     BitsPerPixel: uint8;
     BytesPerPixel: uint8;
-    Rloss: uint8;
-    Gloss: uint8;
-    Bloss: uint8;
-    Aloss: uint8;
-    Rshift: uint8;
-    Gshift: uint8;
-    Bshift: uint8;
-    Ashift: uint8;
-    Rmask: uint32;
-    Gmask: uint32;
-    Bmask: uint32;
-    Amask: uint32;
-    colorkey: uint32;
-    alpha: uint8;
+            Rloss: uint8;
+            Gloss: uint8;
+            Bloss: uint8;
+            Aloss: uint8;
+           Rshift: uint8;
+           Gshift: uint8;
+           Bshift: uint8;
+           Ashift: uint8;
+            Rmask: uint32;
+            Gmask: uint32;
+            Bmask: uint32;
+            Amask: uint32;
+         colorkey: uint32;
+            alpha: uint8;
   end record;
   type PixelFormat_ptr is access all PixelFormat;
   pragma convention (c, PixelFormat);
@@ -64,51 +91,24 @@ package SDL.video is
 
   -- Graphical Surface Structure
   type Surface is record
-    flags: uint32;
-    format: access PixelFormat;
-    w: c.int;
-    h: c.int;
-    pitch: uint16;
-    pixels: void_ptr;
-    offset: c.int;
-    hwdata: void_ptr;
-    clip_rect: Rect;
-    unused1: uint32;
-    locked: uint32;
-    map: void_ptr;
+             flags: surface_flags;
+            format: PixelFormat_ptr;
+                 w: c.int;
+                 h: c.int;
+             pitch: uint16;
+            pixels: void_ptr;
+            offset: c.int;
+            hwdata: void_ptr;
+         clip_rect: Rect;
+           unused1: uint32;
+            locked: uint32;
+               map: void_ptr;
     format_version: c.unsigned;
-    refcount: c.int;
+          refcount: c.int;
   end record;
   type Surface_ptr is access all Surface;
   pragma convention (c, Surface);
   pragma convention (c, Surface_ptr);
-
-  -- Surface flags.
-  type surface_flags is new uint32;
-  pragma convention (c, surface_flags);
-
-  -- Available for SDL_CreateRGBSurface() or SDL_SetVideoMode()
-  SWSURFACE:   constant surface_flags := 16#00000000#;
-  HWSURFACE:   constant surface_flags := 16#00000001#;
-  ASYNCBLIT:   constant surface_flags := 16#00000004#;
-
-  -- Available for SDL_SetVideoMode()
-  ANYFORMAT:   constant surface_flags := 16#10000000#;
-  HWPALETTE:   constant surface_flags := 16#20000000#;
-  DOUBLEBUF:   constant surface_flags := 16#40000000#;
-  FULLSCREEN:  constant surface_flags := 16#80000000#;
-  OPENGL:      constant surface_flags := 16#00000002#;
-  OPENGLBLIT:  constant surface_flags := 16#0000000A#;
-  RESIZABLE:   constant surface_flags := 16#00000010#;
-  NOFRAME:     constant surface_flags := 16#00000020#;
-
-  -- Used internally (read-only)
-  HWACCEL:     constant surface_flags := 16#00000100#;
-  SRCCOLORKEY: constant surface_flags := 16#00001000#;
-  RLEACCELOK:  constant surface_flags := 16#00002000#;
-  RLEACCEL:    constant surface_flags := 16#00004000#;
-  SRCALPHA:    constant surface_flags := 16#00010000#;
-  PREALLOC:    constant surface_flags := 16#01000000#;
 
   -- bitfield types
   type bitfield_1 is mod 2 ** 1;
@@ -122,20 +122,20 @@ package SDL.video is
   type VideoInfo is record
     hw_available: bitfield_1;
     wm_available: bitfield_1;
-    unusedbits1: bitfield_6;
-    unusedbits2: bitfield_1;
-    blit_hw: bitfield_1;
-    blit_hw_cc: bitfield_1;
-    blit_hw_a: bitfield_1;
-    blit_sw: bitfield_1;
-    blit_sw_cc: bitfield_1;
-    blit_sw_a: bitfield_1;
-    blit_fill: bitfield_1;
-    unusedbits3: uint16;
-    video_mem: uint32;
-    vfmt: PixelFormat_ptr;
-    current_w: c.int;
-    current_h: c.int;
+     unusedbits1: bitfield_6;
+     unusedbits2: bitfield_1;
+         blit_hw: bitfield_1;
+      blit_hw_cc: bitfield_1;
+       blit_hw_a: bitfield_1;
+         blit_sw: bitfield_1;
+      blit_sw_cc: bitfield_1;
+       blit_sw_a: bitfield_1;
+       blit_fill: bitfield_1;
+     unusedbits3: uint16;
+       video_mem: uint32;
+            vfmt: PixelFormat_ptr;
+       current_w: c.int;
+       current_h: c.int;
   end record;
   type VideoInfo_ptr is access all VideoInfo;
   pragma convention (c, VideoInfo);
@@ -147,10 +147,25 @@ package SDL.video is
 
   -- This performs a fast blit from the source surface to the
   -- destination surface.
-  function BlitSurface (src: Surface_ptr; src_rect: Rect_ptr;
-    dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
-  function blit_surface (src: Surface_ptr; src_rect: Rect_ptr;
-    dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
+
+  function BlitSurface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
+  function BlitSurface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
+  function BlitSurface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect) return c.int;
+  function BlitSurface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect) return c.int;
+  function blit_surface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
+  function blit_surface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect_ptr) return c.int;
+  function blit_surface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect) return c.int;
+  function blit_surface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect) return c.int;
+
+  procedure BlitSurface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect_ptr);
+  procedure BlitSurface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect_ptr);
+  procedure BlitSurface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect);
+  procedure BlitSurface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect);
+  procedure blit_surface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect_ptr);
+  procedure blit_surface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect_ptr);
+  procedure blit_surface (src: Surface_ptr; src_rect: Rect_ptr; dst: Surface_ptr; dst_rect: Rect);
+  procedure blit_surface (src: Surface_ptr; src_rect: Rect; dst: Surface_ptr; dst_rect: Rect);
+
   pragma import (c, BlitSurface, "SDL_BlitSurface");
   pragma import (c, blit_surface, "SDL_BlitSurface");
 
@@ -163,15 +178,15 @@ package SDL.video is
   pragma import (c, convert_surface, "SDL_ConvertSurface");
 
   -- Create an empty SDL_Surface
-  function CreateRGBSurface (flags: uint32; width, height, bpp: c.int;
+  function CreateRGBSurface (flags: surface_flags; width, height, bpp: c.int;
     rmask, gmask, bmask, amask: uint32) return Surface_ptr;
-  function create_rgb_surface (flags: uint32; width, height, bpp: c.int;
+  function create_rgb_surface (flags: surface_flags; width, height, bpp: c.int;
     rmask, gmask, bmask, amask: uint32) return Surface_ptr;
   pragma import (c, CreateRGBSurface, "SDL_CreateRGBSurface");
   pragma import (c, create_rgb_surface, "SDL_CreateRGBSurface");
 
   -- Creates an SDL_Surface from pixel data
-  function CreateRGBSurfaceFrom (flags: uint32; width, height, bpp: c.int;
+  function CreateRGBSurfaceFrom (pixels: void_ptr; width, height, bpp: c.int;
     rmask, gmask, bmask, amask: uint32) return Surface_ptr;
   function create_rgb_surface_from (pixels: void_ptr;
     width, height, bpp, pitch: c.int; rmask, gmask, bmask, amask: uint32)
@@ -192,13 +207,18 @@ package SDL.video is
   pragma import (c, display_format_alpha, "SDL_DisplayFormatAlpha");
 
   -- This function performs a fast fill of the given rectangle with color.
-  function FillRect (dst, src: Surface_ptr; color: uint32) return c.int;
-  function fill_rect (dst, src: Surface_ptr; color: uint32) return c.int;
+  function FillRect (dst: Surface_ptr; r: Rect_ptr; color: uint32) return c.int;
+  function fill_rect (dst: Surface_ptr; r: Rect_ptr; color: uint32) return c.int;
+  procedure FillRect (dst: Surface_ptr; r: Rect_ptr; color: uint32);
+  procedure fill_rect (dst: Surface_ptr; r: Rect_ptr; color: uint32);
+  procedure FillRect (dst: Surface_ptr; r: in out Rect; color: uint32);
+  procedure fill_rect (dst: Surface_ptr; r: in out Rect; color: uint32);
   pragma import (c, FillRect, "SDL_FillRect");
   pragma import (c, fill_rect, "SDL_FillRect");
 
   -- Swaps screen buffers
   function Flip (surf: Surface_ptr) return c.int;
+  procedure Flip (surf: Surface_ptr);
   pragma import (c, Flip, "SDL_Flip");
 
   -- Frees (deletes) a SDL_Surface
@@ -249,9 +269,9 @@ package SDL.video is
  
   -- Returns a pointer to an array of available screen dimensions for the given
   -- format and video flags.
-  function ListModes (fmt: PixelFormat_ptr; flags: uint32)
+  function ListModes (fmt: access PixelFormat; flags: uint32)
     return access Rect_ptr;
-  function list_modes (fmt: PixelFormat_ptr; flags: uint32)
+  function list_modes (fmt: access PixelFormat; flags: uint32)
     return access Rect_ptr;
   pragma import (c, ListModes, "SDL_ListModes");
   pragma import (c, list_modes, "SDL_ListModes");
@@ -283,8 +303,8 @@ package SDL.video is
   pragma import (c, set_alpha, "SDL_SetAlpha");
 
   -- Sets the clipping rectangle for a surface.
-  procedure SetClipRect (surf: Surface_ptr; r: Rect_ptr);
-  procedure set_clip_rect (surf: Surface_ptr; r: Rect_ptr);
+  procedure SetClipRect (surf: Surface_ptr; r: access Rect);
+  procedure set_clip_rect (surf: Surface_ptr; r: access Rect);
   pragma import (c, SetClipRect, "SDL_SetClipRect");
   pragma import (c, set_clip_rect, "SDL_SetClipRect");
 
@@ -296,9 +316,9 @@ package SDL.video is
   pragma import (c, set_color_key, "SDL_SetColorKey");
 
   -- Sets a portion of the colormap for the given 8-bit surface.
-  function SetColors (surf: Surface_ptr; colors: Color_ptr;
+  function SetColors (surf: Surface_ptr; colors: access Color;
     color1, ncolors: c.int) return c.int;
-  function set_colors (surf: Surface_ptr; colors: Color_ptr;
+  function set_colors (surf: Surface_ptr; colors: access Color;
     color1, ncolors: c.int) return c.int;
   pragma import (c, SetColors, "SDL_SetColors");
   pragma import (c, set_colors, "SDL_SetColors");
@@ -324,10 +344,10 @@ package SDL.video is
   pragma import (c, set_palette, "SDL_SetPalette");
 
   -- Sets up a video mode with the specified width, height and bits-per-pixel.
-  function SetVideoMode (surf: Surface_ptr; width, height, bpp: c.int;
-    flags: uint32) return Surface_ptr;
-  function set_video_mode (surf: Surface_ptr; width, height, bpp: c.int;
-    flags: uint32) return Surface_ptr;
+  function SetVideoMode (width, height, bpp: c.int; flags: surface_flags)
+    return Surface_ptr;
+  function set_video_mode (width, height, bpp: c.int; flags: surface_flags)
+    return Surface_ptr;
   pragma import (c, SetVideoMode, "SDL_SetVideoMode");
   pragma import (c, set_video_mode, "SDL_SetVideoMode");
 
