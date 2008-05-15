@@ -94,9 +94,9 @@ package SDL.events is
 
   -- ACTIVEEVENT
   type ActiveEvent is record
-    the_type: event_type;
-        gain: active_state;
-       state: active_state;
+    ev_type: event_type;
+       gain: active_state;
+      state: active_state;
   end record;
   type Activeevent_ptr is access all ActiveEvent;
   pragma convention (c, ActiveEvent);
@@ -104,10 +104,10 @@ package SDL.events is
 
   -- Keyboard event
   type KeyboardEvent is record
-    the_type: event_type;
-       which: uint8;
-       state: uint8;
-      keysym: aliased SDL.Keyboard.keysym;
+    ev_type: event_type;
+      which: uint8;
+      state: uint8;
+     keysym: aliased SDL.Keyboard.keysym;
   end record;
   type Keyboardevent_ptr is access all KeyboardEvent;
   pragma convention (c, KeyboardEvent);
@@ -115,13 +115,13 @@ package SDL.events is
 
   -- Mouse motion event
   type MouseMotionEvent is record
-    the_type: event_type;
-       which: uint8;
-       state: uint8;
-           x: uint16;
-           y: uint16;
-        xrel: int16;
-        yrel: int16;
+    ev_type: event_type;
+      which: uint8;
+      state: uint8;
+          x: uint16;
+          y: uint16;
+       xrel: int16;
+       yrel: int16;
   end record;
   type MouseMotionevent_ptr is access all MouseMotionEvent;
   pragma convention (c, MouseMotionEvent);
@@ -129,12 +129,12 @@ package SDL.events is
 
   -- Mouse button event
   type MouseButtonEvent is record
-    the_type: event_type;
-       which: uint8;
-      button: uint8;
-       state: mouse.mouse_button_state;
-           x: uint16;
-           y: uint16;
+    ev_type: event_type;
+      which: uint8;
+     button: uint8;
+      state: mouse.mouse_button_state;
+          x: uint16;
+          y: uint16;
   end record;
   type MouseButtonevent_ptr is access all MouseButtonEvent;
   pragma convention (c, MouseButtonEvent);
@@ -142,10 +142,10 @@ package SDL.events is
 
   -- Joystick axis motion event
   type JoyAxisEvent is record
-    the_type: event_type;
-       which: uint8;
-        axis: uint8;
-       value: int16;
+    ev_type: event_type;
+      which: uint8;
+       axis: uint8;
+      value: int16;
   end record;
   type JoyAxisevent_ptr is access all JoyAxisEvent;
   pragma convention (c, JoyAxisEvent);
@@ -153,11 +153,11 @@ package SDL.events is
 
   --  Joystick trackball motion event structure
   type JoyBallEvent is record
-    the_type: event_type;
-       which: uint8;
-        ball: uint8;
-        xrel: int16;
-        yrel: int16;
+    ev_type: event_type;
+      which: uint8;
+       ball: uint8;
+       xrel: int16;
+       yrel: int16;
   end record;
   type JoyBallevent_ptr is access all JoyBallEvent;
   pragma convention (c, JoyBallEvent);
@@ -165,10 +165,10 @@ package SDL.events is
 
   -- Joystick hat position change event structure
   type JoyHatEvent is record
-    the_type: event_type;
-       which: uint8;
-         hat: uint8;
-       value: joystick.hat_state;
+    ev_type: event_type;
+      which: uint8;
+        hat: uint8;
+      value: joystick.hat_state;
   end record;
   type JoyHatevent_ptr is access all JoyHatEvent;
   pragma convention (c, JoyHatEvent);
@@ -176,10 +176,10 @@ package SDL.events is
 
   -- Joystick button event structure
   type JoyButtonEvent is record
-    the_type: event_type;
-       which: uint8;
-      button: uint8;
-       state: uint8;
+    ev_type: event_type;
+      which: uint8;
+     button: uint8;
+      state: uint8;
   end record;
   type JoyButtonevent_ptr is access all JoyButtonEvent;
   pragma convention (c, JoyButtonEvent);
@@ -187,9 +187,9 @@ package SDL.events is
 
   -- "Window resized" event.
   type ResizeEvent is record
-    the_type: event_type;
-           w: c.int;
-           h: c.int;
+    ev_type: event_type;
+          w: c.int;
+          h: c.int;
   end record;
   type Resizeevent_ptr is access all ResizeEvent;
   pragma convention (c, ResizeEvent);
@@ -197,7 +197,7 @@ package SDL.events is
 
   -- The "quit requested" event
   type QuitEvent is record
-    the_type: event_type;
+    ev_type: event_type;
   end record;
   type Quitevent_ptr is access all QuitEvent;
   pragma convention (c, QuitEvent);
@@ -205,10 +205,10 @@ package SDL.events is
 
   -- User event type
   type UserEvent is record
-    the_type: event_type;
-        code: c.int;
-       data1: void_ptr;
-       data2: void_ptr;
+    ev_type: event_type;
+       code: c.int;
+      data1: void_ptr;
+      data2: void_ptr;
   end record;
   type Userevent_ptr is access all UserEvent;
   pragma convention (c, UserEvent);
@@ -216,8 +216,8 @@ package SDL.events is
 
   type SysWMmsg_ptr is new void_ptr;
   type SysWMEvent is record
-    the_type: event_type;
-         msg: SysWMmsg_ptr;
+    ev_type: event_type;
+        msg: SysWMmsg_ptr;
   end record;
   type SysWMEvent_ptr is access all SysWMEvent;
   pragma convention (c, SysWMEvent);
@@ -242,19 +242,19 @@ package SDL.events is
   -- event union
   type event (ev: event_selector := is_event_type) is record
     case ev is
-      when is_event_type       => the_type: event_type;
-      when is_ActiveEvent      =>   active: ActiveEvent;
-      when is_KeyboardEvent    =>      key: KeyboardEvent;
-      when is_MouseMotionEvent =>   motion: MouseMotionEvent;
-      when is_MouseButtonEvent =>   button: MouseButtonEvent;
-      when is_JoyAxisEvent     =>    jaxis: JoyAxisEvent;
-      when is_JoyBallEvent     =>    jball: JoyBallEvent;
-      when is_JoyHatEvent      =>     jhat: JoyHatEvent;
-      when is_JoyButtonEvent   =>  jbutton: JoyButtonEvent;
-      when is_ResizeEvent      =>   resize: ResizeEvent;
-      when is_QuitEvent        =>     quit: QuitEvent;
-      when is_UserEvent        =>     user: UserEvent;
-      when is_SysWMEvent       =>    syswm: SysWMEvent;
+      when is_event_type       => ev_type: event_type;
+      when is_ActiveEvent      =>  active: ActiveEvent;
+      when is_KeyboardEvent    =>     key: KeyboardEvent;
+      when is_MouseMotionEvent =>  motion: MouseMotionEvent;
+      when is_MouseButtonEvent =>  button: MouseButtonEvent;
+      when is_JoyAxisEvent     =>   jaxis: JoyAxisEvent;
+      when is_JoyBallEvent     =>   jball: JoyBallEvent;
+      when is_JoyHatEvent      =>    jhat: JoyHatEvent;
+      when is_JoyButtonEvent   => jbutton: JoyButtonEvent;
+      when is_ResizeEvent      =>  resize: ResizeEvent;
+      when is_QuitEvent        =>    quit: QuitEvent;
+      when is_UserEvent        =>    user: UserEvent;
+      when is_SysWMEvent       =>   syswm: SysWMEvent;
     end case;
   end record;
   type event_ptr is access all event;
@@ -280,8 +280,8 @@ package SDL.events is
   pragma import (c, peep_events, "SDL_PeepEvents");
 
   -- Polls for currently pending events.
-  function PollEvent (the_event: access event) return c.int;
-  function poll_event (the_event: access event) return c.int;
+  function PollEvent (event_val: access event) return c.int;
+  function poll_event (event_val: access event) return c.int;
   pragma import (c, PollEvent, "SDL_PollEvent");
   pragma import (c, poll_event, "SDL_PollEvent");
 
@@ -294,12 +294,12 @@ package SDL.events is
   --  Add an event to the event queue.
   function PushEvent (event: event_ptr) return c.int;
   procedure PushEvent (event: event_ptr);
-  function PushEvent (the_event: event) return c.int;
-  procedure PushEvent (the_event: event);
+  function PushEvent (event_val: event) return c.int;
+  procedure PushEvent (event_val: event);
   function push_event (event: event_ptr) return c.int;
   procedure push_event (event: event_ptr);
-  function push_event (the_event: event) return c.int;
-  procedure push_event (the_event: event);
+  function push_event (event_val: event) return c.int;
+  procedure push_event (event_val: event);
   pragma import (c, PushEvent, "SDL_PushEvent");
   pragma import (c, push_event, "SDL_PushEvent");
 
