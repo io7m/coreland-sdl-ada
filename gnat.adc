@@ -21,6 +21,10 @@ pragma source_file_name(sdl.keysym, spec_file_name => "sdl-keysym.ads");
 -- ./sdl-mouse.apk
 pragma source_file_name(sdl.mouse, spec_file_name => "sdl-mouse.ads");
 
+-- ./sdl-rwops.apk
+pragma source_file_name(sdl.rwops, spec_file_name => "sdl-rwops.ads");
+pragma source_file_name(sdl.rwops, body_file_name => "sdl-rwops.adb");
+
 -- ./sdl-timer.apk
 pragma source_file_name(sdl.timer, spec_file_name => "sdl-timer.ads");
 

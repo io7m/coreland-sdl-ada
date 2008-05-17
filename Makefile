@@ -10,7 +10,8 @@ install_error.o installer installer.o instchk instchk.o insthier.o sdl-ada-conf 
 sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o \
 sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali \
 sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o \
-sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+sdl-rwops.ali sdl-rwops.o sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o \
+sdl.ali sdl.o
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -294,6 +295,13 @@ ada-compile sdl-mouse.ads sdl-mouse.ads sdl-video.ads
 sdl-mouse.o:\
 sdl-mouse.ali
 
+sdl-rwops.ali:\
+ada-compile sdl-rwops.adb sdl-rwops.ads
+	./ada-compile sdl-rwops.adb
+
+sdl-rwops.o:\
+sdl-rwops.ali
+
 sdl-timer.ali:\
 ada-compile sdl-timer.ads sdl-timer.ads
 	./ada-compile sdl-timer.ads
@@ -326,8 +334,8 @@ obj_clean:
 	instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-audio.ali \
 	sdl-audio.o sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
 	sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
-	sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-timer.ali sdl-timer.o sdl-video.ali \
-	sdl-video.o sdl.ali sdl.o
+	sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o sdl-timer.ali \
+	sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
