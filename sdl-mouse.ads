@@ -1,12 +1,37 @@
 with SDL.video;
+with interfaces;
 
 package SDL.mouse is
   package vid renames SDL.video;
+  package i renames interfaces;
 
+  type button is new uint8;
+  pragma convention (c, button);
+  type button_mask is new uint8;
+  pragma convention (c, button_mask);
   type mouse_button_state is new uint8;
   pragma convention (c, mouse_button_state);
   type cursor_area_save is array (0 .. 1) of uint8_ptr;
   pragma convention (c, cursor_area_save);
+
+  button_left: constant button := 1;
+  button_middle: constant button := 2;
+  button_right: constant button := 3;
+  button_wheel_up: constant button := 4;
+  button_wheel_down: constant button := 5;
+  button_x1: constant button := 6;
+  button_x2: constant button := 7;
+
+  button_l_mask: constant button_mask := 
+    button_mask (i.shift_left (i.unsigned_32 (1), integer (button_left)));
+  button_m_mask: constant button_mask := 
+    button_mask (i.shift_left (i.unsigned_32 (1), integer (button_middle)));
+  button_r_mask: constant button_mask := 
+    button_mask (i.shift_left (i.unsigned_32 (1), integer (button_right)));
+  button_x1_mask: constant button_mask := 
+    button_mask (i.shift_left (i.unsigned_32 (1), integer (button_x1)));
+  button_x2_mask: constant button_mask := 
+    button_mask (i.shift_left (i.unsigned_32 (1), integer (button_x2)));
 
   type Cursor is record
     area: vid.rect;

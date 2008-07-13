@@ -7,9 +7,12 @@ package SDL.error is
 
   -- Gets SDL error string
   function GetError return cs.chars_ptr;
-  function get_error return string;
+  function get_error return cs.chars_ptr renames GetError;
   pragma import (c, GetError, "SDL_GetError");
-  pragma inline (get_error);
+
+  function GetError return string;
+  function get_error return string renames GetError;
+  pragma inline (GetError);
 
   type errorcode is new c.int;
 
