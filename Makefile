@@ -241,9 +241,11 @@ cc-compile sdl-ada-conf.c ctxt.h
 
 sdl-ada.a:\
 cc-slib sdl-ada.sld sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
-sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o sdl-video.o \
+sdl.o
 	./cc-slib sdl-ada sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
-	sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-timer.o sdl-video.o sdl.o
+	sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o sdl-video.o \
+	sdl.o
 
 sdl-audio.ali:\
 ada-compile sdl-audio.adb
