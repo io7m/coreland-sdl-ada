@@ -15,13 +15,6 @@ package body SDL.Video is
     return ret /= -1;
   end BlitSurface;
 
-  function CreateRGBSurface (flags: surface_flags_t; width, height: natural;
-    bpp: positive; rmask, gmask, bmask, amask: uint32) return surface_ptr_t is
-  begin
-    return CreateRGBSurface (flags, c.int (width), c.int (height), c.int (bpp),
-      rmask, gmask, bmask, amask);
-  end CreateRGBSurface;
-
   function CreateRGBSurfaceFrom (pixels: void_ptr_t; width, height: natural;
     bpp: positive; pitch: positive; rmask, gmask, bmask, amask: uint32)
       return surface_ptr_t is
@@ -68,7 +61,7 @@ package body SDL.Video is
 
   function SDL_SetColors (surf: surface_ptr_t; colors: color_array_t;
     first, ncolors: c.int) return c.int;
-  pragma import (c, SDL_SetColors);
+  pragma import (c, SDL_SetColors, "SDL_SetColors");
 
   function SetColors (surf: surface_ptr_t; colors: color_array_t;
     first_color, num_colors: natural) return boolean is
@@ -96,7 +89,7 @@ package body SDL.Video is
 
   function SDL_SetPalette (surf: surface_ptr_t; flags: c.int; colors: color_array_t;
     first, ncolors: c.int) return c.int;
-  pragma import (c, SDL_SetPalette);
+  pragma import (c, SDL_SetPalette, "SDL_SetPalette");
 
   function SetPalette (surf: surface_ptr_t; flags: c.int; colors: color_array_t;
     first_color, num_colors: natural) return boolean is

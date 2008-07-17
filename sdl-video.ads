@@ -213,12 +213,6 @@ package SDL.video is
     rmask, gmask, bmask, amask: uint32) return surface_ptr_t renames CreateRGBSurface;
   pragma import (c, CreateRGBSurface, "SDL_CreateRGBSurface");
 
-  function CreateRGBSurface (flags: surface_flags_t; width, height: natural;
-    bpp: positive; rmask, gmask, bmask, amask: uint32) return surface_ptr_t;
-  function create_rgb_surface (flags: surface_flags_t; width, height: natural;
-    bpp: positive; rmask, gmask, bmask, amask: uint32) return surface_ptr_t renames CreateRGBSurface;
-  pragma inline (CreateRGBSurface);
-
   -- Creates an SDL_Surface from pixel data
   function CreateRGBSurfaceFrom (pixels: void_ptr_t; width, height, bpp, pitch: c.int;
     rmask, gmask, bmask, amask: uint32) return surface_ptr_t;
