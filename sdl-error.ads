@@ -14,22 +14,21 @@ package SDL.error is
   function get_error return string renames GetError;
   pragma inline (GetError);
 
-  type errorcode is new c.int;
+  type errorcode_t is new c.int;
 
-  ENOMEM:    constant errorcode := 0;
-  EFREAD:    constant errorcode := 1;
-  EFWRITE:   constant errorcode := 2;
-  EFSEEK:    constant errorcode := 3;
-  LASTERROR: constant errorcode := 4;
+  ENOMEM:    constant errorcode_t := 0;
+  EFREAD:    constant errorcode_t := 1;
+  EFWRITE:   constant errorcode_t := 2;
+  EFSEEK:    constant errorcode_t := 3;
+  LASTERROR: constant errorcode_t := 4;
 
   -- Sets the SDL error message to one of several predefined strings.
-  procedure error (code: errorcode);
+  procedure error (code: errorcode_t);
   pragma import (c, error, "SDL_Error");
 
   -- Clear the current SDL error
   procedure ClearError;
-  procedure clear_error;
+  procedure clear_error renames ClearError;
   pragma import (c, ClearError, "SDL_ClearError");
-  pragma import (c, clear_error, "SDL_ClearError");
 
 end SDL.error;

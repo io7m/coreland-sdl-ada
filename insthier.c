@@ -38,6 +38,8 @@ struct install_item insthier[] = {
   {INST_COPY, "sdl-rwops.adb", 0, ctxt_incdir, 0, 0, 0644},
   {INST_COPY, "sdl-video.adb", 0, ctxt_repos, 0, 0, 0644},
   {INST_COPY, "sdl-video.adb", 0, ctxt_incdir, 0, 0, 0644},
+  {INST_COPY, "sdl.adb", 0, ctxt_repos, 0, 0, 0644},
+  {INST_COPY, "sdl.adb", 0, ctxt_incdir, 0, 0, 0644},
   {INST_COPY, "sdl-audio.ali", 0, ctxt_repos, 0, 0, 0644},
   {INST_COPY, "sdl-audio.ali", 0, ctxt_incdir, 0, 0, 0444},
   {INST_COPY, "sdl-error.ali", 0, ctxt_repos, 0, 0, 0644},

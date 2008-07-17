@@ -3,30 +3,30 @@ with interfaces.c.strings;
 package SDL.joystick is
   package cs renames interfaces.c.strings;
 
-  type Joystick_ptr is new void_ptr;
-  pragma convention (c, Joystick_ptr);
+  type joystick_ptr_t is new void_ptr_t;
+  pragma convention (c, joystick_ptr_t);
 
-  type hat_state is new uint16;
-  pragma convention (c, hat_state);
+  type hat_state_t is new uint16;
+  pragma convention (c, hat_state_t);
 
-  type button_state is new uint8;
-  pragma convention (c, button_state);
+  type button_state_t is new uint8;
+  pragma convention (c, button_state_t);
 
-  HAT_CENTERED:  constant HAT_State := 16#00#;
-  HAT_UP:        constant HAT_State := 16#01#;
-  HAT_RIGHT:     constant HAT_State := 16#02#;
-  HAT_DOWN:      constant HAT_State := 16#04#;
-  HAT_LEFT:      constant HAT_State := 16#08#;
-  HAT_RIGHTUP:   constant HAT_State := (HAT_RIGHT or HAT_UP);
-  HAT_RIGHTDOWN: constant HAT_State := (HAT_RIGHT or HAT_DOWN);
-  HAT_LEFTUP:    constant HAT_State := (HAT_LEFT  or HAT_UP);
-  HAT_LEFTDOWN:  constant HAT_State := (HAT_LEFT  or HAT_DOWN);
+  HAT_CENTERED:  constant hat_state_t := 16#00#;
+  HAT_UP:        constant hat_state_t := 16#01#;
+  HAT_RIGHT:     constant hat_state_t := 16#02#;
+  HAT_DOWN:      constant hat_state_t := 16#04#;
+  HAT_LEFT:      constant hat_state_t := 16#08#;
+  HAT_RIGHTUP:   constant hat_state_t := (HAT_RIGHT or HAT_UP);
+  HAT_RIGHTDOWN: constant hat_state_t := (HAT_RIGHT or HAT_DOWN);
+  HAT_LEFTUP:    constant hat_state_t := (HAT_LEFT  or HAT_UP);
+  HAT_LEFTDOWN:  constant hat_state_t := (HAT_LEFT  or HAT_DOWN);
 
-  PRESSED:  constant button_state := 1;
-  RELEASED: constant button_state := 0;
+  PRESSED:  constant button_state_t := 1;
+  RELEASED: constant button_state_t := 0;
 
   -- Closes a previously opened joystick.
-  procedure Close (js: Joystick_ptr);
+  procedure Close (js: joystick_ptr_t);
   pragma import (c, Close, "SDL_JoystickClose");
 
   -- Enable/disable joystick event polling.
@@ -34,31 +34,27 @@ package SDL.joystick is
   pragma import (c, EventState, "SDL_JoystickEventState");
 
   -- Gets the current state of an axis.
-  function GetAxis (js: Joystick_ptr; axis: c.int) return int16;
-  function get_axis (js: Joystick_ptr; axis: c.int) return int16;
+  function GetAxis (js: joystick_ptr_t; axis: c.int) return int16;
+  function get_axis (js: joystick_ptr_t; axis: c.int) return int16 renames GetAxis;
   pragma import (c, GetAxis, "SDL_JoystickGetAxis");
-  pragma import (c, get_axis, "SDL_JoystickGetAxis");
 
   -- Gets relative trackball motion
-  function GetBall (js: Joystick_ptr; ball: c.int; dx, dy: int_ptr) return c.int;
-  function get_ball (js: Joystick_ptr; ball: c.int; dx, dy: int_ptr) return c.int;
+  function GetBall (js: joystick_ptr_t; ball: c.int; dx, dy: int_ptr) return c.int;
+  function get_ball (js: joystick_ptr_t; ball: c.int; dx, dy: int_ptr) return c.int renames GetBall;
   pragma import (c, GetBall, "SDL_JoystickGetBall");
-  pragma import (c, get_ball, "SDL_JoystickGetBall");
 
   -- Gets the current state of a joystick hat
-  function GetHat (js: Joystick_ptr; hat: c.int) return uint8;
-  function get_hat (js: Joystick_ptr; hat: c.int) return uint8;
+  function GetHat (js: joystick_ptr_t; hat: c.int) return uint8;
+  function get_hat (js: joystick_ptr_t; hat: c.int) return uint8 renames GetHat;
   pragma import (c, GetHat, "SDL_JoystickGetHat");
-  pragma import (c, get_hat, "SDL_JoystickGetHat");
 
   -- Gets the current state of a given button on a given joystick
-  function GetButton (js: Joystick_ptr; button: c.int) return button_state;
-  function get_button (js: Joystick_ptr; button: c.int) return button_state;
+  function GetButton (js: joystick_ptr_t; button: c.int) return button_state_t;
+  function get_button (js: joystick_ptr_t; button: c.int) return button_state_t renames GetButton;
   pragma import (c, GetButton, "SDL_JoystickGetButton");
-  pragma import (c, get_button, "SDL_JoystickGetButton");
 
   -- Get the device index of an opened joystick.
-  function Index (js: Joystick_ptr) return c.int;
+  function Index (js: joystick_ptr_t) return c.int;
   pragma import (c, Index, "SDL_JoystickIndex");
 
   -- Gets joystick name.
@@ -67,36 +63,31 @@ package SDL.joystick is
 
   -- Counts available joysticks.
   function NumJoysticks return c.int;
-  function num_joysticks return c.int;
+  function num_joysticks return c.int renames NumJoysticks;
   pragma import (c, NumJoysticks, "SDL_NumJoysticks");
-  pragma import (c, num_joysticks, "SDL_NumJoysticks");
 
   -- Gets the number of joystick axes
-  function NumAxes (js: Joystick_ptr) return c.int;
-  function num_axes (js: Joystick_ptr) return c.int;
+  function NumAxes (js: joystick_ptr_t) return c.int;
+  function num_axes (js: joystick_ptr_t) return c.int renames NumAxes;
   pragma import (c, NumAxes, "SDL_JoystickNumAxes");
-  pragma import (c, num_axes, "SDL_JoystickNumAxes");
 
   -- Gets the number of joystick trackballs
-  function NumBalls (js: Joystick_ptr) return c.int;
-  function num_balls (js: Joystick_ptr) return c.int;
+  function NumBalls (js: joystick_ptr_t) return c.int;
+  function num_balls (js: joystick_ptr_t) return c.int renames NumBalls;
   pragma import (c, NumBalls, "SDL_JoystickNumBalls");
-  pragma import (c, num_balls, "SDL_JoystickNumBalls");
 
   -- Gets the number of joystick hats
-  function NumHats (js: Joystick_ptr) return c.int;
-  function num_hats (js: Joystick_ptr) return c.int;
+  function NumHats (js: joystick_ptr_t) return c.int;
+  function num_hats (js: joystick_ptr_t) return c.int renames NumHats;
   pragma import (c, NumHats, "SDL_JoystickNumHats");
-  pragma import (c, num_hats, "SDL_JoystickNumHats");
 
   -- Gets the number of joystick buttons
-  function NumButtons (js: Joystick_ptr) return c.int;
-  function num_buttons (js: Joystick_ptr) return c.int;
+  function NumButtons (js: joystick_ptr_t) return c.int;
+  function num_buttons (js: joystick_ptr_t) return c.int renames NumButtons;
   pragma import (c, NumButtons, "SDL_JoystickNumButtons");
-  pragma import (c, num_buttons, "SDL_JoystickNumButtons");
 
   -- Opens a joystick for use.
-  function Open (device_index: c.int) return Joystick_ptr;
+  function Open (device_index: c.int) return joystick_ptr_t;
   pragma import (c, Open, "SDL_JoystickOpen");
 
   -- Determines if a joystick has been opened

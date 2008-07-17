@@ -60,11 +60,11 @@ mk-adatype
 	./mk-adatype > conf-adatype.tmp && mv conf-adatype.tmp conf-adatype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-sosuffix:\
@@ -248,7 +248,7 @@ sdl.o
 	sdl.o
 
 sdl-audio.ali:\
-ada-compile sdl-audio.adb
+ada-compile sdl-audio.adb sdl-audio.ads
 	./ada-compile sdl-audio.adb
 
 sdl-audio.o:\
@@ -319,8 +319,8 @@ sdl-video.o:\
 sdl-video.ali
 
 sdl.ali:\
-ada-compile sdl.ads sdl.ads
-	./ada-compile sdl.ads
+ada-compile sdl.adb sdl.ads
+	./ada-compile sdl.adb
 
 sdl.o:\
 sdl.ali

@@ -43,44 +43,50 @@ package SDL is
   pragma convention (c, uint32_ptr);
 
   -- Pointer types
-  type void_ptr is new system.address;
+  type void_ptr_t is new system.address;
 
   -- bitfield
-  type init_flags is new uint32;
-  pragma convention (c, init_flags);
+  type init_flags_t is new uint32;
+  pragma convention (c, init_flags_t);
 
-  INIT_TIMER:       constant init_flags := 16#00000001#;
-  INIT_AUDIO:       constant init_flags := 16#00000010#;
-  INIT_VIDEO:       constant init_flags := 16#00000020#;
-  INIT_CDROM:       constant init_flags := 16#00000100#;
-  INIT_JOYSTICK:    constant init_flags := 16#00000200#;
-  INIT_NOPARACHUTE: constant init_flags := 16#00100000#;
-  INIT_EVENTTHREAD: constant init_flags := 16#01000000#;
-  INIT_EVERYTHING:  constant init_flags := 16#0000ffff#;
+  INIT_TIMER:       constant init_flags_t := 16#00000001#;
+  INIT_AUDIO:       constant init_flags_t := 16#00000010#;
+  INIT_VIDEO:       constant init_flags_t := 16#00000020#;
+  INIT_CDROM:       constant init_flags_t := 16#00000100#;
+  INIT_JOYSTICK:    constant init_flags_t := 16#00000200#;
+  INIT_NOPARACHUTE: constant init_flags_t := 16#00100000#;
+  INIT_EVENTTHREAD: constant init_flags_t := 16#01000000#;
+  INIT_EVERYTHING:  constant init_flags_t := 16#0000ffff#;
 
   -- Initializes SDL
-  function Init (flags: init_flags) return c.int;
+  function Init (flags: init_flags_t) return c.int;
   pragma import (c, init, "SDL_Init");
 
   -- Initializes subsystems
-  function InitSubSystem (flags: init_flags) return c.int;
-  function init_sub_system (flags: init_flags) return c.int;
+  function InitSubSystem (flags: init_flags_t) return c.int;
+  function init_sub_system (flags: init_flags_t) return c.int renames InitSubSystem;
   pragma import (c, InitSubSystem, "SDL_InitSubSystem");
-  pragma import (c, init_sub_system, "SDL_InitSubSystem");
 
+  function InitSubSystem (flags: init_flags_t) return boolean;
+  function init_sub_system (flags: init_flags_t) return boolean renames InitSubSystem;
+  pragma inline (InitSubSystem);
+ 
   -- Shuts down a subsystem
-  procedure QuitSubSystem (flags: init_flags);
-  procedure quit_sub_system (flags: init_flags);
+  procedure QuitSubSystem (flags: init_flags_t);
+  procedure quit_sub_system (flags: init_flags_t) renames QuitSubSystem;
   pragma import (c, QuitSubSystem, "SDL_QuitSubSystem");
-  pragma import (c, quit_sub_system, "SDL_QuitSubSystem");
 
   -- Checks which subsystems are initialized
-  function WasInit (flags: init_flags) return init_flags;
-  function was_init (flags: init_flags) return init_flags;
+  function WasInit (flags: init_flags_t) return init_flags_t;
+  function was_init (flags: init_flags_t) return init_flags_t renames WasInit;
   pragma import (c, WasInit, "SDL_WasInit");
-  pragma import (c, was_init, "SDL_WasInit");
+
+  function WasInit (flags: init_flags_t) return boolean;
+  function was_init (flags: init_flags_t) return boolean renames WasInit;
+  pragma inline (WasInit);
 
   -- Shuts down SDL
   procedure Quit;
   pragma import (c, Quit, "SDL_Quit");
+
 end SDL;
