@@ -64,6 +64,10 @@ package SDL.rwops is
         hidden: io_union_t;
   end record;
   
+  SEEK_SET: constant c.int := 0;
+  SEEK_CUR: constant c.int := 1;
+  SEEK_END: constant c.int := 2;
+
   function RWFromFile (file: cs.chars_ptr; mode: cs.chars_ptr) return rwops_ptr_t;
   function rw_from_file (file: cs.chars_ptr; mode: cs.chars_ptr)
     return rwops_ptr_t renames RWFromFile;

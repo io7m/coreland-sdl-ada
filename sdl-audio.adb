@@ -32,9 +32,15 @@ package body SDL.audio is
   pragma inline (AUDIO_S16SYS);
 
   -- Initializes a SDL_AudioCVT structure for conversion
-  function BuildAudioCVT (cvt: audio_cvt_ptr_t;
-    src_format: audio_format_t; src_channels, src_rate: positive;
-    dst_format: audio_format_t; dst_channels, dst_rate: positive) return boolean is
+  function BuildAudioCVT
+    (cvt         : audio_cvt_ptr_t;
+    src_format   : audio_format_t;
+    src_channels : positive;
+    src_rate     : positive;
+    dst_format   : audio_format_t;
+    dst_channels : positive;
+    dst_rate     : positive) return boolean
+  is
     ret: constant c.int :=
       BuildAudioCVT (cvt, src_format, uint8 (src_channels), c.int (src_rate), 
                           dst_format, uint8 (dst_channels), c.int (dst_rate));
@@ -49,21 +55,23 @@ package body SDL.audio is
   end ConvertAudio;
 
   -- load wav with string param
-  function load_wav (file: string; spec: audio_spec_t;
-    audio_buf: access uint8_ptr; len: access uint32) return audio_spec_ptr_t is
+  function load_wav
+   (file      : string;
+    spec      : audio_spec_t;
+    audio_buf : access uint8_ptr;
+    len       : access uint32) return audio_spec_ptr_t
+  is
+    ch_array : aliased c.char_array := c.to_c (file);
   begin
-    return load_wav (cs.new_string (file), spec, audio_buf, len);
+    return load_wav (cs.to_chars_ptr (ch_array'unchecked_access),
+      spec, audio_buf, len);
   end load_wav;
 
-  -- load wav with string param
-  function LoadWAV (file: string; spec: audio_spec_t;
-    audio_buf: access uint8_ptr; len: access uint32) return audio_spec_ptr_t is
-  begin
-    return LoadWAV (cs.new_string (file), spec, audio_buf, len);
-  end LoadWAV;
-
-  function OpenAudio (desired: audio_spec_t; obtained: audio_spec_ptr_t) return boolean is
-    ret: constant c.int := OpenAudio (desired, obtained);
+  function OpenAudio
+   (desired  : audio_spec_t;
+    obtained : audio_spec_ptr_t) return boolean
+  is
+    ret : constant c.int := OpenAudio (desired, obtained);
   begin
     return ret /= -1;
   end OpenAudio;
