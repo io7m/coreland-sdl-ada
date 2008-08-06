@@ -14,32 +14,32 @@ package SDL.mouse is
   type cursor_area_save_t is array (0 .. 1) of uint8_ptr;
   pragma convention (c, cursor_area_save_t);
 
-  button_left:       constant button_t := 1;
-  button_middle:     constant button_t := 2;
-  button_right:      constant button_t := 3;
-  button_wheel_up:   constant button_t := 4;
-  button_wheel_down: constant button_t := 5;
-  button_x1:         constant button_t := 6;
-  button_x2:         constant button_t := 7;
+  button_left       : constant button_t := 1;
+  button_middle     : constant button_t := 2;
+  button_right      : constant button_t := 3;
+  button_wheel_up   : constant button_t := 4;
+  button_wheel_down : constant button_t := 5;
+  button_x1         : constant button_t := 6;
+  button_x2         : constant button_t := 7;
 
-  button_l_mask: constant button_mask_t := 
+  button_l_mask : constant button_mask_t := 
     button_mask_t (i.shift_left (i.unsigned_32 (1), integer (button_left)));
-  button_m_mask: constant button_mask_t := 
+  button_m_mask : constant button_mask_t := 
     button_mask_t (i.shift_left (i.unsigned_32 (1), integer (button_middle)));
-  button_r_mask: constant button_mask_t := 
+  button_r_mask : constant button_mask_t := 
     button_mask_t (i.shift_left (i.unsigned_32 (1), integer (button_right)));
-  button_x1_mask: constant button_mask_t := 
+  button_x1_mask : constant button_mask_t := 
     button_mask_t (i.shift_left (i.unsigned_32 (1), integer (button_x1)));
-  button_x2_mask: constant button_mask_t := 
+  button_x2_mask : constant button_mask_t := 
     button_mask_t (i.shift_left (i.unsigned_32 (1), integer (button_x2)));
 
   type cursor_t is record
-    area: vid.rect_t;
-    hot_x: int16;
-    hot_y: int16;
-    data: uint8_ptr;
-    mask: uint8_ptr;
-    save: cursor_area_save_t;
+    area  : vid.rect_t;
+    hot_x : int16;
+    hot_y : int16;
+    data  : uint8_ptr;
+    mask  : uint8_ptr;
+    save  : cursor_area_save_t;
     wm_cursor: void_ptr_t;
   end record;
   type cursor_ptr_t is access all cursor_t;
@@ -52,9 +52,9 @@ package SDL.mouse is
   pragma import (c, WarpMouse, "SDL_WarpMouse");
 
   -- Creates a new mouse cursor_t.
-  function CreateCursor (data, mask: uint8_ptr; w, h, hot_x, hot_y: c.int)
+  function CreateCursor (data, mask: uint8_ptr; width, height, hot_x, hot_y: c.int)
     return cursor_ptr_t;
-  function create_cursor (data, mask: uint8_ptr; w, h, hot_x, hot_y: c.int)
+  function create_cursor (data, mask: uint8_ptr; width, height, hot_x, hot_y: c.int)
     return cursor_ptr_t renames CreateCursor;
   pragma import (c, CreateCursor, "SDL_CreateCursor");
 

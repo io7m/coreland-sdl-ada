@@ -6,10 +6,10 @@ package SDL.keyboard is
   package sks renames SDL.keysym;
 
   type keysym_t is record
-    scancode: uint8;
-         sym: sks.key_t;
-      modkey: sks.modkey_t;
-     unicode: uint16;
+    scancode : uint8;
+    sym      : sks.key_t;
+    modkey   : sks.modkey_t;
+    unicode  : uint16;
   end record;
 
   for keysym_t'size use 128;
@@ -29,30 +29,30 @@ package SDL.keyboard is
   -- API functions.
   --
 
-  DEFAULT_REPEAT_DELAY:    constant integer := 500;
-  DEFAULT_REPEAT_INTERVAL: constant integer := 30;
+  DEFAULT_REPEAT_DELAY    : constant integer := 500;
+  DEFAULT_REPEAT_INTERVAL : constant integer := 30;
  
   -- Sets keyboard repeat rate
-  function EnableKeyRepeat (press_delay: c.int; interval: c.int) return c.int;
-  function enable_key_repeat (press_delay: c.int; interval: c.int) return c.int renames EnableKeyRepeat;
-  procedure EnableKeyRepeat (press_delay: c.int; interval: c.int);
-  procedure enable_key_repeat (press_delay: c.int; interval: c.int) renames EnableKeyRepeat;
+  function EnableKeyRepeat (press_delay : c.int; interval : c.int) return c.int;
+  function enable_key_repeat (press_delay : c.int; interval : c.int) return c.int renames EnableKeyRepeat;
+  procedure EnableKeyRepeat (press_delay : c.int; interval : c.int);
+  procedure enable_key_repeat (press_delay : c.int; interval : c.int) renames EnableKeyRepeat;
   pragma import (c, EnableKeyRepeat, "SDL_EnableKeyRepeat");
  
-  function EnableUNICODE (enable: c.int) return c.int;
-  function enable_unicode (enable: c.int) return c.int renames EnableUNICODE;
-  procedure EnableUNICODE (enable: c.int);
-  procedure enable_unicode (enable: c.int) renames EnableUNICODE;
+  function EnableUNICODE (enable : c.int) return c.int;
+  function enable_unicode (enable : c.int) return c.int renames EnableUNICODE;
+  procedure EnableUNICODE (enable : c.int);
+  procedure enable_unicode (enable : c.int) renames EnableUNICODE;
   pragma import (c, EnableUNICODE, "SDL_EnableUNICODE");
 
   -- Gets the name of an SDL virtual keysym
-  function GetKeyName (keyval: sks.key_t) return cs.chars_ptr;
-  function get_key_name (keyval: sks.key_t) return cs.chars_ptr renames GetKeyName;
+  function GetKeyName (keyval : sks.key_t) return cs.chars_ptr;
+  function get_key_name (keyval : sks.key_t) return cs.chars_ptr renames GetKeyName;
   pragma import (c, GetKeyName, "SDL_GetKeyName");
  
   -- Gets a snapshot of the current keyboard state
-  function GetKeyState (numkeys: int_ptr) return uint8_ptr;
-  function get_key_state (numkeys: int_ptr) return uint8_ptr renames GetKeyState;
+  function GetKeyState (numkeys : int_ptr) return uint8_ptr;
+  function get_key_state (numkeys : int_ptr) return uint8_ptr renames GetKeyState;
   pragma import (c, GetKeyState, "SDL_GetKeyState");
 
   -- Gets the state of modifier keys
@@ -61,8 +61,8 @@ package SDL.keyboard is
   pragma import (c, GetModState, "SDL_GetModState");
 
   -- Sets the state of modifier keys
-  procedure SetModState (state: sks.modkey_t);
-  procedure set_mod_state (state: sks.modkey_t) renames SetModState;
+  procedure SetModState (state : sks.modkey_t);
+  procedure set_mod_state (state : sks.modkey_t) renames SetModState;
   pragma import (c, SetModState, "SDL_SetModState");
  
 end SDL.Keyboard;
