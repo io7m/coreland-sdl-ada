@@ -103,10 +103,10 @@ ada-srcmap-all:\
 ada-srcmap conf-adacomp conf-adatype conf-systype
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-ccfflist flags-sdl
+conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-sdl
 
 cc-link:\
-conf-ld conf-ldtype conf-systype
+conf-ld conf-ldtype conf-systype conf-ldflags
 
 cc-slib:\
 conf-systype
