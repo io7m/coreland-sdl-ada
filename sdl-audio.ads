@@ -46,6 +46,7 @@ package SDL.audio is
     AUDIO_PLAYING => 1,
     AUDIO_PAUSED  => 2
   );
+  for status_t'size use c.unsigned'size;
   pragma convention (c, status_t);
 
   type cvt_filter_t is

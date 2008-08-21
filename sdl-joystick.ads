@@ -6,7 +6,7 @@ package SDL.joystick is
   type joystick_ptr_t is new void_ptr_t;
   pragma convention (c, joystick_ptr_t);
 
-  type hat_state_t is new uint16;
+  type hat_state_t is new uint8;
   pragma convention (c, hat_state_t);
 
   type button_state_t is new uint8;

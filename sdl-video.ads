@@ -84,6 +84,9 @@ package SDL.video is
     Amask         : uint32;
     colorkey      : uint32;
     alpha         : uint8;
+    unused1       : uint8; -- XXX: C compiler padding
+    unused2       : uint8; -- XXX: C compiler padding
+    unused3       : uint8; -- XXX: C compiler padding
   end record;
   type pixel_format_ptr_t is access all pixel_format_t;
   pragma convention (c, pixel_format_t);
@@ -110,32 +113,38 @@ package SDL.video is
   pragma convention (c, surface_t);
   pragma convention (c, surface_ptr_t);
 
-  -- bitfield types
-  type bitfield_1 is mod 2 ** 1;
-  type bitfield_6 is mod 2 ** 6;
-   for bitfield_1'size use 1;
-   for bitfield_6'size use 6;
-  pragma convention (c, bitfield_1);
-  pragma convention (c, bitfield_6);
-
   -- Useful for determining the video hardware capabilities
   type video_info_t is record
-    hw_available : bitfield_1;
-    wm_available : bitfield_1;
-    unusedbits1  : bitfield_6;
-    unusedbits2  : bitfield_1;
-    blit_hw      : bitfield_1;
-    blit_hw_cc   : bitfield_1;
-    blit_hw_a    : bitfield_1;
-    blit_sw      : bitfield_1;
-    blit_sw_cc   : bitfield_1;
-    blit_sw_a    : bitfield_1;
-    blit_fill    : bitfield_1;
-    unusedbits3  : uint16;
+    hw_available : integer range 0 .. 1;
+    wm_available : integer range 0 .. 1;
+    unusedbits1  : integer range 0 .. 63;
+    unusedbits2  : integer range 0 .. 1;
+    blit_hw      : integer range 0 .. 1;
+    blit_hw_cc   : integer range 0 .. 1;
+    blit_hw_a    : integer range 0 .. 1;
+    blit_sw      : integer range 0 .. 1;
+    blit_sw_cc   : integer range 0 .. 1;
+    blit_sw_a    : integer range 0 .. 1;
+    blit_fill    : integer range 0 .. 1;
+    unusedbits3  : integer range 0 .. 65535;
     video_mem    : uint32;
     vfmt         : pixel_format_ptr_t;
     current_w    : c.int;
     current_h    : c.int;
+  end record;
+  for video_info_t use record
+    hw_available at 0 range 0  .. 0;
+    wm_available at 0 range 1  .. 1;
+    unusedbits1  at 0 range 2  .. 7;
+    unusedbits2  at 0 range 8  .. 8;
+    blit_hw      at 0 range 9  .. 9;
+    blit_hw_cc   at 0 range 10 .. 10;
+    blit_hw_a    at 0 range 11 .. 11;
+    blit_sw      at 0 range 12 .. 12;
+    blit_sw_cc   at 0 range 13 .. 13;
+    blit_sw_a    at 0 range 14 .. 14;
+    blit_fill    at 0 range 15 .. 15;
+    unusedbits3  at 0 range 16 .. 31;
   end record;
   type video_info_ptr_t is access all video_info_t;
   pragma convention (c, video_info_t);
