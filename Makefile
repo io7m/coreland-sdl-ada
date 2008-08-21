@@ -3,15 +3,16 @@
 default: all
 
 all:\
-ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
-ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o \
-inst-copy inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
-install_error.o installer installer.o instchk instchk.o insthier.o sdl-ada-conf \
-sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o \
-sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali \
-sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o \
-sdl-rwops.ali sdl-rwops.o sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o \
-sdl.ali sdl.o
+UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali UNIT_TESTS/ada_size.o \
+UNIT_TESTS/c_size UNIT_TESTS/c_size.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o \
+ctxt/incdir.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o deinstaller \
+deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o \
+inst-link inst-link.o install_core.o install_error.o installer installer.o \
+instchk instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o sdl-ada.a \
+sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
+sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
+sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o sdl-timer.ali \
+sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -31,14 +32,69 @@ install-dryrun: installer inst-check inst-copy inst-dir inst-link
 install-check: instchk inst-check
 	./instchk
 
+# Mkf-test
+tests:
+	(cd UNIT_TESTS && make)
+tests_clean:
+	(cd UNIT_TESTS && make clean)
+
+# -- SYSDEPS start
+flags-sdl:
+	@echo SYSDEPS sdl-flags run create flags-sdl 
+	@(cd SYSDEPS/modules/sdl-flags && ./run)
+libs-sdl:
+	@echo SYSDEPS sdl-libs run create libs-sdl 
+	@(cd SYSDEPS/modules/sdl-libs && ./run)
+
+
+sdl-flags_clean:
+	@echo SYSDEPS sdl-flags clean flags-sdl 
+	@(cd SYSDEPS/modules/sdl-flags && ./clean)
+sdl-libs_clean:
+	@echo SYSDEPS sdl-libs clean libs-sdl 
+	@(cd SYSDEPS/modules/sdl-libs && ./clean)
+
+
+sysdeps_clean:\
+sdl-flags_clean \
+sdl-libs_clean \
+
+
+# -- SYSDEPS end
+
+
+UNIT_TESTS/ada_size:\
+ada-bind ada-link UNIT_TESTS/ada_size.ald UNIT_TESTS/ada_size.ali sdl-audio.ali \
+sdl-error.ali sdl-events.ali sdl-joystick.ali sdl-keyboard.ali sdl-keysym.ali \
+sdl-mouse.ali sdl-rwops.ali sdl-timer.ali sdl-video.ali sdl.ali
+	./ada-bind UNIT_TESTS/ada_size.ali
+	./ada-link UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali
+
+UNIT_TESTS/ada_size.ali:\
+ada-compile UNIT_TESTS/ada_size.adb sdl.ads sdl-audio.ads sdl-error.ads \
+sdl-events.ads sdl-joystick.ads sdl-keyboard.ads sdl-keysym.ads sdl-mouse.ads \
+sdl-rwops.ads sdl-timer.ads sdl-video.ads
+	./ada-compile UNIT_TESTS/ada_size.adb
+
+UNIT_TESTS/ada_size.o:\
+UNIT_TESTS/ada_size.ali
+
+UNIT_TESTS/c_size:\
+cc-link UNIT_TESTS/c_size.ld UNIT_TESTS/c_size.o
+	./cc-link UNIT_TESTS/c_size UNIT_TESTS/c_size.o
+
+UNIT_TESTS/c_size.o:\
+cc-compile UNIT_TESTS/c_size.c
+	./cc-compile UNIT_TESTS/c_size.c
+
 ada-bind:\
-conf-adabind conf-systype conf-adatype
+conf-adabind conf-systype conf-adatype conf-adafflist flags-cwd
 
 ada-compile:\
-conf-adacomp conf-adatype conf-systype conf-adacflags
+conf-adacomp conf-adatype conf-systype conf-adacflags conf-adafflist flags-cwd
 
 ada-link:\
-conf-adalink conf-adatype conf-systype
+conf-adalink conf-adatype conf-systype conf-aldfflist libs-sdl
 
 ada-srcmap:\
 conf-adacomp conf-adatype conf-systype
@@ -47,7 +103,7 @@ ada-srcmap-all:\
 ada-srcmap conf-adacomp conf-adatype conf-systype
 
 cc-compile:\
-conf-cc conf-cctype conf-systype
+conf-cc conf-cctype conf-systype conf-ccfflist flags-sdl
 
 cc-link:\
 conf-ld conf-ldtype conf-systype
@@ -60,11 +116,11 @@ mk-adatype
 	./mk-adatype > conf-adatype.tmp && mv conf-adatype.tmp conf-adatype
 
 conf-cctype:\
-conf-cc conf-cc mk-cctype
+conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld conf-ld mk-ldtype
+conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-sosuffix:\
@@ -325,19 +381,20 @@ ada-compile sdl.adb sdl.ads
 sdl.o:\
 sdl.ali
 
-clean-all: obj_clean ext_clean
+clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
-	ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
-	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
-	inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
-	inst-link.o install_core.o install_error.o installer installer.o instchk \
-	instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-audio.ali \
-	sdl-audio.o sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
-	sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
-	sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o sdl-timer.ali \
-	sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
+	rm -f UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali UNIT_TESTS/ada_size.o \
+	UNIT_TESTS/c_size UNIT_TESTS/c_size.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
+	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/incdir.c ctxt/incdir.o ctxt/repos.c \
+	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
+	deinstaller deinstaller.o inst-check inst-check.o inst-copy inst-copy.o \
+	inst-dir inst-dir.o inst-link inst-link.o install_core.o install_error.o \
+	installer installer.o instchk instchk.o insthier.o sdl-ada-conf sdl-ada-conf.o \
+	sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o sdl-events.ali \
+	sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o \
+	sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o \
+	sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o sdl.ali sdl.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

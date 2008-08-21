@@ -5,13 +5,13 @@ package SDL.error is
   package c renames interfaces.c;
   package cs renames interfaces.c.strings;
 
-  type errorcode_t is new c.int;
+  type code_t is new c.int;
 
-  ENOMEM    : constant errorcode_t := 0;
-  EFREAD    : constant errorcode_t := 1;
-  EFWRITE   : constant errorcode_t := 2;
-  EFSEEK    : constant errorcode_t := 3;
-  LASTERROR : constant errorcode_t := 4;
+  ENOMEM    : constant code_t := 0;
+  EFREAD    : constant code_t := 1;
+  EFWRITE   : constant code_t := 2;
+  EFSEEK    : constant code_t := 3;
+  LASTERROR : constant code_t := 4;
 
   -- Gets SDL error string
   function GetError return cs.chars_ptr;
@@ -32,7 +32,7 @@ package SDL.error is
   pragma inline (SetError);
 
   -- Sets the SDL error message to one of several predefined strings.
-  procedure error (code : errorcode_t);
+  procedure error (code : code_t);
   pragma import (c, error, "SDL_Error");
 
   -- Clear the current SDL error

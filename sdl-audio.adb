@@ -9,7 +9,7 @@ package body SDL.audio is
   end byte_order;
   pragma inline (byte_order);
 
-  function AUDIO_U16SYS return audio_format_t is
+  function AUDIO_U16SYS return format_t is
     use type system.bit_order;
   begin
     if byte_order = system.low_order_first then
@@ -20,7 +20,7 @@ package body SDL.audio is
   end AUDIO_U16SYS;
   pragma inline (AUDIO_U16SYS);
 
-  function AUDIO_S16SYS return audio_format_t is
+  function AUDIO_S16SYS return format_t is
     use type system.bit_order;
   begin
     if byte_order = system.high_order_first then
@@ -33,11 +33,11 @@ package body SDL.audio is
 
   -- Initializes a SDL_AudioCVT structure for conversion
   function BuildAudioCVT
-    (cvt         : audio_cvt_ptr_t;
-    src_format   : audio_format_t;
+    (cvt         : cvt_ptr_t;
+    src_format   : format_t;
     src_channels : positive;
     src_rate     : positive;
-    dst_format   : audio_format_t;
+    dst_format   : format_t;
     dst_channels : positive;
     dst_rate     : positive) return boolean
   is
@@ -48,28 +48,15 @@ package body SDL.audio is
     return ret /= 0;
   end BuildAudioCVT;
 
-  function ConvertAudio (cvt: audio_cvt_ptr_t) return boolean is
+  function ConvertAudio (cvt: cvt_ptr_t) return boolean is
     ret: constant c.int := ConvertAudio (cvt);
   begin
     return ret /= -1;
   end ConvertAudio;
 
-  -- load wav with string param
-  function load_wav
-   (file      : string;
-    spec      : audio_spec_t;
-    audio_buf : access uint8_ptr;
-    len       : access uint32) return audio_spec_ptr_t
-  is
-    ch_array : aliased c.char_array := c.to_c (file);
-  begin
-    return load_wav (cs.to_chars_ptr (ch_array'unchecked_access),
-      spec, audio_buf, len);
-  end load_wav;
-
   function OpenAudio
-   (desired  : audio_spec_t;
-    obtained : audio_spec_ptr_t) return boolean
+   (desired  : spec_t;
+    obtained : spec_ptr_t) return boolean
   is
     ret : constant c.int := OpenAudio (desired, obtained);
   begin

@@ -1,0 +1,12 @@
+ada_size.ali
+../sdl-audio.ali
+../sdl-error.ali
+../sdl-events.ali
+../sdl-joystick.ali
+../sdl-keyboard.ali
+../sdl-keysym.ali
+../sdl-mouse.ali
+../sdl-rwops.ali
+../sdl-timer.ali
+../sdl-video.ali
+../sdl.ali
