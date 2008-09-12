@@ -1,51 +1,51 @@
-package body SDL.rwops is
+package body sdl.rwops is
 
-  function RWclose (ctx : rwops_ptr_t) return c.int is
+  function rwclose (ctx : rwops_access_t) return c.int is
   begin
-     return ctx.close (ctx);
-  end RWclose;
+    return ctx.close (ctx);
+  end rwclose;
 
-  function RWread
-   (ctx  : rwops_ptr_t;
+  function rwread
+   (ctx  : rwops_access_t;
     ptr  : void_ptr_t;
     size : c.int;
     num  : c.int) return c.int is
   begin
-     return ctx.read (ctx, ptr, size, num);
-  end RWread;
+    return ctx.read (ctx, ptr, size, num);
+  end rwread;
 
-  function RWSeek
-   (ctx    : rwops_ptr_t;
+  function rwseek
+   (ctx    : rwops_access_t;
     offset : c.int;
     whence : c.int) return c.int is
   begin
-     return ctx.seek (ctx, offset, whence);
-  end RWSeek;
+    return ctx.seek (ctx, offset, whence);
+  end rwseek;
 
-  function RWtell (ctx : rwops_ptr_t) return c.int is
+  function rwtell (ctx : rwops_access_t) return c.int is
   begin
-     return ctx.seek (ctx, 0, c.int (c_streams.seek_cur));
-  end RWtell;
+    return ctx.seek (ctx, 0, c.int (c_streams.SEEK_CUR));
+  end rwtell;
 
-  function RWwrite
-   (ctx  : rwops_ptr_t;
+  function rwwrite
+   (ctx  : rwops_access_t;
     ptr  : void_ptr_t;
     size : c.int;
     num  : c.int) return c.int is
   begin
-     return ctx.write (ctx, ptr, size, num);
-  end RWwrite;
+    return ctx.write (ctx, ptr, size, num);
+  end rwwrite;
 
-  function RWFromFile
+  function rwfromfile
    (file : string;
-    mode : string) return rwops_ptr_t
+    mode : string) return rwops_access_t
   is
-    ch_file : aliased c.char_array := c.to_c (file);
-    ch_mode : aliased c.char_array := c.to_c (mode);
+    ch_file : aliased c.char_array := c.To_C (file);
+    ch_mode : aliased c.char_array := c.To_C (mode);
   begin
-     return RWFromFile
-      (cs.to_chars_ptr (ch_file'unchecked_access),
-       cs.to_chars_ptr (ch_mode'unchecked_access));
-  end RWFromFile;
+    return rwfromfile
+     (cs.to_chars_ptr (ch_file'unchecked_access),
+      cs.to_chars_ptr (ch_mode'unchecked_access));
+  end rwfromfile;
 
-end SDL.rwops;
+end sdl.rwops;

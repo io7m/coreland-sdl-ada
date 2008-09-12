@@ -1,6 +1,6 @@
 with system;
 
-package body SDL.audio is
+package body sdl.audio is
   use type c.int;
 
   function byte_order return system.bit_order is
@@ -9,31 +9,31 @@ package body SDL.audio is
   end byte_order;
   pragma inline (byte_order);
 
-  function AUDIO_U16SYS return format_t is
+  function audio_u16sys return format_t is
     use type system.bit_order;
   begin
     if byte_order = system.low_order_first then
-      return AUDIO_U16LSB;
+      return audio_u16lsb;
     else
-      return AUDIO_U16MSB;
+      return audio_u16msb;
     end if;
-  end AUDIO_U16SYS;
-  pragma inline (AUDIO_U16SYS);
+  end audio_u16sys;
+  pragma inline (audio_u16sys);
 
-  function AUDIO_S16SYS return format_t is
+  function audio_s16sys return format_t is
     use type system.bit_order;
   begin
     if byte_order = system.high_order_first then
-      return AUDIO_S16LSB;
+      return audio_s16lsb;
     else
-      return AUDIO_S16MSB;
+      return audio_s16msb;
     end if;
-  end AUDIO_S16SYS;
-  pragma inline (AUDIO_S16SYS);
+  end audio_s16sys;
+  pragma inline (audio_s16sys);
 
   -- Initializes a SDL_AudioCVT structure for conversion
-  function BuildAudioCVT
-    (cvt         : cvt_ptr_t;
+  function buildaudiocvt
+   (cvt          : cvt_access_t;
     src_format   : format_t;
     src_channels : positive;
     src_rate     : positive;
@@ -41,35 +41,40 @@ package body SDL.audio is
     dst_channels : positive;
     dst_rate     : positive) return boolean
   is
-    ret: constant c.int :=
-      BuildAudioCVT (cvt, src_format, uint8 (src_channels), c.int (src_rate), 
-                          dst_format, uint8 (dst_channels), c.int (dst_rate));
+    ret : constant c.int := buildaudiocvt
+      (cvt          => cvt,
+       src_format   => src_format,
+       src_channels => uint8_t (src_channels),
+       src_rate     => c.int (src_rate),
+       dst_format   => dst_format,
+       dst_channels => uint8_t (dst_channels),
+       dst_rate     => c.int (dst_rate));
   begin
     return ret /= 0;
-  end BuildAudioCVT;
+  end buildaudiocvt;
 
-  function ConvertAudio (cvt: cvt_ptr_t) return boolean is
-    ret: constant c.int := ConvertAudio (cvt);
+  function convertaudio (cvt : cvt_access_t) return boolean is
+    ret : constant c.int := convertaudio (cvt);
   begin
     return ret /= -1;
-  end ConvertAudio;
+  end convertaudio;
 
-  function OpenAudio
+  function openaudio
    (desired  : spec_t;
-    obtained : spec_ptr_t) return boolean
+    obtained : spec_access_t) return boolean
   is
-    ret : constant c.int := OpenAudio (desired, obtained);
+    ret : constant c.int := openaudio (desired, obtained);
   begin
     return ret /= -1;
-  end OpenAudio;
+  end openaudio;
 
-  procedure PauseAudio (pause_on: boolean) is
+  procedure pauseaudio (pause_on : boolean) is
   begin
     if pause_on then
-      PauseAudio (c.int (1));
+      pauseaudio (c.int (1));
     else
-      PauseAudio (c.int (0));
+      pauseaudio (c.int (0));
     end if;
-  end PauseAudio;
+  end pauseaudio;
 
-end SDL.audio;
+end sdl.audio;

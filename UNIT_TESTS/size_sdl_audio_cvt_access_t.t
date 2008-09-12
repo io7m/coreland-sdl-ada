@@ -1,12 +1,12 @@
 #!/bin/sh
 # auto generated, do not edit
 
-size_ada=`./ada_size "sdl.events.event_ptr_t"`
+size_ada=`./ada_size "sdl.audio.cvt_access_t"`
 if [ $? -ne 0 ]; then exit 2; fi
-size_c=`./c_size "union SDL_Event *"`
+size_c=`./c_size "struct SDL_AudioCVT *"`
 if [ $? -ne 0 ]; then exit 2; fi
 
-printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.events.event_ptr_t" "union SDL_Event *"
+printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.audio.cvt_access_t" "struct SDL_AudioCVT *"
 
 if [ ${size_ada} -ne ${size_c} ]
 then

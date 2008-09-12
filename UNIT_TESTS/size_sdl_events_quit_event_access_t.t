@@ -1,12 +1,12 @@
 #!/bin/sh
 # auto generated, do not edit
 
-size_ada=`./ada_size "sdl.events.quit_event_ptr_t"`
+size_ada=`./ada_size "sdl.events.quit_event_access_t"`
 if [ $? -ne 0 ]; then exit 2; fi
 size_c=`./c_size "struct SDL_QuitEvent *"`
 if [ $? -ne 0 ]; then exit 2; fi
 
-printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.events.quit_event_ptr_t" "struct SDL_QuitEvent *"
+printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.events.quit_event_access_t" "struct SDL_QuitEvent *"
 
 if [ ${size_ada} -ne ${size_c} ]
 then

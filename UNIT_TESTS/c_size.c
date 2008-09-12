@@ -1,3 +1,5 @@
+/* auto generated, do not edit */
+
 #include <SDL.h>
 
 #include <stdio.h>
@@ -7,7 +9,6 @@ struct {
   const char *type_name;
   unsigned int type_size;
 } types[] = {
-  /* auto generated - do not edit */
   { "SDL_AudioCVT *", sizeof (SDL_AudioCVT *) },
   { "struct SDL_AudioCVT *", sizeof (struct SDL_AudioCVT *) },
   { "SDL_AudioCVT", sizeof (SDL_AudioCVT) },

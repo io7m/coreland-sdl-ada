@@ -1,12 +1,12 @@
 #!/bin/sh
 # auto generated, do not edit
 
-size_ada=`./ada_size "sdl.video.palette_ptr_t"`
+size_ada=`./ada_size "sdl.video.rect_access_t"`
 if [ $? -ne 0 ]; then exit 2; fi
-size_c=`./c_size "struct SDL_Palette *"`
+size_c=`./c_size "struct SDL_Rect *"`
 if [ $? -ne 0 ]; then exit 2; fi
 
-printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.video.palette_ptr_t" "struct SDL_Palette *"
+printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "sdl.video.rect_access_t" "struct SDL_Rect *"
 
 if [ ${size_ada} -ne ${size_c} ]
 then
