@@ -33,22 +33,24 @@ package body SDL.Audio is
 
   -- Initializes a SDL_AudioCVT structure for conversion
   function BuildAudioCVT
-   (CVT          : CVT_Access_t;
-    Src_Format   : Format_t;
-    Src_Channels : Positive;
-    Src_Rate     : Positive;
-    Dst_Format   : Format_t;
-    Dst_Channels : Positive;
-    Dst_Rate     : Positive) return Boolean
+   (CVT             : CVT_Access_t;
+    Source_Format   : Format_t;
+    Source_Channels : Positive;
+    Source_Rate     : Positive;
+    Target_Format   : Format_t;
+    Target_Channels : Positive;
+    Target_Rate     : Positive)
+    return            Boolean
   is
-    Return_Code : constant C.int := BuildAudioCVT
-       (CVT          => CVT,
-        Src_Format   => Src_Format,
-        Src_Channels => Uint8_t (Src_Channels),
-        Src_Rate     => C.int (Src_Rate),
-        Dst_Format   => Dst_Format,
-        Dst_Channels => Uint8_t (Dst_Channels),
-        Dst_Rate     => C.int (Dst_Rate));
+    Return_Code : constant C.int :=
+      BuildAudioCVT
+       (CVT             => CVT,
+        Source_Format   => Source_Format,
+        Source_Channels => Uint8_t (Source_Channels),
+        Source_Rate     => C.int (Source_Rate),
+        Target_Format   => Target_Format,
+        Target_Channels => Uint8_t (Target_Channels),
+        Target_Rate     => C.int (Target_Rate));
   begin
     return Return_Code /= 0;
   end BuildAudioCVT;
@@ -59,10 +61,7 @@ package body SDL.Audio is
     return Return_Code /= -1;
   end ConvertAudio;
 
-  function OpenAudio
-    (Desired  : Spec_t;
-     Obtained : Spec_Access_t) return Boolean
-  is
+  function OpenAudio (Desired : Spec_t; Obtained : Spec_Access_t) return Boolean is
     Return_Code : constant C.int := OpenAudio (Desired, Obtained);
   begin
     return Return_Code /= -1;

@@ -186,122 +186,122 @@ package SDL.Video is
   -- destination surface.
 
   function BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     C.int;
 
   function BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     C.int;
 
   function Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     C.int renames BlitSurface;
 
   function Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     C.int renames BlitSurface;
 
   procedure BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t);
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t);
 
   procedure BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t);
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t);
 
   procedure BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : in out Rect_t);
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : in out Rect_t);
 
   procedure BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : in out Rect_t);
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : in out Rect_t);
 
   procedure Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t) renames BlitSurface;
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t) renames BlitSurface;
 
   procedure Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t) renames BlitSurface;
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t) renames BlitSurface;
 
   procedure Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : in out Rect_t) renames BlitSurface;
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : in out Rect_t) renames BlitSurface;
 
   procedure Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : in out Rect_t) renames BlitSurface;
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : in out Rect_t) renames BlitSurface;
 
   pragma Import (C, BlitSurface, "SDL_UpperBlit");
 
   function BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     Boolean;
 
   function BlitSurface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     Boolean;
 
   function Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_Access_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_Access_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     Boolean renames BlitSurface;
 
   function Blit_Surface
-   (Src      : Surface_Access_t;
-    Src_Rect : Rect_t;
-    Dst      : Surface_Access_t;
-    Dst_Rect : Rect_Access_t)
+   (Source      : Surface_Access_t;
+    Source_Rect : Rect_t;
+    Target      : Surface_Access_t;
+    Target_Rect : Rect_Access_t)
     return     Boolean renames BlitSurface;
 
   pragma Inline (BlitSurface);
 
   -- Converts a surface to the same format as another surface.
   function ConvertSurface
-   (Src   : Surface_Access_t;
+   (Source   : Surface_Access_t;
     Fmt   : Pixel_Format_Access_t;
     Flags : Surface_Flags_t)
     return  Surface_Access_t;
 
   function Convert_Surface
-   (Src   : Surface_Access_t;
+   (Source   : Surface_Access_t;
     Fmt   : Pixel_Format_Access_t;
     Flags : Surface_Flags_t)
     return  Surface_Access_t renames ConvertSurface;
@@ -320,7 +320,7 @@ package SDL.Video is
     Amask  : Uint32_t)
     return   Surface_Access_t;
 
-  function Create_Rgb_Surface
+  function Create_RGB_Surface
    (Flags  : Surface_Flags_t;
     Width  : C.int;
     Height : C.int;
@@ -345,7 +345,7 @@ package SDL.Video is
     Amask  : Uint32_t)
     return   Surface_Access_t;
 
-  function Create_Rgb_Surface_From
+  function Create_RGB_Surface_From
    (Pixels : Void_Ptr_t;
     Width  : C.int;
     Height : C.int;
@@ -358,7 +358,7 @@ package SDL.Video is
     return   Surface_Access_t renames CreateRGBSurfacefrom;
   pragma Import (C, CreateRGBSurfacefrom, "SDL_CreateRGBSurfaceFrom");
 
-  function CreateRGBSurfacefrom
+  function CreateRGBSurfaceFrom
    (Pixels : Void_Ptr_t;
     Width  : Natural;
     Height : Natural;
@@ -370,7 +370,7 @@ package SDL.Video is
     Amask  : Uint32_t)
     return   Surface_Access_t;
 
-  function Create_Rgb_Surface_From
+  function Create_RGB_Surface_From
    (Pixels : Void_Ptr_t;
     Width  : Natural;
     Height : Natural;
@@ -389,40 +389,40 @@ package SDL.Video is
   pragma Import (C, DisplayFormat, "SDL_DisplayFormat");
 
   -- Convert a surface to the display format
-  function DisplayFormatalpha (Surface : Surface_Access_t) return Surface_Access_t;
-  function Display_Format_Alpha (Surface : Surface_Access_t) return Surface_Access_t renames DisplayFormatalpha;
-  pragma Import (C, DisplayFormatalpha, "SDL_DisplayFormatAlpha");
+  function DisplayFormatAlpha (Surface : Surface_Access_t) return Surface_Access_t;
+  function Display_Format_Alpha (Surface : Surface_Access_t) return Surface_Access_t renames DisplayFormatAlpha;
+  pragma Import (C, DisplayFormatAlpha, "SDL_DisplayFormatAlpha");
 
   -- This function performs a fast fill of the given rectangle with color.
   function FillRect
-   (Dst   : Surface_Access_t;
+   (Target   : Surface_Access_t;
     R     : Rect_Access_t;
     Color : Uint32_t)
     return  C.int;
 
-  procedure FillRect (Dst : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t);
+  procedure FillRect (Target : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t);
 
-  procedure FillRect (Dst : Surface_Access_t; R : in out Rect_t; Color : Uint32_t);
+  procedure FillRect (Target : Surface_Access_t; R : in out Rect_t; Color : Uint32_t);
 
   function Fill_Rect
-   (Dst   : Surface_Access_t;
+   (Target   : Surface_Access_t;
     R     : Rect_Access_t;
     Color : Uint32_t)
     return  C.int renames FillRect;
 
-  procedure Fill_Rect (Dst : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t) renames FillRect;
+  procedure Fill_Rect (Target : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t) renames FillRect;
 
-  procedure Fill_Rect (Dst : Surface_Access_t; R : in out Rect_t; Color : Uint32_t) renames FillRect;
+  procedure Fill_Rect (Target : Surface_Access_t; R : in out Rect_t; Color : Uint32_t) renames FillRect;
   pragma Import (C, FillRect, "SDL_FillRect");
 
   function FillRect
-   (Dst   : Surface_Access_t;
+   (Target   : Surface_Access_t;
     R     : Rect_Access_t;
     Color : Uint32_t)
     return  Boolean;
 
   function Fill_Rect
-   (Dst   : Surface_Access_t;
+   (Target   : Surface_Access_t;
     R     : Rect_Access_t;
     Color : Uint32_t)
     return  Boolean renames FillRect;
@@ -482,7 +482,7 @@ package SDL.Video is
     G     : Uint8_Ptr_t;
     B     : Uint8_Ptr_t);
 
-  procedure Get_Rgb
+  procedure Get_RGB
    (Pixel : Uint32_t;
     Fmt   : Pixel_Format_Access_t;
     R     : Uint8_Ptr_t;
@@ -499,7 +499,7 @@ package SDL.Video is
     B     : Uint8_Ptr_t;
     A     : Uint8_Ptr_t);
 
-  procedure Get_Rgba
+  procedure Get_RGBA
    (Pixel : Uint32_t;
     Fmt   : Pixel_Format_Access_t;
     R     : Uint8_Ptr_t;
@@ -534,7 +534,7 @@ package SDL.Video is
   pragma Inline (LockSurface);
 
   -- Maps a RGB color value to a pixel format.
-  function Maprgb
+  function MapRGB
    (Fmt  : Pixel_Format_Access_t;
     R    : Uint8_t;
     G    : Uint8_t;
@@ -546,28 +546,28 @@ package SDL.Video is
     R    : Uint8_t;
     G    : Uint8_t;
     B    : Uint8_t)
-    return Uint32_t renames Maprgb;
-  pragma Import (C, Maprgb, "SDL_MapRGB");
+    return Uint32_t renames MapRGB;
+  pragma Import (C, MapRGB, "SDL_MapRGB");
 
   -- Maps a RGBA color value to a pixel format.
-  function Maprgba
+  function MapRGBA
    (Fmt  : Pixel_Format_Access_t;
     R    : Uint8_t;
     G    : Uint8_t;
     B    : Uint8_t;
     A    : Uint8_t)
     return Uint32_t;
-  function Map_Rgba
+  function Map_RGBA
    (Fmt  : Pixel_Format_Access_t;
     R    : Uint8_t;
     G    : Uint8_t;
     B    : Uint8_t;
     A    : Uint8_t)
-    return Uint32_t renames Maprgba;
-  pragma Import (C, Maprgba, "SDL_MapRGBA");
+    return Uint32_t renames MapRGBA;
+  pragma Import (C, MapRGBA, "SDL_MapRGBA");
 
   -- Adjusts the alpha properties of a surface.
-  function Setalpha
+  function SetAlpha
    (Surface  : Surface_Access_t;
     Flags : Uint32_t;
     Alpha : Uint8_t)
@@ -577,10 +577,10 @@ package SDL.Video is
    (Surface  : Surface_Access_t;
     Flags : Uint32_t;
     Alpha : Uint8_t)
-    return  C.int renames Setalpha;
-  pragma Import (C, Setalpha, "SDL_SetAlpha");
+    return  C.int renames SetAlpha;
+  pragma Import (C, SetAlpha, "SDL_SetAlpha");
 
-  function Setalpha
+  function SetAlpha
    (Surface  : Surface_Access_t;
     Flags : Uint32_t;
     Alpha : Uint8_t)
@@ -590,18 +590,18 @@ package SDL.Video is
    (Surface  : Surface_Access_t;
     Flags : Uint32_t;
     Alpha : Uint8_t)
-    return  Boolean renames Setalpha;
-  pragma Inline (Setalpha);
+    return  Boolean renames SetAlpha;
+  pragma Inline (SetAlpha);
 
   -- Sets the clipping rectangle for a surface.
-  procedure Setcliprect (Surface : Surface_Access_t; R : access Rect_t);
+  procedure SetClipRect (Surface : Surface_Access_t; R : access Rect_t);
 
-  procedure Set_Clip_Rect (Surface : Surface_Access_t; R : access Rect_t) renames Setcliprect;
-  pragma Import (C, Setcliprect, "SDL_SetClipRect");
+  procedure Set_Clip_Rect (Surface : Surface_Access_t; R : access Rect_t) renames SetClipRect;
+  pragma Import (C, SetClipRect, "SDL_SetClipRect");
 
   -- Sets the color key (transparent pixel) in a blittable surface
   -- and RLE acceleration.
-  function Setcolorkey
+  function SetColorKey
    (Surface : Surface_Access_t;
     Flag : Uint32_t;
     Key  : Uint32_t)
@@ -611,10 +611,10 @@ package SDL.Video is
    (Surface : Surface_Access_t;
     Flag : Uint32_t;
     Key  : Uint32_t)
-    return C.int renames Setcolorkey;
-  pragma Import (C, Setcolorkey, "SDL_SetColorKey");
+    return C.int renames SetColorKey;
+  pragma Import (C, SetColorKey, "SDL_SetColorKey");
 
-  function Setcolorkey
+  function SetColorKey
    (Surface : Surface_Access_t;
     Flag : Uint32_t;
     Key  : Uint32_t)
@@ -624,11 +624,11 @@ package SDL.Video is
    (Surface : Surface_Access_t;
     Flag : Uint32_t;
     Key  : Uint32_t)
-    return Boolean renames Setcolorkey;
-  pragma Inline (Setcolorkey);
+    return Boolean renames SetColorKey;
+  pragma Inline (SetColorKey);
 
   -- Sets a portion of the colormap for the given 8-bit surface.
-  function Setcolors
+  function SetColors
    (Surface    : Surface_Access_t;
     Colors  : Color_Access_t;
     Color1  : C.int;
@@ -640,10 +640,10 @@ package SDL.Video is
     Colors  : Color_Access_t;
     Color1  : C.int;
     Ncolors : C.int)
-    return    C.int renames Setcolors;
-  pragma Import (C, Setcolors, "SDL_SetColors");
+    return    C.int renames SetColors;
+  pragma Import (C, SetColors, "SDL_SetColors");
 
-  function Setcolors
+  function SetColors
    (Surface        : Surface_Access_t;
     Colors      : Color_Array_t;
     First_Color : Natural;
@@ -655,11 +655,11 @@ package SDL.Video is
     Colors      : Color_Array_t;
     First_Color : Natural;
     Num_Colors  : Natural)
-    return        Boolean renames Setcolors;
-  pragma Inline (Setcolors);
+    return        Boolean renames SetColors;
+  pragma Inline (SetColors);
 
   -- Sets the color gamma function for the display
-  function Setgamma
+  function SetGamma
    (Red   : C.C_float;
     Green : C.C_float;
     Blue  : C.C_float)
@@ -669,10 +669,10 @@ package SDL.Video is
    (Red   : C.C_float;
     Green : C.C_float;
     Blue  : C.C_float)
-    return  C.int renames Setgamma;
-  pragma Import (C, Setgamma, "SDL_SetGamma");
+    return  C.int renames SetGamma;
+  pragma Import (C, SetGamma, "SDL_SetGamma");
 
-  function Setgamma
+  function SetGamma
    (Red   : Float;
     Green : Float;
     Blue  : Float)
@@ -682,11 +682,11 @@ package SDL.Video is
    (Red   : Float;
     Green : Float;
     Blue  : Float)
-    return  Boolean renames Setgamma;
-  pragma Inline (Setgamma);
+    return  Boolean renames SetGamma;
+  pragma Inline (SetGamma);
 
   -- Sets the color gamma loOKup tables for the display.
-  function Setgammaramp
+  function SetGammaRamp
    (Red   : Uint16_Ptr_t;
     Green : Uint16_Ptr_t;
     Blue  : Uint16_Ptr_t)
@@ -696,10 +696,10 @@ package SDL.Video is
    (Red   : Uint16_Ptr_t;
     Green : Uint16_Ptr_t;
     Blue  : Uint16_Ptr_t)
-    return  C.int renames Setgammaramp;
-  pragma Import (C, Setgammaramp, "SDL_SetGammaRamp");
+    return  C.int renames SetGammaRamp;
+  pragma Import (C, SetGammaRamp, "SDL_SetGammaRamp");
 
-  function Setgammaramp
+  function SetGammaRamp
    (Red   : Gamma_Table_t;
     Green : Gamma_Table_t;
     Blue  : Gamma_Table_t)
@@ -709,11 +709,11 @@ package SDL.Video is
    (Red   : Gamma_Table_t;
     Green : Gamma_Table_t;
     Blue  : Gamma_Table_t)
-    return  Boolean renames Setgammaramp;
-  pragma Inline (Setgammaramp);
+    return  Boolean renames SetGammaRamp;
+  pragma Inline (SetGammaRamp);
 
   -- Sets the colors in the palette of an 8-bit surface.
-  function Setpalette
+  function SetPalette
    (Surface    : Surface_Access_t;
     Flags   : C.int;
     Colors  : Color_Access_t;
@@ -727,10 +727,10 @@ package SDL.Video is
     Colors  : Color_Access_t;
     Color1  : C.int;
     Ncolors : C.int)
-    return    C.int renames Setpalette;
-  pragma Import (C, Setpalette, "SDL_SetPalette");
+    return    C.int renames SetPalette;
+  pragma Import (C, SetPalette, "SDL_SetPalette");
 
-  function Setpalette
+  function SetPalette
    (Surface        : Surface_Access_t;
     Flags       : C.int;
     Colors      : Color_Array_t;
@@ -744,11 +744,11 @@ package SDL.Video is
     Colors      : Color_Array_t;
     First_Color : Natural;
     Num_Colors  : Natural)
-    return        Boolean renames Setpalette;
-  pragma Inline (Setpalette);
+    return        Boolean renames SetPalette;
+  pragma Inline (SetPalette);
 
   -- Sets up a video mode with the specified width, height and bits-per-pixel.
-  function Setvideomode
+  function SetVideoMode
    (Width  : C.int;
     Height : C.int;
     Bpp    : C.int;
@@ -760,10 +760,10 @@ package SDL.Video is
     Height : C.int;
     Bpp    : C.int;
     Flags  : Surface_Flags_t)
-    return   Surface_Access_t renames Setvideomode;
-  pragma Import (C, Setvideomode, "SDL_SetVideoMode");
+    return   Surface_Access_t renames SetVideoMode;
+  pragma Import (C, SetVideoMode, "SDL_SetVideoMode");
 
-  function Setvideomode
+  function SetVideoMode
    (Width  : Positive;
     Height : Positive;
     Bpp    : Natural;
@@ -775,12 +775,12 @@ package SDL.Video is
     Height : Positive;
     Bpp    : Natural;
     Flags  : Surface_Flags_t)
-    return   Surface_Access_t renames Setvideomode;
+    return   Surface_Access_t renames SetVideoMode;
 
   -- Unlocks a previously locked surface.
-  procedure UnLockSurface (Surface : Surface_Access_t);
-  procedure Unlock_Surface (Surface : Surface_Access_t) renames UnLockSurface;
-  pragma Import (C, UnLockSurface, "SDL_UnLockSurface");
+  procedure UnlockSurface (Surface : Surface_Access_t);
+  procedure Unlock_Surface (Surface : Surface_Access_t) renames UnlockSurface;
+  pragma Import (C, UnlockSurface, "SDL_UnlockSurface");
 
   -- Makes sure the given area is updated on the given screen.
   procedure UpdateRect

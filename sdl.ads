@@ -63,18 +63,18 @@ package SDL is
   pragma Import (C, Init, "SDL_Init");
 
   -- Initializes subsystems
-  function Initsubsystem (Flags : Init_Flags_t) return C.int;
-  function Init_Sub_System (Flags : Init_Flags_t) return C.int renames Initsubsystem;
-  pragma Import (C, Initsubsystem, "SDL_InitSubSystem");
+  function InitSubSystem (Flags : Init_Flags_t) return C.int;
+  function Init_Sub_System (Flags : Init_Flags_t) return C.int renames InitSubSystem;
+  pragma Import (C, InitSubSystem, "SDL_InitSubSystem");
 
-  function Initsubsystem (Flags : Init_Flags_t) return Boolean;
-  function Init_Sub_System (Flags : Init_Flags_t) return Boolean renames Initsubsystem;
-  pragma Inline (Initsubsystem);
+  function InitSubSystem (Flags : Init_Flags_t) return Boolean;
+  function Init_Sub_System (Flags : Init_Flags_t) return Boolean renames InitSubSystem;
+  pragma Inline (InitSubSystem);
 
   -- Shuts down a subsystem
-  procedure Quitsubsystem (Flags : Init_Flags_t);
-  procedure Quit_Sub_System (Flags : Init_Flags_t) renames Quitsubsystem;
-  pragma Import (C, Quitsubsystem, "SDL_QuitSubSystem");
+  procedure QuitSubSystem (Flags : Init_Flags_t);
+  procedure Quit_Sub_System (Flags : Init_Flags_t) renames QuitSubSystem;
+  pragma Import (C, QuitSubSystem, "SDL_QuitSubSystem");
 
   -- Checks which subsystems are initialized
   function WasInit (Flags : Init_Flags_t) return Init_Flags_t;

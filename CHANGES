@@ -1,1 +1,5 @@
 20081206 version: sdl-ada 1.2.13
+20090417 code: large casing updates and parameter names/constants change
+               to more literal equivalents.
+20090417 code: Src* -> Source*
+20090417 code: Dst* -> Target*
