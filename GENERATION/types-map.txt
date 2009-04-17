@@ -1,110 +1,110 @@
-sdl.audio.cvt_access_t:SDL_AudioCVT *
-sdl.audio.cvt_access_t:struct SDL_AudioCVT *
-sdl.audio.cvt_t:SDL_AudioCVT
-sdl.audio.cvt_t:struct SDL_AudioCVT
-sdl.audio.spec_access_t:SDL_AudioSpec *
-sdl.audio.spec_access_t:struct SDL_AudioSpec *
-sdl.audio.spec_t:SDL_AudioSpec
-sdl.audio.spec_t:struct SDL_AudioSpec
-sdl.audio.status_t:SDL_audiostatus
-sdl.error.code_t:SDL_errorcode
-sdl.events.action_t:SDL_eventaction
-sdl.events.active_event_access_t:SDL_ActiveEvent *
-sdl.events.active_event_access_t:struct SDL_ActiveEvent *
-sdl.events.active_event_t:SDL_ActiveEvent
-sdl.events.active_event_t:struct SDL_ActiveEvent
-sdl.events.event_access_t:SDL_Event *
-sdl.events.event_access_t:union SDL_Event *
-sdl.events.event_t:SDL_Event
-sdl.events.event_t:union SDL_Event
-sdl.events.filter_t:SDL_EventFilter
-sdl.events.joy_axis_event_access_t:SDL_JoyAxisEvent *
-sdl.events.joy_axis_event_access_t:struct SDL_JoyAxisEvent *
-sdl.events.joy_axis_event_t:SDL_JoyAxisEvent
-sdl.events.joy_axis_event_t:struct SDL_JoyAxisEvent
-sdl.events.joy_ball_event_access_t:SDL_JoyBallEvent *
-sdl.events.joy_ball_event_access_t:struct SDL_JoyBallEvent *
-sdl.events.joy_ball_event_t:SDL_JoyBallEvent
-sdl.events.joy_ball_event_t:struct SDL_JoyBallEvent
-sdl.events.joy_button_event_access_t:SDL_JoyButtonEvent *
-sdl.events.joy_button_event_access_t:struct SDL_JoyButtonEvent *
-sdl.events.joy_button_event_t:SDL_JoyButtonEvent
-sdl.events.joy_button_event_t:struct SDL_JoyButtonEvent
-sdl.events.joy_hat_event_access_t:SDL_JoyHatEvent *
-sdl.events.joy_hat_event_access_t:struct SDL_JoyHatEvent *
-sdl.events.joy_hat_event_t:SDL_JoyHatEvent
-sdl.events.joy_hat_event_t:struct SDL_JoyHatEvent
-sdl.events.keyboard_event_access_t:SDL_KeyboardEvent *
-sdl.events.keyboard_event_access_t:struct SDL_KeyboardEvent *
-sdl.events.keyboard_event_t:SDL_KeyboardEvent
-sdl.events.keyboard_event_t:struct SDL_KeyboardEvent
-sdl.events.mask_t:SDL_EventMask
-sdl.events.mouse_button_event_access_t:SDL_MouseButtonEvent *
-sdl.events.mouse_button_event_access_t:struct SDL_MouseButtonEvent *
-sdl.events.mouse_button_event_t:SDL_MouseButtonEvent
-sdl.events.mouse_button_event_t:struct SDL_MouseButtonEvent
-sdl.events.mouse_motion_event_access_t:SDL_MouseMotionEvent *
-sdl.events.mouse_motion_event_access_t:struct SDL_MouseMotionEvent *
-sdl.events.mouse_motion_event_t:SDL_MouseMotionEvent
-sdl.events.mouse_motion_event_t:struct SDL_MouseMotionEvent
-sdl.events.quit_event_access_t:SDL_QuitEvent *
-sdl.events.quit_event_access_t:struct SDL_QuitEvent *
-sdl.events.quit_event_t:SDL_QuitEvent
-sdl.events.quit_event_t:struct SDL_QuitEvent
-sdl.events.resize_event_access_t:SDL_ResizeEvent *
-sdl.events.resize_event_access_t:struct SDL_ResizeEvent *
-sdl.events.resize_event_t:SDL_ResizeEvent
-sdl.events.resize_event_t:struct SDL_ResizeEvent
-sdl.events.sys_wm_event_access_t:SDL_SysWMEvent *
-sdl.events.sys_wm_event_access_t:struct SDL_SysWMEvent *
-sdl.events.sys_wm_event_t:SDL_SysWMEvent
-sdl.events.sys_wm_event_t:struct SDL_SysWMEvent
-sdl.events.sys_wm_msg_access_t:SDL_SysWMmsg *
-sdl.events.sys_wm_msg_access_t:struct SDL_SysWMmsg *
-sdl.events.type_t:SDL_EventType
-sdl.events.user_event_access_t:SDL_UserEvent *
-sdl.events.user_event_access_t:struct SDL_UserEvent *
-sdl.events.user_event_t:SDL_UserEvent
-sdl.events.user_event_t:struct SDL_UserEvent
-sdl.joystick.joystick_access_t:SDL_Joystick *
-sdl.keyboard.keysym_const_access_t:SDL_keysym *
-sdl.keyboard.keysym_const_access_t:struct SDL_keysym *
-sdl.keyboard.keysym_access_t:SDL_keysym *
-sdl.keyboard.keysym_access_t:struct SDL_keysym *
-sdl.keyboard.keysym_t:SDL_keysym
-sdl.keyboard.keysym_t:struct SDL_keysym
-sdl.keysym.key_t:SDLKey
-sdl.keysym.modkey_t:SDLMod
-sdl.mouse.cursor_access_t:SDL_Cursor *
-sdl.mouse.cursor_access_t:struct SDL_Cursor *
-sdl.mouse.cursor_t:SDL_Cursor
-sdl.mouse.cursor_t:struct SDL_Cursor
-sdl.rwops.rwops_t:SDL_RWops
-sdl.rwops.rwops_t:struct SDL_RWops
-sdl.timer.add_timer_callback_t:SDL_NewTimerCallback
-sdl.timer.id_t:SDL_TimerID
-sdl.timer.set_timer_callback_t:SDL_TimerCallback
-sdl.video.color_access_t:SDL_Color *
-sdl.video.color_access_t:struct SDL_Color *
-sdl.video.color_t:SDL_Color
-sdl.video.color_t:struct SDL_Color
-sdl.video.palette_access_t:SDL_Palette *
-sdl.video.palette_access_t:struct SDL_Palette *
-sdl.video.palette_t:SDL_Palette
-sdl.video.palette_t:struct SDL_Palette
-sdl.video.pixel_format_access_t:SDL_PixelFormat *
-sdl.video.pixel_format_access_t:struct SDL_PixelFormat *
-sdl.video.pixel_format_t:SDL_PixelFormat
-sdl.video.pixel_format_t:struct SDL_PixelFormat
-sdl.video.rect_access_t:SDL_Rect *
-sdl.video.rect_access_t:struct SDL_Rect *
-sdl.video.rect_t:SDL_Rect
-sdl.video.rect_t:struct SDL_Rect
-sdl.video.surface_access_t:SDL_Surface *
-sdl.video.surface_access_t:struct SDL_Surface *
-sdl.video.surface_t:SDL_Surface
-sdl.video.surface_t:struct SDL_Surface
-sdl.video.video_info_access_t:SDL_VideoInfo *
-sdl.video.video_info_access_t:struct SDL_VideoInfo *
-sdl.video.video_info_t:SDL_VideoInfo
-sdl.video.video_info_t:struct SDL_VideoInfo
+SDL.Audio.CVT_Access_t:SDL_AudioCVT *
+SDL.Audio.CVT_Access_t:struct SDL_AudioCVT *
+SDL.Audio.CVT_t:SDL_AudioCVT
+SDL.Audio.CVT_t:struct SDL_AudioCVT
+SDL.Audio.Spec_Access_t:SDL_AudioSpec *
+SDL.Audio.Spec_Access_t:struct SDL_AudioSpec *
+SDL.Audio.Spec_t:SDL_AudioSpec
+SDL.Audio.Spec_t:struct SDL_AudioSpec
+SDL.Audio.Status_t:SDL_Audiostatus
+SDL.Error.Code_t:SDL_errorcode
+SDL.Events.Action_t:SDL_eventaction
+SDL.Events.Active_Event_Access_t:SDL_ActiveEvent *
+SDL.Events.Active_Event_Access_t:struct SDL_ActiveEvent *
+SDL.Events.Active_Event_t:SDL_ActiveEvent
+SDL.Events.Active_Event_t:struct SDL_ActiveEvent
+SDL.Events.Event_Access_t:SDL_Event *
+SDL.Events.Event_Access_t:union SDL_Event *
+SDL.Events.Event_t:SDL_Event
+SDL.Events.Event_t:union SDL_Event
+SDL.Events.Filter_t:SDL_EventFilter
+SDL.Events.Joy_Axis_Event_Access_t:SDL_JoyAxisEvent *
+SDL.Events.Joy_Axis_Event_Access_t:struct SDL_JoyAxisEvent *
+SDL.Events.Joy_Axis_Event_t:SDL_JoyAxisEvent
+SDL.Events.Joy_Axis_Event_t:struct SDL_JoyAxisEvent
+SDL.Events.Joy_Ball_Event_Access_t:SDL_JoyBallEvent *
+SDL.Events.Joy_Ball_Event_Access_t:struct SDL_JoyBallEvent *
+SDL.Events.Joy_Ball_Event_t:SDL_JoyBallEvent
+SDL.Events.Joy_Ball_Event_t:struct SDL_JoyBallEvent
+SDL.Events.Joy_Button_Event_Access_t:SDL_JoyButtonEvent *
+SDL.Events.Joy_Button_Event_Access_t:struct SDL_JoyButtonEvent *
+SDL.Events.Joy_Button_Event_t:SDL_JoyButtonEvent
+SDL.Events.Joy_Button_Event_t:struct SDL_JoyButtonEvent
+SDL.Events.Joy_Hat_Event_Access_t:SDL_JoyHatEvent *
+SDL.Events.Joy_Hat_Event_Access_t:struct SDL_JoyHatEvent *
+SDL.Events.Joy_Hat_Event_t:SDL_JoyHatEvent
+SDL.Events.Joy_Hat_Event_t:struct SDL_JoyHatEvent
+SDL.Events.Keyboard_Event_Access_t:SDL_KeyboardEvent *
+SDL.Events.Keyboard_Event_Access_t:struct SDL_KeyboardEvent *
+SDL.Events.Keyboard_Event_t:SDL_KeyboardEvent
+SDL.Events.Keyboard_Event_t:struct SDL_KeyboardEvent
+SDL.Events.Mask_t:SDL_EventMask
+SDL.Events.Mouse_Button_Event_Access_t:SDL_MouseButtonEvent *
+SDL.Events.Mouse_Button_Event_Access_t:struct SDL_MouseButtonEvent *
+SDL.Events.Mouse_Button_Event_t:SDL_MouseButtonEvent
+SDL.Events.Mouse_Button_Event_t:struct SDL_MouseButtonEvent
+SDL.Events.Mouse_Motion_Event_Access_t:SDL_MouseMotionEvent *
+SDL.Events.Mouse_Motion_Event_Access_t:struct SDL_MouseMotionEvent *
+SDL.Events.Mouse_Motion_Event_t:SDL_MouseMotionEvent
+SDL.Events.Mouse_Motion_Event_t:struct SDL_MouseMotionEvent
+SDL.Events.Quit_Event_Access_t:SDL_QuitEvent *
+SDL.Events.Quit_Event_Access_t:struct SDL_QuitEvent *
+SDL.Events.Quit_Event_t:SDL_QuitEvent
+SDL.Events.Quit_Event_t:struct SDL_QuitEvent
+SDL.Events.Resize_Event_Access_t:SDL_ResizeEvent *
+SDL.Events.Resize_Event_Access_t:struct SDL_ResizeEvent *
+SDL.Events.Resize_Event_t:SDL_ResizeEvent
+SDL.Events.Resize_Event_t:struct SDL_ResizeEvent
+SDL.Events.Sys_WM_Event_Access_t:SDL_SysWMEvent *
+SDL.Events.Sys_WM_Event_Access_t:struct SDL_SysWMEvent *
+SDL.Events.Sys_WM_Event_t:SDL_SysWMEvent
+SDL.Events.Sys_WM_Event_t:struct SDL_SysWMEvent
+SDL.Events.Sys_WM_Message_Access_t:SDL_SysWMmsg *
+SDL.Events.Sys_WM_Message_Access_t:struct SDL_SysWMmsg *
+SDL.Events.Type_t:SDL_EventType
+SDL.Events.User_Event_Access_t:SDL_UserEvent *
+SDL.Events.User_Event_Access_t:struct SDL_UserEvent *
+SDL.Events.User_Event_t:SDL_UserEvent
+SDL.Events.User_Event_t:struct SDL_UserEvent
+SDL.Joystick.Joystick_Access_t:SDL_Joystick *
+SDL.Keyboard.Keysym_Const_Access_t:SDL_Keysym *
+SDL.Keyboard.Keysym_Const_Access_t:struct SDL_Keysym *
+SDL.Keyboard.Keysym_Access_t:SDL_Keysym *
+SDL.Keyboard.Keysym_Access_t:struct SDL_Keysym *
+SDL.Keyboard.Keysym_t:SDL_Keysym
+SDL.Keyboard.Keysym_t:struct SDL_Keysym
+SDL.Keysym.Key_t:SDLKey
+SDL.Keysym.ModKey_t:SDLMod
+SDL.Mouse.Cursor_Access_t:SDL_Cursor *
+SDL.Mouse.Cursor_Access_t:struct SDL_Cursor *
+SDL.Mouse.Cursor_t:SDL_Cursor
+SDL.Mouse.Cursor_t:struct SDL_Cursor
+SDL.RWops.RWops_t:SDL_RWops
+SDL.RWops.RWops_t:struct SDL_RWops
+SDL.Timer.Add_Timer_Callback_t:SDL_NewTimerCallback
+SDL.Timer.ID_t:SDL_TimerID
+SDL.Timer.Set_Timer_Callback_t:SDL_TimerCallback
+SDL.Video.Color_Access_t:SDL_Color *
+SDL.Video.Color_Access_t:struct SDL_Color *
+SDL.Video.Color_t:SDL_Color
+SDL.Video.Color_t:struct SDL_Color
+SDL.Video.Palette_Access_t:SDL_Palette *
+SDL.Video.Palette_Access_t:struct SDL_Palette *
+SDL.Video.Palette_t:SDL_Palette
+SDL.Video.Palette_t:struct SDL_Palette
+SDL.Video.Pixel_Format_Access_t:SDL_PixelFormat *
+SDL.Video.Pixel_Format_Access_t:struct SDL_PixelFormat *
+SDL.Video.Pixel_Format_t:SDL_PixelFormat
+SDL.Video.Pixel_Format_t:struct SDL_PixelFormat
+SDL.Video.Rect_Access_t:SDL_Rect *
+SDL.Video.Rect_Access_t:struct SDL_Rect *
+SDL.Video.Rect_t:SDL_Rect
+SDL.Video.Rect_t:struct SDL_Rect
+SDL.Video.Surface_Access_t:SDL_Surface *
+SDL.Video.Surface_Access_t:struct SDL_Surface *
+SDL.Video.Surface_t:SDL_Surface
+SDL.Video.Surface_t:struct SDL_Surface
+SDL.Video.Video_Info_Access_t:SDL_VideoInfo *
+SDL.Video.Video_Info_Access_t:struct SDL_VideoInfo *
+SDL.Video.Video_Info_t:SDL_VideoInfo
+SDL.Video.Video_Info_t:struct SDL_VideoInfo

@@ -7,4 +7,4 @@ then
 fi
 
 map="$1"
-awk -F: '{print $1}' < "${map}" | sed -e 's/\.[a-z_]*$//g' | sort -u
+awk -F: '{print $1}' < "${map}" | sed -e 's/\.[A-Za-z_]*$//g' | sort -u

@@ -1,331 +1,328 @@
-with sdl.mouse;
-with sdl.keyboard;
-with sdl.joystick;
-with interfaces;
+with SDL.Mouse;
+with SDL.Keyboard;
+with SDL.Joystick;
+with Interfaces;
 
-package sdl.events is
-  package i renames interfaces;
+package SDL.Events is
+  package I renames Interfaces;
 
-  type type_t is new uint8_t;
-  pragma convention (c, type_t);
+  type Type_t is new Uint8_t;
+  pragma Convention (C, Type_t);
 
   -- events
-  noevent         : constant type_t := 0;
-  isactiveevent   : constant type_t := 1;
-  keydown         : constant type_t := 2;
-  keyup           : constant type_t := 3;
-  mousemotion     : constant type_t := 4;
-  mousebuttondown : constant type_t := 5;
-  mousebuttonup   : constant type_t := 6;
-  joyaxismotion   : constant type_t := 7;
-  joyballmotion   : constant type_t := 8;
-  joyhatmotion    : constant type_t := 9;
-  joybuttondown   : constant type_t := 10;
-  joybuttonup     : constant type_t := 11;
-  quit            : constant type_t := 12;
-  issyswmevent    : constant type_t := 13;
-  event_reserveda : constant type_t := 14;
-  event_reservedb : constant type_t := 15;
-  videoresize     : constant type_t := 16;
-  event_reserved1 : constant type_t := 17;
-  event_reserved2 : constant type_t := 18;
-  event_reserved3 : constant type_t := 19;
-  event_reserved4 : constant type_t := 20;
-  event_reserved5 : constant type_t := 21;
-  event_reserved6 : constant type_t := 22;
-  event_reserved7 : constant type_t := 23;
-  isuserevent     : constant type_t := 24;
-  numevents       : constant type_t := 32;
+  No_Event          : constant Type_t := 0;
+  Is_Active_Event   : constant Type_t := 1;
+  Key_Down          : constant Type_t := 2;
+  Key_Up            : constant Type_t := 3;
+  Mouse_Motion      : constant Type_t := 4;
+  Mouse_Button_Down : constant Type_t := 5;
+  Mouse_Button_Up   : constant Type_t := 6;
+  Joy_Axis_Motion   : constant Type_t := 7;
+  Joy_Ball_Motion   : constant Type_t := 8;
+  Joy_Hat_Motion    : constant Type_t := 9;
+  Joy_Button_Down   : constant Type_t := 10;
+  Joy_Button_Up     : constant Type_t := 11;
+  Quit              : constant Type_t := 12;
+  Is_Sys_WM_Event   : constant Type_t := 13;
+  Event_Reserved_A  : constant Type_t := 14;
+  Event_Reserved_B  : constant Type_t := 15;
+  Video_Resize      : constant Type_t := 16;
+  Event_Reserved_1  : constant Type_t := 17;
+  Event_Reserved_2  : constant Type_t := 18;
+  Event_Reserved_3  : constant Type_t := 19;
+  Event_Reserved_4  : constant Type_t := 20;
+  Event_Reserved_5  : constant Type_t := 21;
+  Event_Reserved_6  : constant Type_t := 22;
+  Event_Reserved_7  : constant Type_t := 23;
+  Is_User_Event     : constant Type_t := 24;
+  Num_Events        : constant Type_t := 32;
 
   -- event masks
-  type mask_t is new uint32_t;
-  pragma convention (c, mask_t);
+  type Mask_t is new Uint32_t;
+  pragma Convention (C, Mask_t);
 
-  activeeventmask     : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (isactiveevent)));
-  keydownmask         : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (keydown)));
-  keyupmask           : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (keyup)));
-  mousemotionmask     : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousemotion)));
-  mousebuttondownmask : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousebuttondown)));
-  mousebuttonupmask   : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousebuttonup)));
-  mouseeventmask      : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousemotion)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousebuttondown)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (mousebuttonup)));
-  joyaxismotionmask   : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyaxismotion)));
-  joyballmotionmask   : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyballmotion)));
-  joyhatmotionmask    : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyhatmotion)));
-  joybuttondownmask   : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joybuttondown)));
-  joybuttonupmask     : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joybuttonup)));
-  joyeventmask        : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyaxismotion)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyballmotion)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joyhatmotion)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joybuttondown)))
-    or mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (joybuttonup)));
-  videoresizemask     : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (videoresize)));
-  quitmask            : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (quit)));
-  syswmeventmask      : constant mask_t := mask_t (i.Shift_Left (i.Unsigned_32 (1), integer (issyswmevent)));
-  allevents           : constant mask_t := 16#FFFFFFFF#;
+  Active_Event_Mask      : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Is_Active_Event)));
+  Key_Down_Mask          : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Key_Down)));
+  Key_Up_Mask            : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Key_Up)));
+  Mouse_Motion_Mask      : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Motion)));
+  Mouse_Button_Down_Mask : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Button_Down)));
+  Mouse_Button_Up_Mask   : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Button_Up)));
+  Mouse_Event_Mask       : constant Mask_t :=
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Motion))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Button_Down))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Mouse_Button_Up)));
+  Joy_Axis_Motion_Mask   : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Axis_Motion)));
+  Joy_Ball_Motion_Mask   : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Ball_Motion)));
+  Joy_Hat_Motion_Mask    : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Hat_Motion)));
+  Joy_Button_Down_Mask   : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Button_Down)));
+  Joy_Button_Up_Mask     : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Button_Up)));
+  Joy_Event_Mask         : constant Mask_t :=
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Axis_Motion))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Ball_Motion))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Hat_Motion))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Button_Down))) or
+    Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Joy_Button_Up)));
+  Video_Resize_Mask      : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Video_Resize)));
+  Quit_Mask              : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Quit)));
+  Sys_WM_Event_Mask      : constant Mask_t := Mask_t (I.Shift_Left (I.Unsigned_32 (1), Integer (Is_Sys_WM_Event)));
+  All_Events             : constant Mask_t := 16#FFFFFFFF#;
 
-  type active_state_t is new uint8_t;
-  appmousefocus : constant active_state_t := 2#00000001#;
-  appinputfocus : constant active_state_t := 2#00000010#;
-  appactive     : constant active_state_t := 2#00000100#;
+  type Active_State_t is new Uint8_t;
+  App_Mouse_Focus : constant Active_State_t := 2#00000001#;
+  App_Input_Focus : constant Active_State_t := 2#00000010#;
+  App_Active      : constant Active_State_t := 2#00000100#;
 
   -- Gets the state of the application
-  function getappstate return active_state_t;
-  function get_app_state return active_state_t renames getappstate;
-  pragma import (c, getappstate, "SDL_GetAppState");
+  function Getappstate return Active_State_t;
+  function Get_App_State return Active_State_t renames Getappstate;
+  pragma Import (C, Getappstate, "SDL_GetAppState");
 
   -- ACTIVEEVENT
-  type active_event_t is record
-    ev_type : type_t;
-    gain    : active_state_t;
-    state   : active_state_t;
+  type Active_Event_t is record
+    Ev_Type : Type_t;
+    Gain    : Active_State_t;
+    State   : Active_State_t;
   end record;
-  type active_event_access_t is access all active_event_t;
-  pragma convention (c, active_event_t);
-  pragma convention (c, active_event_access_t);
+  type Active_Event_Access_t is access all Active_Event_t;
+  pragma Convention (C, Active_Event_t);
+  pragma Convention (C, Active_Event_Access_t);
 
   -- Keyboard event
-  type keyboard_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    state   : uint8_t;
-    keysym  : aliased sdl.keyboard.keysym_t;
+  type Keyboard_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    State   : Uint8_t;
+    Keysym  : aliased SDL.Keyboard.Keysym_t;
   end record;
-  type keyboard_event_access_t is access all keyboard_event_t;
-  pragma convention (c, keyboard_event_t);
-  pragma convention (c, keyboard_event_access_t);
+  type Keyboard_Event_Access_t is access all Keyboard_Event_t;
+  pragma Convention (C, Keyboard_Event_t);
+  pragma Convention (C, Keyboard_Event_Access_t);
 
   -- Mouse motion event
-  type mouse_motion_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    state   : uint8_t;
-    x       : uint16_t;
-    y       : uint16_t;
-    xrel    : int16_t;
-    yrel    : int16_t;
+  type Mouse_Motion_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    State   : Uint8_t;
+    X       : Uint16_t;
+    Y       : Uint16_t;
+    Xrel    : Int16_t;
+    Yrel    : Int16_t;
   end record;
-  type mouse_motion_event_access_t is access all
-   mouse_motion_event_t;
-  pragma convention (c, mouse_motion_event_t);
-  pragma convention (c, mouse_motion_event_access_t);
+  type Mouse_Motion_Event_Access_t is access all Mouse_Motion_Event_t;
+  pragma Convention (C, Mouse_Motion_Event_t);
+  pragma Convention (C, Mouse_Motion_Event_Access_t);
 
   -- Mouse button event
-  type mouse_button_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    button  : uint8_t;
-    state   : mouse.mouse_button_state_t;
-    x       : uint16_t;
-    y       : uint16_t;
+  type Mouse_Button_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    Button  : Uint8_t;
+    State   : Mouse.Mouse_Button_State_t;
+    X       : Uint16_t;
+    Y       : Uint16_t;
   end record;
-  type mouse_button_event_access_t is access all
-   mouse_button_event_t;
-  pragma convention (c, mouse_button_event_t);
-  pragma convention (c, mouse_button_event_access_t);
+  type Mouse_Button_Event_Access_t is access all Mouse_Button_Event_t;
+  pragma Convention (C, Mouse_Button_Event_t);
+  pragma Convention (C, Mouse_Button_Event_Access_t);
 
   -- Joystick axis motion event
-  type joy_axis_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    axis    : uint8_t;
-    value   : int16_t;
+  type Joy_Axis_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    Axis    : Uint8_t;
+    Value   : Int16_t;
   end record;
-  type joy_axis_event_access_t is access all joy_axis_event_t;
-  pragma convention (c, joy_axis_event_t);
-  pragma convention (c, joy_axis_event_access_t);
+  type Joy_Axis_Event_Access_t is access all Joy_Axis_Event_t;
+  pragma Convention (C, Joy_Axis_Event_t);
+  pragma Convention (C, Joy_Axis_Event_Access_t);
 
   --  Joystick trackball motion event structure
-  type joy_ball_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    ball    : uint8_t;
-    xrel    : int16_t;
-    yrel    : int16_t;
+  type Joy_Ball_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    Ball    : Uint8_t;
+    Xrel    : Int16_t;
+    Yrel    : Int16_t;
   end record;
-  type joy_ball_event_access_t is access all joy_ball_event_t;
-  pragma convention (c, joy_ball_event_t);
-  pragma convention (c, joy_ball_event_access_t);
+  type Joy_Ball_Event_Access_t is access all Joy_Ball_Event_t;
+  pragma Convention (C, Joy_Ball_Event_t);
+  pragma Convention (C, Joy_Ball_Event_Access_t);
 
   -- Joystick hat position change event structure
-  type joy_hat_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    hat     : uint8_t;
-    value   : joystick.hat_state_t;
+  type Joy_Hat_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    Hat     : Uint8_t;
+    Value   : Joystick.Hat_State_t;
   end record;
-  type joy_hat_event_access_t is access all joy_hat_event_t;
-  pragma convention (c, joy_hat_event_t);
-  pragma convention (c, joy_hat_event_access_t);
+  type Joy_Hat_Event_Access_t is access all Joy_Hat_Event_t;
+  pragma Convention (C, Joy_Hat_Event_t);
+  pragma Convention (C, Joy_Hat_Event_Access_t);
 
   -- Joystick button event structure
-  type joy_button_event_t is record
-    ev_type : type_t;
-    which   : uint8_t;
-    button  : uint8_t;
-    state   : uint8_t;
+  type Joy_Button_Event_t is record
+    Ev_Type : Type_t;
+    Which   : Uint8_t;
+    Button  : Uint8_t;
+    State   : Uint8_t;
   end record;
-  type joy_button_event_access_t is access all joy_button_event_t;
-  pragma convention (c, joy_button_event_t);
-  pragma convention (c, joy_button_event_access_t);
+  type Joy_Button_Event_Access_t is access all Joy_Button_Event_t;
+  pragma Convention (C, Joy_Button_Event_t);
+  pragma Convention (C, Joy_Button_Event_Access_t);
 
   -- "Window resized" event.
-  type resize_event_t is record
-    ev_type : type_t;
-    w       : c.int;
-    h       : c.int;
+  type Resize_Event_t is record
+    Ev_Type : Type_t;
+    W       : C.int;
+    H       : C.int;
   end record;
-  type resize_event_access_t is access all resize_event_t;
-  pragma convention (c, resize_event_t);
-  pragma convention (c, resize_event_access_t);
+  type Resize_Event_Access_t is access all Resize_Event_t;
+  pragma Convention (C, Resize_Event_t);
+  pragma Convention (C, Resize_Event_Access_t);
 
   -- The "quit requested" event
-  type quit_event_t is record
-    ev_type : type_t;
+  type Quit_Event_t is record
+    Ev_Type : Type_t;
   end record;
-  type quit_event_access_t is access all quit_event_t;
-  pragma convention (c, quit_event_t);
-  pragma convention (c, quit_event_access_t);
+  type Quit_Event_Access_t is access all Quit_Event_t;
+  pragma Convention (C, Quit_Event_t);
+  pragma Convention (C, Quit_Event_Access_t);
 
   -- User event type
-  type user_event_t is record
-    ev_type : type_t;
-    code    : c.int;
-    data1   : void_ptr_t;
-    data2   : void_ptr_t;
+  type User_Event_t is record
+    Ev_Type : Type_t;
+    Code    : C.int;
+    Data1   : Void_Ptr_t;
+    Data2   : Void_Ptr_t;
   end record;
-  type user_event_access_t is access all user_event_t;
-  pragma convention (c, user_event_t);
-  pragma convention (c, user_event_access_t);
+  type User_Event_Access_t is access all User_Event_t;
+  pragma Convention (C, User_Event_t);
+  pragma Convention (C, User_Event_Access_t);
 
-  type sys_wm_msg_access_t is new void_ptr_t;
-  type sys_wm_event_t is record
-    ev_type : type_t;
-    msg     : sys_wm_msg_access_t;
+  type Sys_WM_Message_Access_t is new Void_Ptr_t;
+  type Sys_WM_Event_t is record
+    Ev_Type : Type_t;
+    Message : Sys_WM_Message_Access_t;
   end record;
-  type sys_wm_event_access_t is access all sys_wm_event_t;
-  pragma convention (c, sys_wm_event_t);
-  pragma convention (c, sys_wm_event_access_t);
+  type Sys_WM_Event_Access_t is access all Sys_WM_Event_t;
+  pragma Convention (C, Sys_WM_Event_t);
+  pragma Convention (C, Sys_WM_Event_Access_t);
 
-  type event_selector_t is (
-    is_event_type,
-    is_activeevent,
-    is_keyboardevent,
-    is_mousemotionevent,
-    is_mousebuttonevent,
-    is_joyaxisevent,
-    is_joyballevent,
-    is_joyhatevent,
-    is_joybuttonevent,
-    is_resizeevent,
-    is_quitevent,
-    is_userevent,
-    is_syswmevent);
+  type Event_Selector_t is (
+    ES_Event_Type,
+    ES_Active_Event,
+    ES_Keyboard_Event,
+    ES_Mouse_Motion_Event,
+    ES_Mousebutton_Event,
+    ES_Joy_Axis_Event,
+    ES_Joy_Ball_Event,
+    ES_Joy_Hat_Event,
+    ES_Joy_Button_Event,
+    ES_Resize_Event,
+    ES_Quit_Event,
+    ES_User_Event,
+    ES_Sys_WM_Event);
 
   -- event union
-  type event_t (ev : event_selector_t := is_event_type) is record
-    case ev is
-      when is_event_type       => ev_type : type_t;
-      when is_activeevent      => active  : active_event_t;
-      when is_keyboardevent    => key     : keyboard_event_t;
-      when is_mousemotionevent => motion  : mouse_motion_event_t;
-      when is_mousebuttonevent => button  : mouse_button_event_t;
-      when is_joyaxisevent     => jaxis   : joy_axis_event_t;
-      when is_joyballevent     => jball   : joy_ball_event_t;
-      when is_joyhatevent      => jhat    : joy_hat_event_t;
-      when is_joybuttonevent   => jbutton : joy_button_event_t;
-      when is_resizeevent      => resize  : resize_event_t;
-      when is_quitevent        => quit    : quit_event_t;
-      when is_userevent        => user    : user_event_t;
-      when is_syswmevent       => syswm   : sys_wm_event_t;
+  type Event_t (Ev : Event_Selector_t := ES_Event_Type) is record
+    case Ev is
+      when ES_Event_Type => Ev_Type : Type_t;
+      when ES_Active_Event => Active : Active_Event_t;
+      when ES_Keyboard_Event => Key : Keyboard_Event_t;
+      when ES_Mouse_Motion_Event => Motion : Mouse_Motion_Event_t;
+      when ES_Mousebutton_Event => Button : Mouse_Button_Event_t;
+      when ES_Joy_Axis_Event => Jaxis : Joy_Axis_Event_t;
+      when ES_Joy_Ball_Event => Jball : Joy_Ball_Event_t;
+      when ES_Joy_Hat_Event => Jhat : Joy_Hat_Event_t;
+      when ES_Joy_Button_Event => Jbutton : Joy_Button_Event_t;
+      when ES_Resize_Event => Resize : Resize_Event_t;
+      when ES_Quit_Event => Quit : Quit_Event_t;
+      when ES_User_Event => User : User_Event_t;
+      when ES_Sys_WM_Event => Sys_WM : Sys_WM_Event_t;
     end case;
   end record;
-  type event_access_t is access all event_t;
-  pragma convention (c, event_t);
-  pragma convention (c, event_access_t);
-  pragma unchecked_union (event_t);
+  type Event_Access_t is access all Event_t;
+  pragma Convention (C, Event_t);
+  pragma Convention (C, Event_Access_t);
+  pragma Unchecked_Union (Event_t);
 
   --
   -- API functions.
   --
 
-  type action_t is new c.int;
-  addevent  : constant action_t := 0;
-  peekevent : constant action_t := 1;
-  getevent  : constant action_t := 2;
+  type Action_t is new C.int;
+  Add_Event  : constant Action_t := 0;
+  Peek_Event : constant Action_t := 1;
+  Get_Event  : constant Action_t := 2;
 
   -- Checks the event queue for messages and optionally return s them.
-  function peepevents
-   (events     : event_access_t;
-    num_events : c.int;
-    action     : action_t;
-    mask       : mask_t) return c.int;
+  function PeepEvents
+   (Events     : Event_Access_t;
+    Num_Events : C.int;
+    Action     : Action_t;
+    Mask       : Mask_t)
+    return       C.int;
 
-  function peep_events
-   (events     : event_access_t;
-    num_events : c.int;
-    action     : action_t;
-    mask       : mask_t) return c.int renames peepevents;
-  pragma import (c, peepevents, "SDL_PeepEvents");
+  function Peep_Events
+   (Events     : Event_Access_t;
+    Num_Events : C.int;
+    Action     : Action_t;
+    Mask       : Mask_t)
+    return       C.int renames PeepEvents;
+  pragma Import (C, PeepEvents, "SDL_PeepEvents");
 
   -- Polls for currently pending events.
-  function pollevent (event_val : access event_t) return c.int;
-  function poll_event (event_val : access event_t) return c.int renames pollevent;
-  pragma import (c, pollevent, "SDL_PollEvent");
+  function PollEvent (Event_Val : access Event_t) return C.int;
+  function Poll_Event (Event_Val : access Event_t) return C.int renames PollEvent;
+  pragma Import (C, PollEvent, "SDL_PollEvent");
 
   -- Pumps the event loop, gathering events from the input devices.
-  procedure pumpevents;
-  procedure pump_events renames pumpevents;
-  pragma import (c, pumpevents, "SDL_PumpEvents");
+  procedure PumpEvents;
+  procedure Pump_Events renames PumpEvents;
+  pragma Import (C, PumpEvents, "SDL_PumpEvents");
 
   --  Add an event to the event queue.
-  function pushevent (event : event_access_t) return c.int;
-  procedure pushevent (event : event_access_t);
-  function pushevent (event_val : event_t) return c.int;
-  procedure pushevent (event_val : event_t);
-  function push_event (event : event_access_t) return c.int renames pushevent;
-  procedure push_event (event : event_access_t) renames pushevent;
-  function push_event (event_val : event_t) return c.int renames pushevent;
-  procedure push_event (event_val : event_t) renames pushevent;
-  pragma import (c, pushevent, "SDL_PushEvent");
+  function PushEvent (Event : Event_Access_t) return C.int;
+  procedure PushEvent (Event : Event_Access_t);
+  function PushEvent (Event_Val : Event_t) return C.int;
+  procedure PushEvent (Event_Val : Event_t);
+  function Push_Event (Event : Event_Access_t) return C.int renames PushEvent;
+  procedure Push_Event (Event : Event_Access_t) renames PushEvent;
+  function Push_Event (Event_Val : Event_t) return C.int renames PushEvent;
+  procedure Push_Event (Event_Val : Event_t) renames PushEvent;
+  pragma Import (C, PushEvent, "SDL_PushEvent");
 
-  type filter_t is access function (event : event_access_t) return c.int;
-  pragma convention (c, filter_t);
+  type Filter_t is access function (Event : Event_Access_t) return C.int;
+  pragma Convention (C, Filter_t);
 
   -- Sets up a filter to process all events
-  procedure seteventfilter (filter : filter_t);
-  procedure set_event_filter (filter : filter_t) renames seteventfilter;
-  pragma import (c, seteventfilter, "SDL_SetEventFilter");
+  procedure SetEventFilter (Filter : Filter_t);
+  procedure Set_Event_Filter (Filter : Filter_t) renames SetEventFilter;
+  pragma Import (C, SetEventFilter, "SDL_SetEventFilter");
 
   -- Waits indefinitely for the next available event
-  function waitevent (event : event_access_t) return c.int;
-  procedure waitevent (event : event_access_t);
-  function wait_event (event : event_access_t) return c.int renames waitevent;
-  procedure wait_event (event : event_access_t) renames waitevent;
-  pragma import (c, waitevent, "SDL_WaitEvent");
+  function WaitEvent (Event : Event_Access_t) return C.int;
+  procedure WaitEvent (Event : Event_Access_t);
+  function Wait_Event (Event : Event_Access_t) return C.int renames WaitEvent;
+  procedure Wait_Event (Event : Event_Access_t) renames WaitEvent;
+  pragma Import (C, WaitEvent, "SDL_WaitEvent");
 
   -- return the current event filter
-  function geteventfilter return filter_t;
-  function get_event_filter return filter_t renames geteventfilter;
-  pragma import (c, geteventfilter, "SDL_GetEventFilter");
+  function GetEventFilter return Filter_t;
+  function Get_Event_Filter return Filter_t renames GetEventFilter;
+  pragma Import (C, GetEventFilter, "SDL_GetEventFilter");
 
   -- Allows you to set the state of processing certain events.
-  query   : constant integer := -1;
-  ignore  : constant integer := 0;
-  disable : constant integer := 0;
-  enable  : constant integer := 1;
+  Query   : constant := -1;
+  Ignore  : constant := 0;
+  Disable : constant := 0;
+  Enable  : constant := 1;
 
-  function eventstate
-   (event_type : type_t;
-    state      : c.int) return uint8_t;
+  function EventState (Event_Type : Type_t; State : C.int) return Uint8_t;
+  function Event_State (Event_Type : Type_t; State : C.int) return Uint8_t renames EventState;
 
-  function event_state
-   (event_type : type_t;
-    state      : c.int) return uint8_t renames eventstate;
+  procedure EventState (Event_Type : Type_t; State : C.int);
+  procedure Event_State (Event_Type : Type_t; State : C.int) renames EventState;
+  pragma Import (C, EventState, "SDL_EventState");
 
-  procedure eventstate (event_type : type_t; state : c.int);
-  procedure event_state (event_type : type_t; state : c.int) renames eventstate;
-  pragma import (c, eventstate, "SDL_EventState");
-
-end sdl.events;
+end SDL.Events;

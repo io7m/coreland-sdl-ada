@@ -2,171 +2,181 @@
 -- TODO: SDL_GL_*, YUV
 --
 
-with interfaces.c;
+with Interfaces.C;
 
-package sdl.video is
-  package c renames interfaces.c;
+package SDL.Video is
+  package C renames Interfaces.C;
 
   -- Surface flags.
-  type surface_flags_t is new uint32_t;
-  pragma convention (c, surface_flags_t);
+  type Surface_Flags_t is new Uint32_t;
+  pragma Convention (C, Surface_Flags_t);
 
   -- Available for SDL_CreateRGBSurface() or SDL_SetVideoMode()
-  swsurface : constant surface_flags_t := 16#00000000#;
-  hwsurface : constant surface_flags_t := 16#00000001#;
-  asyncblit : constant surface_flags_t := 16#00000004#;
+  SWSURFACE : constant Surface_Flags_t := 16#00000000#;
+  HWSURFACE : constant Surface_Flags_t := 16#00000001#;
+  ASYNCBLIT : constant Surface_Flags_t := 16#00000004#;
+
+  Software_Surface      : constant := SWSURFACE;
+  Hardware_Surface      : constant := HWSURFACE;
+  Asynchronous_Blitting : constant := ASYNCBLIT;
 
   -- Available for SDL_SetVideoMode()
-  anyformat  : constant surface_flags_t := 16#10000000#;
-  hwpalette  : constant surface_flags_t := 16#20000000#;
-  doublebuf  : constant surface_flags_t := 16#40000000#;
-  fullscreen : constant surface_flags_t := 16#80000000#;
-  opengl     : constant surface_flags_t := 16#00000002#;
-  openglblit : constant surface_flags_t := 16#0000000A#;
-  resizable  : constant surface_flags_t := 16#00000010#;
-  noframe    : constant surface_flags_t := 16#00000020#;
+  ANYFORMAT  : constant Surface_Flags_t := 16#10000000#;
+  HWPALETTE  : constant Surface_Flags_t := 16#20000000#;
+  DOUBLEBUF  : constant Surface_Flags_t := 16#40000000#;
+  Fullscreen : constant Surface_Flags_t := 16#80000000#;
+  OpenGL     : constant Surface_Flags_t := 16#00000002#;
+  OPENGLBLIT : constant Surface_Flags_t := 16#0000000A#;
+  Resizable  : constant Surface_Flags_t := 16#00000010#;
+  NOFRAME    : constant Surface_Flags_t := 16#00000020#;
+
+  Any_Format       : constant := ANYFORMAT;
+  Hardware_Palette : constant := HWPALETTE;
+  Double_Buffering : constant := DOUBLEBUF;
+  OpenGL_Blitting  : constant := OPENGLBLIT;
+  No_Frame         : constant := NOFRAME;
 
   -- Used internally (read-only)
-  hwaccel     : constant surface_flags_t := 16#00000100#;
-  srccolorkey : constant surface_flags_t := 16#00001000#;
-  rleaccelok  : constant surface_flags_t := 16#00002000#;
-  rleaccel    : constant surface_flags_t := 16#00004000#;
-  srcalpha    : constant surface_flags_t := 16#00010000#;
-  prealloc    : constant surface_flags_t := 16#01000000#;
+  HWACCEL     : constant Surface_Flags_t := 16#00000100#;
+  SRCCOLORKEY : constant Surface_Flags_t := 16#00001000#;
+  RLEACCELOK  : constant Surface_Flags_t := 16#00002000#;
+  RLEACCEL    : constant Surface_Flags_t := 16#00004000#;
+  SRCALPHA    : constant Surface_Flags_t := 16#00010000#;
+  PREALLOC    : constant Surface_Flags_t := 16#01000000#;
 
   -- Defines a rectangular area.
-  type rect_t is record
-    x : int16_t;
-    y : int16_t;
-    w : uint16_t;
-    h : uint16_t;
+  type Rect_t is record
+    X : Int16_t;
+    Y : Int16_t;
+    W : Uint16_t;
+    H : Uint16_t;
   end record;
-  type rect_access_t is access all rect_t;
-  pragma convention (c, rect_t);
-  pragma convention (c, rect_access_t);
+  type Rect_Access_t is access all Rect_t;
+  pragma Convention (C, Rect_t);
+  pragma Convention (C, Rect_Access_t);
 
   -- Format independent color description.
-  type color_t is record
-    r : uint8_t;
-    g : uint8_t;
-    b : uint8_t;
-    a : uint8_t;
+  type Color_t is record
+    R : Uint8_t;
+    G : Uint8_t;
+    B : Uint8_t;
+    A : Uint8_t;
   end record;
-  type color_access_t is access all color_t;
-  pragma convention (c, color_t);
-  pragma convention (c, color_access_t);
+  type Color_Access_t is access all Color_t;
+  pragma Convention (C, Color_t);
+  pragma Convention (C, Color_Access_t);
 
   -- Color palette for 8-bit pixel formats.
-  type palette_t is record
-    ncolors : c.int;
-    colors  : access c.int;
+  type Palette_t is record
+    Ncolors : C.int;
+    Colors  : access C.int;
   end record;
-  type palette_access_t is access all palette_t;
-  pragma convention (c, palette_t);
-  pragma convention (c, palette_access_t);
+  type Palette_Access_t is access all Palette_t;
+  pragma Convention (C, Palette_t);
+  pragma Convention (C, Palette_Access_t);
 
   -- Stores surface format information
-  type pixel_format_t is record
-    palette       : palette_access_t;
-    bitsperpixel  : uint8_t;
-    bytesperpixel : uint8_t;
-    rloss         : uint8_t;
-    gloss         : uint8_t;
-    bloss         : uint8_t;
-    aloss         : uint8_t;
-    rshift        : uint8_t;
-    gshift        : uint8_t;
-    bshift        : uint8_t;
-    ashift        : uint8_t;
-    rmask         : uint32_t;
-    gmask         : uint32_t;
-    bmask         : uint32_t;
-    amask         : uint32_t;
-    colorkey      : uint32_t;
-    alpha         : uint8_t;
-    unused1       : uint8_t; -- XXX: c compiler padding
-    unused2       : uint8_t; -- XXX: c compiler padding
-    unused3       : uint8_t; -- XXX: c compiler padding
+  type Pixel_Format_t is record
+    Palette       : Palette_Access_t;
+    Bitsperpixel  : Uint8_t;
+    Bytesperpixel : Uint8_t;
+    Rloss         : Uint8_t;
+    Gloss         : Uint8_t;
+    Bloss         : Uint8_t;
+    Aloss         : Uint8_t;
+    Rshift        : Uint8_t;
+    Gshift        : Uint8_t;
+    Bshift        : Uint8_t;
+    Ashift        : Uint8_t;
+    Rmask         : Uint32_t;
+    Gmask         : Uint32_t;
+    Bmask         : Uint32_t;
+    Amask         : Uint32_t;
+    Colorkey      : Uint32_t;
+    Alpha         : Uint8_t;
+    Unused1       : Uint8_t; -- XXX: c compiler padding
+    Unused2       : Uint8_t; -- XXX: c compiler padding
+    Unused3       : Uint8_t; -- XXX: c compiler padding
   end record;
-  type pixel_format_access_t is access all pixel_format_t;
-  pragma convention (c, pixel_format_t);
-  pragma convention (c, pixel_format_access_t);
+  type Pixel_Format_Access_t is access all Pixel_Format_t;
+  pragma Convention (C, Pixel_Format_t);
+  pragma Convention (C, Pixel_Format_Access_t);
 
   -- Graphical Surface Structure
-  type surface_t is record
-    flags          : surface_flags_t;
-    format         : pixel_format_access_t;
-    w              : c.int;
-    h              : c.int;
-    pitch          : uint16_t;
-    pixels         : void_ptr_t;
-    offset         : c.int;
-    hwdata         : void_ptr_t;
-    clip_rect      : rect_t;
-    unused1        : uint32_t;
-    locked         : uint32_t;
-    map            : void_ptr_t;
-    format_version : c.unsigned;
-    refcount       : c.int;
+  type Surface_t is record
+    Flags          : Surface_Flags_t;
+    Format         : Pixel_Format_Access_t;
+    W              : C.int;
+    H              : C.int;
+    Pitch          : Uint16_t;
+    Pixels         : Void_Ptr_t;
+    Offset         : C.int;
+    Hwdata         : Void_Ptr_t;
+    Clip_Rect      : Rect_t;
+    Unused1        : Uint32_t;
+    Locked         : Uint32_t;
+    Map            : Void_Ptr_t;
+    Format_Version : C.unsigned;
+    Refcount       : C.int;
   end record;
-  type surface_access_t is access all surface_t;
-  pragma convention (c, surface_t);
-  pragma convention (c, surface_access_t);
+  type Surface_Access_t is access all Surface_t;
+  pragma Convention (C, Surface_t);
+  pragma Convention (C, Surface_Access_t);
 
   -- Useful for determining the video hardware capabilities
 
-  type video_info_bitfield_t is record
-    hw_available : integer range 0 .. 1;
-    wm_available : integer range 0 .. 1;
-    unusedbits1  : integer range 0 .. 63;
-    unusedbits2  : integer range 0 .. 1;
-    blit_hw      : integer range 0 .. 1;
-    blit_hw_cc   : integer range 0 .. 1;
-    blit_hw_a    : integer range 0 .. 1;
-    blit_sw      : integer range 0 .. 1;
-    blit_sw_cc   : integer range 0 .. 1;
-    blit_sw_a    : integer range 0 .. 1;
-    blit_fill    : integer range 0 .. 1;
-    unusedbits3  : integer range 0 .. 65535;
+  type Video_Info_Bitfield_t is record
+    Hw_Available : Integer range 0 .. 1;
+    Wm_Available : Integer range 0 .. 1;
+    Unusedbits1  : Integer range 0 .. 63;
+    Unusedbits2  : Integer range 0 .. 1;
+    Blit_Hw      : Integer range 0 .. 1;
+    Blit_Hw_Cc   : Integer range 0 .. 1;
+    Blit_Hw_A    : Integer range 0 .. 1;
+    Blit_Sw      : Integer range 0 .. 1;
+    Blit_Sw_Cc   : Integer range 0 .. 1;
+    Blit_Sw_A    : Integer range 0 .. 1;
+    Blit_Fill    : Integer range 0 .. 1;
+    Unusedbits3  : Integer range 0 .. 65535;
   end record;
-  for video_info_bitfield_t use record
-    hw_available at 0 range 0 .. 0;
-    wm_available at 0 range 1 .. 1;
-    unusedbits1  at 0 range 2 .. 7;
-    unusedbits2  at 0 range 8 .. 8;
-    blit_hw      at 0 range 9 .. 9;
-    blit_hw_cc   at 0 range 10 .. 10;
-    blit_hw_a    at 0 range 11 .. 11;
-    blit_sw      at 0 range 12 .. 12;
-    blit_sw_cc   at 0 range 13 .. 13;
-    blit_sw_a    at 0 range 14 .. 14;
-    blit_fill    at 0 range 15 .. 15;
-    unusedbits3  at 0 range 16 .. 31;
+  for Video_Info_Bitfield_t use record
+    Hw_Available at 0 range 0 .. 0;
+    Wm_Available at 0 range 1 .. 1;
+    Unusedbits1  at 0 range 2 .. 7;
+    Unusedbits2  at 0 range 8 .. 8;
+    Blit_Hw      at 0 range 9 .. 9;
+    Blit_Hw_Cc   at 0 range 10 .. 10;
+    Blit_Hw_A    at 0 range 11 .. 11;
+    Blit_Sw      at 0 range 12 .. 12;
+    Blit_Sw_Cc   at 0 range 13 .. 13;
+    Blit_Sw_A    at 0 range 14 .. 14;
+    Blit_Fill    at 0 range 15 .. 15;
+    Unusedbits3  at 0 range 16 .. 31;
   end record;
-  pragma convention (c, video_info_bitfield_t);
+  pragma Convention (C, Video_Info_Bitfield_t);
 
-  type video_info_t is record
-    bits      : video_info_bitfield_t;
-    video_mem : uint32_t;
-    vfmt      : pixel_format_access_t;
-    current_w : c.int;
-    current_h : c.int;
+  type Video_Info_t is record
+    Bits      : Video_Info_Bitfield_t;
+    Video_Mem : Uint32_t;
+    Vfmt      : Pixel_Format_Access_t;
+    Current_W : C.int;
+    Current_H : C.int;
   end record;
-  type video_info_access_t is access all video_info_t;
-  pragma convention (c, video_info_t);
-  pragma convention (c, video_info_access_t);
+  type Video_Info_Access_t is access all Video_Info_t;
+  pragma Convention (C, Video_Info_t);
+  pragma Convention (C, Video_Info_Access_t);
 
   -- Table of gamma values for SDL_SetGamma, etc.
-  type gamma_table_t is array (0 .. 255) of uint16_t;
-  pragma convention (c, gamma_table_t);
+  type Gamma_Table_t is array (0 .. 255) of Uint16_t;
+  pragma Convention (C, Gamma_Table_t);
 
   -- Array of color values for SDL_SetPalette, etc.
-  type color_array_t is array (0 .. 255) of color_t;
-  pragma convention (c, color_array_t);
+  type Color_Array_t is array (0 .. 255) of Color_t;
+  pragma Convention (C, Color_Array_t);
 
   -- Array of rectangles for SDL_UpdateRect, etc.
-  type rect_array_t is array (positive range <>) of rect_t;
-  pragma convention (c, rect_array_t);
+  type Rect_Array_t is array (Positive range <>) of Rect_t;
+  pragma Convention (C, Rect_Array_t);
 
   --
   -- API functions.
@@ -175,628 +185,658 @@ package sdl.video is
 -- This performs a fast blit from the source surface to the
   -- destination surface.
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return c.int;
+  function BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     C.int;
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return c.int;
+  function BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     C.int;
 
-  function blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return c.int renames blitsurface;
+  function Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     C.int renames BlitSurface;
 
-  function blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return c.int renames blitsurface;
+  function Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     C.int renames BlitSurface;
 
-  procedure blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t);
+  procedure BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t);
 
-  procedure blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t);
+  procedure BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t);
 
-  procedure blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : in out rect_t);
+  procedure BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : in out Rect_t);
 
-  procedure blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : in out rect_t);
+  procedure BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : in out Rect_t);
 
-  procedure blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) renames blitsurface;
+  procedure Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t) renames BlitSurface;
 
-  procedure blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) renames blitsurface;
+  procedure Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t) renames BlitSurface;
 
-  procedure blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : in out rect_t) renames blitsurface;
+  procedure Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : in out Rect_t) renames BlitSurface;
 
-  procedure blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : in out rect_t) renames blitsurface;
+  procedure Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : in out Rect_t) renames BlitSurface;
 
-  pragma import (c, blitsurface, "SDL_UpperBlit");
+  pragma Import (C, BlitSurface, "SDL_UpperBlit");
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean;
+  function BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     Boolean;
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean;
+  function BlitSurface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     Boolean;
 
-  function blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean renames blitsurface;
+  function Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_Access_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     Boolean renames BlitSurface;
 
-  function blit_surface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean renames blitsurface;
+  function Blit_Surface
+   (Src      : Surface_Access_t;
+    Src_Rect : Rect_t;
+    Dst      : Surface_Access_t;
+    Dst_Rect : Rect_Access_t)
+    return     Boolean renames BlitSurface;
 
-  pragma inline (blitsurface);
+  pragma Inline (BlitSurface);
 
   -- Converts a surface to the same format as another surface.
-  function convertsurface
-   (src   : surface_access_t;
-    fmt   : pixel_format_access_t;
-    flags : surface_flags_t) return surface_access_t;
+  function ConvertSurface
+   (Src   : Surface_Access_t;
+    Fmt   : Pixel_Format_Access_t;
+    Flags : Surface_Flags_t)
+    return  Surface_Access_t;
 
-  function convert_surface
-   (src   : surface_access_t;
-    fmt   : pixel_format_access_t;
-    flags : surface_flags_t) return surface_access_t renames convertsurface;
+  function Convert_Surface
+   (Src   : Surface_Access_t;
+    Fmt   : Pixel_Format_Access_t;
+    Flags : Surface_Flags_t)
+    return  Surface_Access_t renames ConvertSurface;
 
-  pragma import (c, convertsurface, "SDL_ConvertSurface");
+  pragma Import (C, ConvertSurface, "SDL_ConvertSurface");
 
   -- Create an empty SDL_Surface
-  function creatergbsurface
-   (flags  : surface_flags_t;
-    width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t;
+  function CreateRGBSurface
+   (Flags  : Surface_Flags_t;
+    Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t;
 
-  function create_rgb_surface
-   (flags  : surface_flags_t;
-    width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t renames creatergbsurface;
-  pragma import (c, creatergbsurface, "SDL_CreateRGBSurface");
+  function Create_Rgb_Surface
+   (Flags  : Surface_Flags_t;
+    Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t renames CreateRGBSurface;
+  pragma Import (C, CreateRGBSurface, "SDL_CreateRGBSurface");
 
   -- Creates an SDL_Surface from pixel data
-  function creatergbsurfacefrom
-   (pixels : void_ptr_t;
-    width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    pitch  : c.int;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t;
+  function CreateRGBSurfacefrom
+   (Pixels : Void_Ptr_t;
+    Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Pitch  : C.int;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t;
 
-  function create_rgb_surface_from
-   (pixels : void_ptr_t;
-    width  : c.int; 
-    height : c.int;
-    bpp    : c.int;
-    pitch  : c.int;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t renames creatergbsurfacefrom;
-  pragma import (c, creatergbsurfacefrom, "SDL_CreateRGBSurfaceFrom");
+  function Create_Rgb_Surface_From
+   (Pixels : Void_Ptr_t;
+    Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Pitch  : C.int;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t renames CreateRGBSurfacefrom;
+  pragma Import (C, CreateRGBSurfacefrom, "SDL_CreateRGBSurfaceFrom");
 
-  function creatergbsurfacefrom
-   (pixels : void_ptr_t;
-    width  : natural;
-    height : natural;
-    bpp    : positive;
-    pitch  : positive;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t;
+  function CreateRGBSurfacefrom
+   (Pixels : Void_Ptr_t;
+    Width  : Natural;
+    Height : Natural;
+    Bpp    : Positive;
+    Pitch  : Positive;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t;
 
-  function create_rgb_surface_from
-   (pixels : void_ptr_t;
-    width  : natural;
-    height : natural;
-    bpp    : positive;
-    pitch  : positive;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t renames creatergbsurfacefrom;
-  pragma inline (creatergbsurfacefrom);
+  function Create_Rgb_Surface_From
+   (Pixels : Void_Ptr_t;
+    Width  : Natural;
+    Height : Natural;
+    Bpp    : Positive;
+    Pitch  : Positive;
+    Rmask  : Uint32_t;
+    Gmask  : Uint32_t;
+    Bmask  : Uint32_t;
+    Amask  : Uint32_t)
+    return   Surface_Access_t renames CreateRGBSurfacefrom;
+  pragma Inline (CreateRGBSurfacefrom);
 
   -- Convert a surface to the display format
-  function displayformat (surf : surface_access_t) return surface_access_t;
-  function display_format (surf : surface_access_t) return surface_access_t renames displayformat;
-  pragma import (c, displayformat, "SDL_DisplayFormat");
+  function DisplayFormat (Surface : Surface_Access_t) return Surface_Access_t;
+  function Display_Format (Surface : Surface_Access_t) return Surface_Access_t renames DisplayFormat;
+  pragma Import (C, DisplayFormat, "SDL_DisplayFormat");
 
   -- Convert a surface to the display format
-  function displayformatalpha (surf : surface_access_t) return surface_access_t;
-  function display_format_alpha (surf : surface_access_t) return surface_access_t renames displayformatalpha;
-  pragma import (c, displayformatalpha, "SDL_DisplayFormatAlpha");
+  function DisplayFormatalpha (Surface : Surface_Access_t) return Surface_Access_t;
+  function Display_Format_Alpha (Surface : Surface_Access_t) return Surface_Access_t renames DisplayFormatalpha;
+  pragma Import (C, DisplayFormatalpha, "SDL_DisplayFormatAlpha");
 
   -- This function performs a fast fill of the given rectangle with color.
-  function fillrect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) return c.int;
+  function FillRect
+   (Dst   : Surface_Access_t;
+    R     : Rect_Access_t;
+    Color : Uint32_t)
+    return  C.int;
 
-  procedure fillrect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t);
+  procedure FillRect (Dst : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t);
 
-  procedure fillrect
-   (dst   : surface_access_t;
-    r     : in out rect_t;
-    color : uint32_t);
+  procedure FillRect (Dst : Surface_Access_t; R : in out Rect_t; Color : Uint32_t);
 
-  function fill_rect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) return c.int renames fillrect;
+  function Fill_Rect
+   (Dst   : Surface_Access_t;
+    R     : Rect_Access_t;
+    Color : Uint32_t)
+    return  C.int renames FillRect;
 
-  procedure fill_rect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) renames fillrect;
+  procedure Fill_Rect (Dst : Surface_Access_t; R : Rect_Access_t; Color : Uint32_t) renames FillRect;
 
-  procedure fill_rect
-   (dst   : surface_access_t;
-    r     : in out rect_t;
-    color : uint32_t) renames fillrect;
-  pragma import (c, fillrect, "SDL_FillRect");
+  procedure Fill_Rect (Dst : Surface_Access_t; R : in out Rect_t; Color : Uint32_t) renames FillRect;
+  pragma Import (C, FillRect, "SDL_FillRect");
 
-  function fillrect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) return boolean;
+  function FillRect
+   (Dst   : Surface_Access_t;
+    R     : Rect_Access_t;
+    Color : Uint32_t)
+    return  Boolean;
 
-  function fill_rect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) return boolean renames fillrect;
-  pragma inline (fillrect);
+  function Fill_Rect
+   (Dst   : Surface_Access_t;
+    R     : Rect_Access_t;
+    Color : Uint32_t)
+    return  Boolean renames FillRect;
+  pragma Inline (FillRect);
 
   -- Swaps screen buffers
-  function flip (surf : surface_access_t) return c.int;
-  procedure flip (surf : surface_access_t);
-  pragma import (c, flip, "SDL_Flip");
+  function Flip (Surface : Surface_Access_t) return C.int;
+  procedure Flip (Surface : Surface_Access_t);
+  pragma Import (C, Flip, "SDL_Flip");
 
-  function flip (surf : surface_access_t) return boolean;
-  pragma inline (flip);
+  function Flip (Surface : Surface_Access_t) return Boolean;
+  pragma Inline (Flip);
 
   -- Frees (deletes) a SDL_Surface
-  procedure freesurface (surf : surface_access_t);
-  procedure free_surface (surf : surface_access_t) renames freesurface;
-  pragma import (c, freesurface, "SDL_FreeSurface");
+  procedure FreeSurface (Surface : Surface_Access_t);
+  procedure Free_Surface (Surface : Surface_Access_t) renames FreeSurface;
+  pragma Import (C, FreeSurface, "SDL_FreeSurface");
 
   -- Gets the clipping rectangle for a surface.
-  procedure getcliprect
-   (surf   : surface_access_t;
-    rect_t : rect_access_t);
+  procedure GetClipRect (Surface : Surface_Access_t; Rect_t : Rect_Access_t);
 
-  procedure get_clip_rect
-   (surf   : surface_access_t;
-    rect_t : rect_access_t) renames getcliprect;
-  pragma import (c, getcliprect, "SDL_GetClipRect");
+  procedure Get_Clip_Rect (Surface : Surface_Access_t; Rect_t : Rect_Access_t) renames GetClipRect;
+  pragma Import (C, GetClipRect, "SDL_GetClipRect");
 
-  -- Gets the color gamma lookup tables for the display
-  function getgammaramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return c.int;
+  -- Gets the color gamma loOKup tables for the display
+  function GetGammaRamp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  C.int;
 
-  function get_gamma_ramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return c.int renames getgammaramp;
-  pragma import (c, getgammaramp, "SDL_GetGammaRamp");
+  function Get_Gamma_Ramp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  C.int renames GetGammaRamp;
+  pragma Import (C, GetGammaRamp, "SDL_GetGammaRamp");
 
-  function getgammaramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return boolean;
+  function GetGammaRamp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  Boolean;
 
-  function get_gamma_ramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return boolean renames getgammaramp;
-  pragma inline (getgammaramp);
+  function Get_Gamma_Ramp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  Boolean renames GetGammaRamp;
+  pragma Inline (GetGammaRamp);
 
   -- Gets RGB values from a pixel in the specified pixel format.
-  procedure getrgb
-   (pixel : uint32_t;
-    fmt   : pixel_format_access_t;
-    r     : uint8_ptr_t;
-    g     : uint8_ptr_t;
-    b     : uint8_ptr_t);
+  procedure GetRGB
+   (Pixel : Uint32_t;
+    Fmt   : Pixel_Format_Access_t;
+    R     : Uint8_Ptr_t;
+    G     : Uint8_Ptr_t;
+    B     : Uint8_Ptr_t);
 
-  procedure get_rgb
-   (pixel : uint32_t;
-    fmt   : pixel_format_access_t;
-    r     : uint8_ptr_t;
-    g     : uint8_ptr_t;
-    b     : uint8_ptr_t) renames getrgb;
-  pragma import (c, getrgb, "SDL_GetRGB");
+  procedure Get_Rgb
+   (Pixel : Uint32_t;
+    Fmt   : Pixel_Format_Access_t;
+    R     : Uint8_Ptr_t;
+    G     : Uint8_Ptr_t;
+    B     : Uint8_Ptr_t) renames GetRGB;
+  pragma Import (C, GetRGB, "SDL_GetRGB");
 
   -- Gets RGBA values from a pixel in the specified pixel format.
-  procedure getrgba
-   (pixel : uint32_t;
-    fmt   : pixel_format_access_t;
-    r     : uint8_ptr_t;
-    g     : uint8_ptr_t;
-    b     : uint8_ptr_t;
-    a     : uint8_ptr_t);
+  procedure GetRGBA
+   (Pixel : Uint32_t;
+    Fmt   : Pixel_Format_Access_t;
+    R     : Uint8_Ptr_t;
+    G     : Uint8_Ptr_t;
+    B     : Uint8_Ptr_t;
+    A     : Uint8_Ptr_t);
 
-  procedure get_rgba
-   (pixel : uint32_t;
-    fmt   : pixel_format_access_t;
-    r     : uint8_ptr_t;
-    g     : uint8_ptr_t;
-    b     : uint8_ptr_t;
-    a     : uint8_ptr_t) renames getrgba;
-  pragma import (c, getrgba, "SDL_GetRGBA");
+  procedure Get_Rgba
+   (Pixel : Uint32_t;
+    Fmt   : Pixel_Format_Access_t;
+    R     : Uint8_Ptr_t;
+    G     : Uint8_Ptr_t;
+    B     : Uint8_Ptr_t;
+    A     : Uint8_Ptr_t) renames GetRGBA;
+  pragma Import (C, GetRGBA, "SDL_GetRGBA");
 
   -- return s a pointer to information about the video hardware
-  function getvideoinfo return video_info_access_t;
-  function get_video_info return video_info_access_t renames getvideoinfo;
-  pragma import (c, getvideoinfo, "SDL_GetVideoInfo");
+  function GetVideoInfo return Video_Info_Access_t;
+  function Get_Video_Info return Video_Info_Access_t renames GetVideoInfo;
+  pragma Import (C, GetVideoInfo, "SDL_GetVideoInfo");
 
   -- return s a pointer to the current display surface
-  function getvideosurface return surface_access_t;
-  function get_video_surface return surface_access_t renames getvideosurface;
-  pragma import (c, getvideosurface, "SDL_GetVideoSurface");
+  function GetVideoSurface return Surface_Access_t;
+  function Get_Video_Surface return Surface_Access_t renames GetVideoSurface;
+  pragma Import (C, GetVideoSurface, "SDL_GetVideoSurface");
 
   -- return s a pointer to an array of available screen dimensions for the given
   -- format and video flags.
-  function listmodes
-   (fmt   : access pixel_format_t;
-    flags : uint32_t) return access rect_access_t;
-  function list_modes
-   (fmt   : access pixel_format_t;
-    flags : uint32_t) return access rect_access_t renames listmodes;
-  pragma import (c, listmodes, "SDL_ListModes");
+  function ListModes (Fmt : access Pixel_Format_t; Flags : Uint32_t) return access Rect_Access_t;
+  function List_Modes (Fmt : access Pixel_Format_t; Flags : Uint32_t) return access Rect_Access_t renames ListModes;
+  pragma Import (C, ListModes, "SDL_ListModes");
 
   -- Locks a surface for direct access.
-  function locksurface (surf : surface_access_t) return c.int;
-  function lock_surface (surf : surface_access_t) return c.int renames locksurface;
-  pragma import (c, locksurface, "SDL_LockSurface");
+  function LockSurface (Surface : Surface_Access_t) return C.int;
+  function Lock_Surface (Surface : Surface_Access_t) return C.int renames LockSurface;
+  pragma Import (C, LockSurface, "SDL_LockSurface");
 
-  function locksurface (surf : surface_access_t) return boolean;
-  function lock_surface (surf : surface_access_t) return boolean renames locksurface;
-  pragma inline (locksurface);
+  function LockSurface (Surface : Surface_Access_t) return Boolean;
+  function Lock_Surface (Surface : Surface_Access_t) return Boolean renames LockSurface;
+  pragma Inline (LockSurface);
 
   -- Maps a RGB color value to a pixel format.
-  function maprgb
-   (fmt : pixel_format_access_t;
-    r   : uint8_t;
-    g   : uint8_t;
-    b   : uint8_t) return uint32_t;
+  function Maprgb
+   (Fmt  : Pixel_Format_Access_t;
+    R    : Uint8_t;
+    G    : Uint8_t;
+    B    : Uint8_t)
+    return Uint32_t;
 
-  function map_rgb
-   (fmt : pixel_format_access_t;
-    r   : uint8_t;
-    g   : uint8_t;
-    b   : uint8_t) return uint32_t renames maprgb;
-  pragma import (c, maprgb, "SDL_MapRGB");
+  function Map_Rgb
+   (Fmt  : Pixel_Format_Access_t;
+    R    : Uint8_t;
+    G    : Uint8_t;
+    B    : Uint8_t)
+    return Uint32_t renames Maprgb;
+  pragma Import (C, Maprgb, "SDL_MapRGB");
 
   -- Maps a RGBA color value to a pixel format.
-  function maprgba
-   (fmt : pixel_format_access_t;
-    r   : uint8_t;
-    g   : uint8_t;
-    b   : uint8_t;
-    a   : uint8_t) return uint32_t;
-  function map_rgba
-   (fmt : pixel_format_access_t;
-    r   : uint8_t;
-    g   : uint8_t;
-    b   : uint8_t;
-    a   : uint8_t) return uint32_t renames maprgba;
-  pragma import (c, maprgba, "SDL_MapRGBA");
+  function Maprgba
+   (Fmt  : Pixel_Format_Access_t;
+    R    : Uint8_t;
+    G    : Uint8_t;
+    B    : Uint8_t;
+    A    : Uint8_t)
+    return Uint32_t;
+  function Map_Rgba
+   (Fmt  : Pixel_Format_Access_t;
+    R    : Uint8_t;
+    G    : Uint8_t;
+    B    : Uint8_t;
+    A    : Uint8_t)
+    return Uint32_t renames Maprgba;
+  pragma Import (C, Maprgba, "SDL_MapRGBA");
 
   -- Adjusts the alpha properties of a surface.
-  function setalpha
-   (surf  : surface_access_t;
-    flags : uint32_t;
-    alpha : uint8_t) return c.int;
+  function Setalpha
+   (Surface  : Surface_Access_t;
+    Flags : Uint32_t;
+    Alpha : Uint8_t)
+    return  C.int;
 
-  function set_alpha
-   (surf  : surface_access_t;
-    flags : uint32_t;
-    alpha : uint8_t) return c.int renames setalpha;
-  pragma import (c, setalpha, "SDL_SetAlpha");
+  function Set_Alpha
+   (Surface  : Surface_Access_t;
+    Flags : Uint32_t;
+    Alpha : Uint8_t)
+    return  C.int renames Setalpha;
+  pragma Import (C, Setalpha, "SDL_SetAlpha");
 
-  function setalpha
-   (surf  : surface_access_t;
-    flags : uint32_t;
-    alpha : uint8_t) return boolean;
+  function Setalpha
+   (Surface  : Surface_Access_t;
+    Flags : Uint32_t;
+    Alpha : Uint8_t)
+    return  Boolean;
 
-  function set_alpha
-   (surf  : surface_access_t;
-    flags : uint32_t;
-    alpha : uint8_t) return boolean renames setalpha;
-  pragma inline (setalpha);
+  function Set_Alpha
+   (Surface  : Surface_Access_t;
+    Flags : Uint32_t;
+    Alpha : Uint8_t)
+    return  Boolean renames Setalpha;
+  pragma Inline (Setalpha);
 
   -- Sets the clipping rectangle for a surface.
-  procedure setcliprect
-   (surf : surface_access_t;
-    r    : access rect_t);
+  procedure Setcliprect (Surface : Surface_Access_t; R : access Rect_t);
 
-  procedure set_clip_rect
-   (surf : surface_access_t;
-    r    : access rect_t) renames setcliprect;
-  pragma import (c, setcliprect, "SDL_SetClipRect");
+  procedure Set_Clip_Rect (Surface : Surface_Access_t; R : access Rect_t) renames Setcliprect;
+  pragma Import (C, Setcliprect, "SDL_SetClipRect");
 
   -- Sets the color key (transparent pixel) in a blittable surface
   -- and RLE acceleration.
-  function setcolorkey
-   (surf : surface_access_t;
-    flag : uint32_t;
-    key  : uint32_t) return c.int;
+  function Setcolorkey
+   (Surface : Surface_Access_t;
+    Flag : Uint32_t;
+    Key  : Uint32_t)
+    return C.int;
 
-  function set_color_key
-   (surf : surface_access_t;
-    flag : uint32_t;
-    key  : uint32_t) return c.int renames setcolorkey;
-  pragma import (c, setcolorkey, "SDL_SetColorKey");
+  function Set_Color_Key
+   (Surface : Surface_Access_t;
+    Flag : Uint32_t;
+    Key  : Uint32_t)
+    return C.int renames Setcolorkey;
+  pragma Import (C, Setcolorkey, "SDL_SetColorKey");
 
-  function setcolorkey
-   (surf : surface_access_t;
-    flag : uint32_t;
-    key  : uint32_t) return boolean;
+  function Setcolorkey
+   (Surface : Surface_Access_t;
+    Flag : Uint32_t;
+    Key  : Uint32_t)
+    return Boolean;
 
-  function set_color_key
-   (surf : surface_access_t;
-    flag : uint32_t;
-    key  : uint32_t)
-    return boolean renames setcolorkey;
-  pragma inline (setcolorkey);
+  function Set_Color_Key
+   (Surface : Surface_Access_t;
+    Flag : Uint32_t;
+    Key  : Uint32_t)
+    return Boolean renames Setcolorkey;
+  pragma Inline (Setcolorkey);
 
   -- Sets a portion of the colormap for the given 8-bit surface.
-  function setcolors
-   (surf    : surface_access_t;
-    colors  : color_access_t;
-    color1  : c.int;
-    ncolors : c.int) return c.int;
+  function Setcolors
+   (Surface    : Surface_Access_t;
+    Colors  : Color_Access_t;
+    Color1  : C.int;
+    Ncolors : C.int)
+    return    C.int;
 
-  function set_colors
-   (surf    : surface_access_t;
-    colors  : color_access_t;
-    color1  : c.int;
-    ncolors : c.int) return c.int renames setcolors;
-  pragma import (c, setcolors, "SDL_SetColors");
+  function Set_Colors
+   (Surface    : Surface_Access_t;
+    Colors  : Color_Access_t;
+    Color1  : C.int;
+    Ncolors : C.int)
+    return    C.int renames Setcolors;
+  pragma Import (C, Setcolors, "SDL_SetColors");
 
-  function setcolors
-   (surf        : surface_access_t;
-    colors      : color_array_t;
-    first_color : natural;
-    num_colors  : natural) return boolean;
+  function Setcolors
+   (Surface        : Surface_Access_t;
+    Colors      : Color_Array_t;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean;
 
-  function set_colors
-   (surf        : surface_access_t;
-    colors      : color_array_t;
-    first_color : natural;
-    num_colors  : natural) return boolean renames setcolors;
-  pragma inline (setcolors);
+  function Set_Colors
+   (Surface        : Surface_Access_t;
+    Colors      : Color_Array_t;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean renames Setcolors;
+  pragma Inline (Setcolors);
 
   -- Sets the color gamma function for the display
-  function setgamma
-   (red   : c.c_float;
-    green : c.c_float;
-    blue  : c.c_float) return c.int;
+  function Setgamma
+   (Red   : C.C_float;
+    Green : C.C_float;
+    Blue  : C.C_float)
+    return  C.int;
 
-  function set_gamma
-   (red   : c.c_float;
-    green : c.c_float;
-    blue  : c.c_float) return c.int renames setgamma;
-  pragma import (c, setgamma, "SDL_SetGamma");
+  function Set_Gamma
+   (Red   : C.C_float;
+    Green : C.C_float;
+    Blue  : C.C_float)
+    return  C.int renames Setgamma;
+  pragma Import (C, Setgamma, "SDL_SetGamma");
 
-  function setgamma
-    (red   : float;
-     green : float;
-     blue  : float) return boolean;
+  function Setgamma
+   (Red   : Float;
+    Green : Float;
+    Blue  : Float)
+    return  Boolean;
 
-  function set_gamma
-   (red   : float;
-    green : float;
-    blue  : float) return boolean renames setgamma;
-  pragma inline (setgamma);
+  function Set_Gamma
+   (Red   : Float;
+    Green : Float;
+    Blue  : Float)
+    return  Boolean renames Setgamma;
+  pragma Inline (Setgamma);
 
-  -- Sets the color gamma lookup tables for the display.
-  function setgammaramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return c.int;
+  -- Sets the color gamma loOKup tables for the display.
+  function Setgammaramp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  C.int;
 
-  function set_gamma_ramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return c.int renames setgammaramp;
-  pragma import (c, setgammaramp, "SDL_SetGammaRamp");
+  function Set_Gamma_Ramp
+   (Red   : Uint16_Ptr_t;
+    Green : Uint16_Ptr_t;
+    Blue  : Uint16_Ptr_t)
+    return  C.int renames Setgammaramp;
+  pragma Import (C, Setgammaramp, "SDL_SetGammaRamp");
 
-  function setgammaramp
-   (red   : gamma_table_t;
-    green : gamma_table_t;
-    blue  : gamma_table_t) return boolean;
+  function Setgammaramp
+   (Red   : Gamma_Table_t;
+    Green : Gamma_Table_t;
+    Blue  : Gamma_Table_t)
+    return  Boolean;
 
-  function set_gamma_ramp
-   (red   : gamma_table_t;
-    green : gamma_table_t;
-    blue  : gamma_table_t) return boolean renames setgammaramp;
-  pragma inline (setgammaramp);
+  function Set_Gamma_Ramp
+   (Red   : Gamma_Table_t;
+    Green : Gamma_Table_t;
+    Blue  : Gamma_Table_t)
+    return  Boolean renames Setgammaramp;
+  pragma Inline (Setgammaramp);
 
   -- Sets the colors in the palette of an 8-bit surface.
-  function setpalette
-   (surf    : surface_access_t;
-    flags   : c.int;
-    colors  : color_access_t;
-    color1  : c.int;
-    ncolors : c.int) return c.int;
+  function Setpalette
+   (Surface    : Surface_Access_t;
+    Flags   : C.int;
+    Colors  : Color_Access_t;
+    Color1  : C.int;
+    Ncolors : C.int)
+    return    C.int;
 
-  function set_palette
-   (surf    : surface_access_t;
-    flags   : c.int;
-    colors  : color_access_t;
-    color1  : c.int;
-    ncolors : c.int) return c.int renames setpalette;
-  pragma import (c, setpalette, "SDL_SetPalette");
+  function Set_Palette
+   (Surface    : Surface_Access_t;
+    Flags   : C.int;
+    Colors  : Color_Access_t;
+    Color1  : C.int;
+    Ncolors : C.int)
+    return    C.int renames Setpalette;
+  pragma Import (C, Setpalette, "SDL_SetPalette");
 
-  function setpalette
-   (surf        : surface_access_t;
-    flags       : c.int;
-    colors      : color_array_t;
-    first_color : natural;
-    num_colors  : natural) return boolean;
+  function Setpalette
+   (Surface        : Surface_Access_t;
+    Flags       : C.int;
+    Colors      : Color_Array_t;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean;
 
-  function set_palette
-   (surf        : surface_access_t;
-    flags       : c.int;
-    colors      : color_array_t;
-    first_color : natural;
-     num_colors : natural) return boolean renames setpalette;
-  pragma inline (setpalette);
+  function Set_Palette
+   (Surface        : Surface_Access_t;
+    Flags       : C.int;
+    Colors      : Color_Array_t;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean renames Setpalette;
+  pragma Inline (Setpalette);
 
   -- Sets up a video mode with the specified width, height and bits-per-pixel.
-  function setvideomode
-   (width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    flags  : surface_flags_t) return surface_access_t;
+  function Setvideomode
+   (Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Flags  : Surface_Flags_t)
+    return   Surface_Access_t;
 
-  function set_video_mode
-   (width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    flags  : surface_flags_t) return surface_access_t renames setvideomode;
-  pragma import (c, setvideomode, "SDL_SetVideoMode");
+  function Set_Video_Mode
+   (Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Flags  : Surface_Flags_t)
+    return   Surface_Access_t renames Setvideomode;
+  pragma Import (C, Setvideomode, "SDL_SetVideoMode");
 
-  function setvideomode
-   (width  : positive;
-    height : positive;
-    bpp    : natural;
-    flags  : surface_flags_t) return surface_access_t;
+  function Setvideomode
+   (Width  : Positive;
+    Height : Positive;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_t)
+    return   Surface_Access_t;
 
-  function set_video_mode
-   (width  : positive;
-    height : positive;
-    bpp    : natural;
-    flags  : surface_flags_t)
-    return surface_access_t renames setvideomode;
+  function Set_Video_Mode
+   (Width  : Positive;
+    Height : Positive;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_t)
+    return   Surface_Access_t renames Setvideomode;
 
   -- Unlocks a previously locked surface.
-  procedure unlocksurface (surf : surface_access_t);
-  procedure unlock_surface (surf : surface_access_t) renames unlocksurface;
-  pragma import (c, unlocksurface, "SDL_UnlockSurface");
+  procedure UnLockSurface (Surface : Surface_Access_t);
+  procedure Unlock_Surface (Surface : Surface_Access_t) renames UnLockSurface;
+  pragma Import (C, UnLockSurface, "SDL_UnLockSurface");
 
   -- Makes sure the given area is updated on the given screen.
-  procedure updaterect
-   (surf : surface_access_t;
-    x    : int32_t;
-    y    : int32_t;
-    w    : int32_t;
-    h    : int32_t);
+  procedure UpdateRect
+   (Surface : Surface_Access_t;
+    X    : Int32_t;
+    Y    : Int32_t;
+    W    : Int32_t;
+    H    : Int32_t);
 
-  procedure update_rect
-   (surf : surface_access_t;
-    x    : int32_t;
-    y    : int32_t;
-    w    : int32_t;
-    h    : int32_t) renames updaterect;
-  pragma import (c, updaterect, "SDL_UpdateRect");
+  procedure Update_Rect
+   (Surface : Surface_Access_t;
+    X    : Int32_t;
+    Y    : Int32_t;
+    W    : Int32_t;
+    H    : Int32_t) renames UpdateRect;
+  pragma Import (C, UpdateRect, "SDL_UpdateRect");
 
   -- Makes sure the given list of rectangles is updated on the given screen.
-  procedure updaterects
-   (surf  : surface_access_t;
-    rects : rect_array_t);
+  procedure UpdateRects (Surface : Surface_Access_t; Rects : Rect_Array_t);
 
-  procedure update_rects
-   (surf  : surface_access_t;
-    rects : rect_array_t) renames updaterects;
-  pragma inline (updaterects);
+  procedure Update_Rects (Surface : Surface_Access_t; Rects : Rect_Array_t) renames UpdateRects;
+  pragma Inline (UpdateRects);
 
   -- Checks to see if a particular video mode is supported.
-  function videomodeok
-   (width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    flags  : uint32_t) return c.int;
+  function VideoModeOK
+   (Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Flags  : Uint32_t)
+    return   C.int;
 
-  function video_mode_ok
-   (width  : c.int;
-    height : c.int;
-    bpp    : c.int;
-    flags  : uint32_t) return c.int renames videomodeok;
-  pragma import (c, videomodeok, "SDL_VideoModeOK");
+  function Video_Mode_OK
+   (Width  : C.int;
+    Height : C.int;
+    Bpp    : C.int;
+    Flags  : Uint32_t)
+    return   C.int renames VideoModeOK;
+  pragma Import (C, VideoModeOK, "SDL_VideoModeOK");
 
-  function videomodeok
-   (width  : natural;
-    height : natural;
-    bpp    : natural;
-    flags  : surface_flags_t) return boolean;
+  function VideoModeOK
+   (Width  : Natural;
+    Height : Natural;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_t)
+    return   Boolean;
 
-  function video_mode_ok
-   (width  : natural;
-    height : natural;
-    bpp    : natural;
-    flags  : surface_flags_t) return boolean renames videomodeok;
-  pragma inline (videomodeok);
+  function Video_Mode_OK
+   (Width  : Natural;
+    Height : Natural;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_t)
+    return   Boolean renames VideoModeOK;
+  pragma Inline (VideoModeOK);
 
   -- Evaluates to true if the surface needs to be locked before access
-  function mustlock (surf : surface_access_t) return boolean;
-  pragma inline (mustlock);
+  function MustLock (Surface : Surface_Access_t) return Boolean;
+  pragma Inline (MustLock);
 
-end sdl.video;
+end SDL.Video;

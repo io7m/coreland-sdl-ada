@@ -1,177 +1,177 @@
 -- auto generated, do not edit
 
-with ada.text_io;
-with ada.command_line;
+with Ada.Text_IO;
+with Ada.Command_Line;
 
 with SDL;
-with sdl.audio;
-with sdl.error;
-with sdl.events;
-with sdl.joystick;
-with sdl.keyboard;
-with sdl.keysym;
-with sdl.mouse;
-with sdl.rwops;
-with sdl.timer;
-with sdl.video;
+with SDL.Audio;
+with SDL.Error;
+with SDL.Events;
+with SDL.Joystick;
+with SDL.Keyboard;
+with SDL.Keysym;
+with SDL.Mouse;
+with SDL.RWops;
+with SDL.Timer;
+with SDL.Video;
 
-procedure ada_size is
-  package io renames ada.text_io;
-  package cmdline renames ada.command_line;
+procedure Ada_Size is
+  package IO renames Ada.Text_IO;
+  package Command_Line renames Ada.Command_Line;
 
   -- generic types
-  -- type generic_t is new integer;
+  -- type generic_t is new Integer;
   -- type generic_access_t is access all generic_t;
 
   -- package instantiations
 
   -- type names
-  sdl_audio_cvt_access_t : aliased string := "sdl.audio.cvt_access_t";
-  sdl_audio_cvt_t : aliased string := "sdl.audio.cvt_t";
-  sdl_audio_spec_access_t : aliased string := "sdl.audio.spec_access_t";
-  sdl_audio_spec_t : aliased string := "sdl.audio.spec_t";
-  sdl_audio_status_t : aliased string := "sdl.audio.status_t";
-  sdl_error_code_t : aliased string := "sdl.error.code_t";
-  sdl_events_action_t : aliased string := "sdl.events.action_t";
-  sdl_events_active_event_access_t : aliased string := "sdl.events.active_event_access_t";
-  sdl_events_active_event_t : aliased string := "sdl.events.active_event_t";
-  sdl_events_event_access_t : aliased string := "sdl.events.event_access_t";
-  sdl_events_event_t : aliased string := "sdl.events.event_t";
-  sdl_events_filter_t : aliased string := "sdl.events.filter_t";
-  sdl_events_joy_axis_event_access_t : aliased string := "sdl.events.joy_axis_event_access_t";
-  sdl_events_joy_axis_event_t : aliased string := "sdl.events.joy_axis_event_t";
-  sdl_events_joy_ball_event_access_t : aliased string := "sdl.events.joy_ball_event_access_t";
-  sdl_events_joy_ball_event_t : aliased string := "sdl.events.joy_ball_event_t";
-  sdl_events_joy_button_event_access_t : aliased string := "sdl.events.joy_button_event_access_t";
-  sdl_events_joy_button_event_t : aliased string := "sdl.events.joy_button_event_t";
-  sdl_events_joy_hat_event_access_t : aliased string := "sdl.events.joy_hat_event_access_t";
-  sdl_events_joy_hat_event_t : aliased string := "sdl.events.joy_hat_event_t";
-  sdl_events_keyboard_event_access_t : aliased string := "sdl.events.keyboard_event_access_t";
-  sdl_events_keyboard_event_t : aliased string := "sdl.events.keyboard_event_t";
-  sdl_events_mask_t : aliased string := "sdl.events.mask_t";
-  sdl_events_mouse_button_event_access_t : aliased string := "sdl.events.mouse_button_event_access_t";
-  sdl_events_mouse_button_event_t : aliased string := "sdl.events.mouse_button_event_t";
-  sdl_events_mouse_motion_event_access_t : aliased string := "sdl.events.mouse_motion_event_access_t";
-  sdl_events_mouse_motion_event_t : aliased string := "sdl.events.mouse_motion_event_t";
-  sdl_events_quit_event_access_t : aliased string := "sdl.events.quit_event_access_t";
-  sdl_events_quit_event_t : aliased string := "sdl.events.quit_event_t";
-  sdl_events_resize_event_access_t : aliased string := "sdl.events.resize_event_access_t";
-  sdl_events_resize_event_t : aliased string := "sdl.events.resize_event_t";
-  sdl_events_sys_wm_event_access_t : aliased string := "sdl.events.sys_wm_event_access_t";
-  sdl_events_sys_wm_event_t : aliased string := "sdl.events.sys_wm_event_t";
-  sdl_events_sys_wm_msg_access_t : aliased string := "sdl.events.sys_wm_msg_access_t";
-  sdl_events_type_t : aliased string := "sdl.events.type_t";
-  sdl_events_user_event_access_t : aliased string := "sdl.events.user_event_access_t";
-  sdl_events_user_event_t : aliased string := "sdl.events.user_event_t";
-  sdl_joystick_joystick_access_t : aliased string := "sdl.joystick.joystick_access_t";
-  sdl_keyboard_keysym_const_access_t : aliased string := "sdl.keyboard.keysym_const_access_t";
-  sdl_keyboard_keysym_access_t : aliased string := "sdl.keyboard.keysym_access_t";
-  sdl_keyboard_keysym_t : aliased string := "sdl.keyboard.keysym_t";
-  sdl_keysym_key_t : aliased string := "sdl.keysym.key_t";
-  sdl_keysym_modkey_t : aliased string := "sdl.keysym.modkey_t";
-  sdl_mouse_cursor_access_t : aliased string := "sdl.mouse.cursor_access_t";
-  sdl_mouse_cursor_t : aliased string := "sdl.mouse.cursor_t";
-  sdl_rwops_rwops_t : aliased string := "sdl.rwops.rwops_t";
-  sdl_timer_add_timer_callback_t : aliased string := "sdl.timer.add_timer_callback_t";
-  sdl_timer_id_t : aliased string := "sdl.timer.id_t";
-  sdl_timer_set_timer_callback_t : aliased string := "sdl.timer.set_timer_callback_t";
-  sdl_video_color_access_t : aliased string := "sdl.video.color_access_t";
-  sdl_video_color_t : aliased string := "sdl.video.color_t";
-  sdl_video_palette_access_t : aliased string := "sdl.video.palette_access_t";
-  sdl_video_palette_t : aliased string := "sdl.video.palette_t";
-  sdl_video_pixel_format_access_t : aliased string := "sdl.video.pixel_format_access_t";
-  sdl_video_pixel_format_t : aliased string := "sdl.video.pixel_format_t";
-  sdl_video_rect_access_t : aliased string := "sdl.video.rect_access_t";
-  sdl_video_rect_t : aliased string := "sdl.video.rect_t";
-  sdl_video_surface_access_t : aliased string := "sdl.video.surface_access_t";
-  sdl_video_surface_t : aliased string := "sdl.video.surface_t";
-  sdl_video_video_info_access_t : aliased string := "sdl.video.video_info_access_t";
-  sdl_video_video_info_t : aliased string := "sdl.video.video_info_t";
+  SDL_Audio_CVT_Access_t : aliased String := "SDL.Audio.CVT_Access_t";
+  SDL_Audio_CVT_t : aliased String := "SDL.Audio.CVT_t";
+  SDL_Audio_Spec_Access_t : aliased String := "SDL.Audio.Spec_Access_t";
+  SDL_Audio_Spec_t : aliased String := "SDL.Audio.Spec_t";
+  SDL_Audio_Status_t : aliased String := "SDL.Audio.Status_t";
+  SDL_Error_Code_t : aliased String := "SDL.Error.Code_t";
+  SDL_Events_Action_t : aliased String := "SDL.Events.Action_t";
+  SDL_Events_Active_Event_Access_t : aliased String := "SDL.Events.Active_Event_Access_t";
+  SDL_Events_Active_Event_t : aliased String := "SDL.Events.Active_Event_t";
+  SDL_Events_Event_Access_t : aliased String := "SDL.Events.Event_Access_t";
+  SDL_Events_Event_t : aliased String := "SDL.Events.Event_t";
+  SDL_Events_Filter_t : aliased String := "SDL.Events.Filter_t";
+  SDL_Events_Joy_Axis_Event_Access_t : aliased String := "SDL.Events.Joy_Axis_Event_Access_t";
+  SDL_Events_Joy_Axis_Event_t : aliased String := "SDL.Events.Joy_Axis_Event_t";
+  SDL_Events_Joy_Ball_Event_Access_t : aliased String := "SDL.Events.Joy_Ball_Event_Access_t";
+  SDL_Events_Joy_Ball_Event_t : aliased String := "SDL.Events.Joy_Ball_Event_t";
+  SDL_Events_Joy_Button_Event_Access_t : aliased String := "SDL.Events.Joy_Button_Event_Access_t";
+  SDL_Events_Joy_Button_Event_t : aliased String := "SDL.Events.Joy_Button_Event_t";
+  SDL_Events_Joy_Hat_Event_Access_t : aliased String := "SDL.Events.Joy_Hat_Event_Access_t";
+  SDL_Events_Joy_Hat_Event_t : aliased String := "SDL.Events.Joy_Hat_Event_t";
+  SDL_Events_Keyboard_Event_Access_t : aliased String := "SDL.Events.Keyboard_Event_Access_t";
+  SDL_Events_Keyboard_Event_t : aliased String := "SDL.Events.Keyboard_Event_t";
+  SDL_Events_Mask_t : aliased String := "SDL.Events.Mask_t";
+  SDL_Events_Mouse_Button_Event_Access_t : aliased String := "SDL.Events.Mouse_Button_Event_Access_t";
+  SDL_Events_Mouse_Button_Event_t : aliased String := "SDL.Events.Mouse_Button_Event_t";
+  SDL_Events_Mouse_Motion_Event_Access_t : aliased String := "SDL.Events.Mouse_Motion_Event_Access_t";
+  SDL_Events_Mouse_Motion_Event_t : aliased String := "SDL.Events.Mouse_Motion_Event_t";
+  SDL_Events_Quit_Event_Access_t : aliased String := "SDL.Events.Quit_Event_Access_t";
+  SDL_Events_Quit_Event_t : aliased String := "SDL.Events.Quit_Event_t";
+  SDL_Events_Resize_Event_Access_t : aliased String := "SDL.Events.Resize_Event_Access_t";
+  SDL_Events_Resize_Event_t : aliased String := "SDL.Events.Resize_Event_t";
+  SDL_Events_Sys_WM_Event_Access_t : aliased String := "SDL.Events.Sys_WM_Event_Access_t";
+  SDL_Events_Sys_WM_Event_t : aliased String := "SDL.Events.Sys_WM_Event_t";
+  SDL_Events_Sys_WM_Message_Access_t : aliased String := "SDL.Events.Sys_WM_Message_Access_t";
+  SDL_Events_Type_t : aliased String := "SDL.Events.Type_t";
+  SDL_Events_User_Event_Access_t : aliased String := "SDL.Events.User_Event_Access_t";
+  SDL_Events_User_Event_t : aliased String := "SDL.Events.User_Event_t";
+  SDL_Joystick_Joystick_Access_t : aliased String := "SDL.Joystick.Joystick_Access_t";
+  SDL_Keyboard_Keysym_Const_Access_t : aliased String := "SDL.Keyboard.Keysym_Const_Access_t";
+  SDL_Keyboard_Keysym_Access_t : aliased String := "SDL.Keyboard.Keysym_Access_t";
+  SDL_Keyboard_Keysym_t : aliased String := "SDL.Keyboard.Keysym_t";
+  SDL_Keysym_Key_t : aliased String := "SDL.Keysym.Key_t";
+  SDL_Keysym_ModKey_t : aliased String := "SDL.Keysym.ModKey_t";
+  SDL_Mouse_Cursor_Access_t : aliased String := "SDL.Mouse.Cursor_Access_t";
+  SDL_Mouse_Cursor_t : aliased String := "SDL.Mouse.Cursor_t";
+  SDL_RWops_RWops_t : aliased String := "SDL.RWops.RWops_t";
+  SDL_Timer_Add_Timer_Callback_t : aliased String := "SDL.Timer.Add_Timer_Callback_t";
+  SDL_Timer_ID_t : aliased String := "SDL.Timer.ID_t";
+  SDL_Timer_Set_Timer_Callback_t : aliased String := "SDL.Timer.Set_Timer_Callback_t";
+  SDL_Video_Color_Access_t : aliased String := "SDL.Video.Color_Access_t";
+  SDL_Video_Color_t : aliased String := "SDL.Video.Color_t";
+  SDL_Video_Palette_Access_t : aliased String := "SDL.Video.Palette_Access_t";
+  SDL_Video_Palette_t : aliased String := "SDL.Video.Palette_t";
+  SDL_Video_Pixel_Format_Access_t : aliased String := "SDL.Video.Pixel_Format_Access_t";
+  SDL_Video_Pixel_Format_t : aliased String := "SDL.Video.Pixel_Format_t";
+  SDL_Video_Rect_Access_t : aliased String := "SDL.Video.Rect_Access_t";
+  SDL_Video_Rect_t : aliased String := "SDL.Video.Rect_t";
+  SDL_Video_Surface_Access_t : aliased String := "SDL.Video.Surface_Access_t";
+  SDL_Video_Surface_t : aliased String := "SDL.Video.Surface_t";
+  SDL_Video_Video_Info_Access_t : aliased String := "SDL.Video.Video_Info_Access_t";
+  SDL_Video_Video_Info_t : aliased String := "SDL.Video.Video_Info_t";
 
-  type type_t is record
-    name : access string;
-    size : natural;
+  type Type_t is record
+    Name : access String;
+    Size : Natural;
   end record;
-  type type_lookup_t is array (natural range <>) of type_t;
+  type Type_Lookup_t is array (Natural range <>) of Type_t;
 
-  types : aliased constant type_lookup_t := (
-    (sdl_audio_cvt_access_t'access, sdl.audio.cvt_access_t'size),
-    (sdl_audio_cvt_t'access, sdl.audio.cvt_t'size),
-    (sdl_audio_spec_access_t'access, sdl.audio.spec_access_t'size),
-    (sdl_audio_spec_t'access, sdl.audio.spec_t'size),
-    (sdl_audio_status_t'access, sdl.audio.status_t'size),
-    (sdl_error_code_t'access, sdl.error.code_t'size),
-    (sdl_events_action_t'access, sdl.events.action_t'size),
-    (sdl_events_active_event_access_t'access, sdl.events.active_event_access_t'size),
-    (sdl_events_active_event_t'access, sdl.events.active_event_t'size),
-    (sdl_events_event_access_t'access, sdl.events.event_access_t'size),
-    (sdl_events_event_t'access, sdl.events.event_t'size),
-    (sdl_events_filter_t'access, sdl.events.filter_t'size),
-    (sdl_events_joy_axis_event_access_t'access, sdl.events.joy_axis_event_access_t'size),
-    (sdl_events_joy_axis_event_t'access, sdl.events.joy_axis_event_t'size),
-    (sdl_events_joy_ball_event_access_t'access, sdl.events.joy_ball_event_access_t'size),
-    (sdl_events_joy_ball_event_t'access, sdl.events.joy_ball_event_t'size),
-    (sdl_events_joy_button_event_access_t'access, sdl.events.joy_button_event_access_t'size),
-    (sdl_events_joy_button_event_t'access, sdl.events.joy_button_event_t'size),
-    (sdl_events_joy_hat_event_access_t'access, sdl.events.joy_hat_event_access_t'size),
-    (sdl_events_joy_hat_event_t'access, sdl.events.joy_hat_event_t'size),
-    (sdl_events_keyboard_event_access_t'access, sdl.events.keyboard_event_access_t'size),
-    (sdl_events_keyboard_event_t'access, sdl.events.keyboard_event_t'size),
-    (sdl_events_mask_t'access, sdl.events.mask_t'size),
-    (sdl_events_mouse_button_event_access_t'access, sdl.events.mouse_button_event_access_t'size),
-    (sdl_events_mouse_button_event_t'access, sdl.events.mouse_button_event_t'size),
-    (sdl_events_mouse_motion_event_access_t'access, sdl.events.mouse_motion_event_access_t'size),
-    (sdl_events_mouse_motion_event_t'access, sdl.events.mouse_motion_event_t'size),
-    (sdl_events_quit_event_access_t'access, sdl.events.quit_event_access_t'size),
-    (sdl_events_quit_event_t'access, sdl.events.quit_event_t'size),
-    (sdl_events_resize_event_access_t'access, sdl.events.resize_event_access_t'size),
-    (sdl_events_resize_event_t'access, sdl.events.resize_event_t'size),
-    (sdl_events_sys_wm_event_access_t'access, sdl.events.sys_wm_event_access_t'size),
-    (sdl_events_sys_wm_event_t'access, sdl.events.sys_wm_event_t'size),
-    (sdl_events_sys_wm_msg_access_t'access, sdl.events.sys_wm_msg_access_t'size),
-    (sdl_events_type_t'access, sdl.events.type_t'size),
-    (sdl_events_user_event_access_t'access, sdl.events.user_event_access_t'size),
-    (sdl_events_user_event_t'access, sdl.events.user_event_t'size),
-    (sdl_joystick_joystick_access_t'access, sdl.joystick.joystick_access_t'size),
-    (sdl_keyboard_keysym_const_access_t'access, sdl.keyboard.keysym_const_access_t'size),
-    (sdl_keyboard_keysym_access_t'access, sdl.keyboard.keysym_access_t'size),
-    (sdl_keyboard_keysym_t'access, sdl.keyboard.keysym_t'size),
-    (sdl_keysym_key_t'access, sdl.keysym.key_t'size),
-    (sdl_keysym_modkey_t'access, sdl.keysym.modkey_t'size),
-    (sdl_mouse_cursor_access_t'access, sdl.mouse.cursor_access_t'size),
-    (sdl_mouse_cursor_t'access, sdl.mouse.cursor_t'size),
-    (sdl_rwops_rwops_t'access, sdl.rwops.rwops_t'size),
-    (sdl_timer_add_timer_callback_t'access, sdl.timer.add_timer_callback_t'size),
-    (sdl_timer_id_t'access, sdl.timer.id_t'size),
-    (sdl_timer_set_timer_callback_t'access, sdl.timer.set_timer_callback_t'size),
-    (sdl_video_color_access_t'access, sdl.video.color_access_t'size),
-    (sdl_video_color_t'access, sdl.video.color_t'size),
-    (sdl_video_palette_access_t'access, sdl.video.palette_access_t'size),
-    (sdl_video_palette_t'access, sdl.video.palette_t'size),
-    (sdl_video_pixel_format_access_t'access, sdl.video.pixel_format_access_t'size),
-    (sdl_video_pixel_format_t'access, sdl.video.pixel_format_t'size),
-    (sdl_video_rect_access_t'access, sdl.video.rect_access_t'size),
-    (sdl_video_rect_t'access, sdl.video.rect_t'size),
-    (sdl_video_surface_access_t'access, sdl.video.surface_access_t'size),
-    (sdl_video_surface_t'access, sdl.video.surface_t'size),
-    (sdl_video_video_info_access_t'access, sdl.video.video_info_access_t'size),
-    (sdl_video_video_info_t'access, sdl.video.video_info_t'size)
+  Types : aliased constant Type_Lookup_t := (
+    (SDL_Audio_CVT_Access_t'Access, SDL.Audio.CVT_Access_t'Size),
+    (SDL_Audio_CVT_t'Access, SDL.Audio.CVT_t'Size),
+    (SDL_Audio_Spec_Access_t'Access, SDL.Audio.Spec_Access_t'Size),
+    (SDL_Audio_Spec_t'Access, SDL.Audio.Spec_t'Size),
+    (SDL_Audio_Status_t'Access, SDL.Audio.Status_t'Size),
+    (SDL_Error_Code_t'Access, SDL.Error.Code_t'Size),
+    (SDL_Events_Action_t'Access, SDL.Events.Action_t'Size),
+    (SDL_Events_Active_Event_Access_t'Access, SDL.Events.Active_Event_Access_t'Size),
+    (SDL_Events_Active_Event_t'Access, SDL.Events.Active_Event_t'Size),
+    (SDL_Events_Event_Access_t'Access, SDL.Events.Event_Access_t'Size),
+    (SDL_Events_Event_t'Access, SDL.Events.Event_t'Size),
+    (SDL_Events_Filter_t'Access, SDL.Events.Filter_t'Size),
+    (SDL_Events_Joy_Axis_Event_Access_t'Access, SDL.Events.Joy_Axis_Event_Access_t'Size),
+    (SDL_Events_Joy_Axis_Event_t'Access, SDL.Events.Joy_Axis_Event_t'Size),
+    (SDL_Events_Joy_Ball_Event_Access_t'Access, SDL.Events.Joy_Ball_Event_Access_t'Size),
+    (SDL_Events_Joy_Ball_Event_t'Access, SDL.Events.Joy_Ball_Event_t'Size),
+    (SDL_Events_Joy_Button_Event_Access_t'Access, SDL.Events.Joy_Button_Event_Access_t'Size),
+    (SDL_Events_Joy_Button_Event_t'Access, SDL.Events.Joy_Button_Event_t'Size),
+    (SDL_Events_Joy_Hat_Event_Access_t'Access, SDL.Events.Joy_Hat_Event_Access_t'Size),
+    (SDL_Events_Joy_Hat_Event_t'Access, SDL.Events.Joy_Hat_Event_t'Size),
+    (SDL_Events_Keyboard_Event_Access_t'Access, SDL.Events.Keyboard_Event_Access_t'Size),
+    (SDL_Events_Keyboard_Event_t'Access, SDL.Events.Keyboard_Event_t'Size),
+    (SDL_Events_Mask_t'Access, SDL.Events.Mask_t'Size),
+    (SDL_Events_Mouse_Button_Event_Access_t'Access, SDL.Events.Mouse_Button_Event_Access_t'Size),
+    (SDL_Events_Mouse_Button_Event_t'Access, SDL.Events.Mouse_Button_Event_t'Size),
+    (SDL_Events_Mouse_Motion_Event_Access_t'Access, SDL.Events.Mouse_Motion_Event_Access_t'Size),
+    (SDL_Events_Mouse_Motion_Event_t'Access, SDL.Events.Mouse_Motion_Event_t'Size),
+    (SDL_Events_Quit_Event_Access_t'Access, SDL.Events.Quit_Event_Access_t'Size),
+    (SDL_Events_Quit_Event_t'Access, SDL.Events.Quit_Event_t'Size),
+    (SDL_Events_Resize_Event_Access_t'Access, SDL.Events.Resize_Event_Access_t'Size),
+    (SDL_Events_Resize_Event_t'Access, SDL.Events.Resize_Event_t'Size),
+    (SDL_Events_Sys_WM_Event_Access_t'Access, SDL.Events.Sys_WM_Event_Access_t'Size),
+    (SDL_Events_Sys_WM_Event_t'Access, SDL.Events.Sys_WM_Event_t'Size),
+    (SDL_Events_Sys_WM_Message_Access_t'Access, SDL.Events.Sys_WM_Message_Access_t'Size),
+    (SDL_Events_Type_t'Access, SDL.Events.Type_t'Size),
+    (SDL_Events_User_Event_Access_t'Access, SDL.Events.User_Event_Access_t'Size),
+    (SDL_Events_User_Event_t'Access, SDL.Events.User_Event_t'Size),
+    (SDL_Joystick_Joystick_Access_t'Access, SDL.Joystick.Joystick_Access_t'Size),
+    (SDL_Keyboard_Keysym_Const_Access_t'Access, SDL.Keyboard.Keysym_Const_Access_t'Size),
+    (SDL_Keyboard_Keysym_Access_t'Access, SDL.Keyboard.Keysym_Access_t'Size),
+    (SDL_Keyboard_Keysym_t'Access, SDL.Keyboard.Keysym_t'Size),
+    (SDL_Keysym_Key_t'Access, SDL.Keysym.Key_t'Size),
+    (SDL_Keysym_ModKey_t'Access, SDL.Keysym.ModKey_t'Size),
+    (SDL_Mouse_Cursor_Access_t'Access, SDL.Mouse.Cursor_Access_t'Size),
+    (SDL_Mouse_Cursor_t'Access, SDL.Mouse.Cursor_t'Size),
+    (SDL_RWops_RWops_t'Access, SDL.RWops.RWops_t'Size),
+    (SDL_Timer_Add_Timer_Callback_t'Access, SDL.Timer.Add_Timer_Callback_t'Size),
+    (SDL_Timer_ID_t'Access, SDL.Timer.ID_t'Size),
+    (SDL_Timer_Set_Timer_Callback_t'Access, SDL.Timer.Set_Timer_Callback_t'Size),
+    (SDL_Video_Color_Access_t'Access, SDL.Video.Color_Access_t'Size),
+    (SDL_Video_Color_t'Access, SDL.Video.Color_t'Size),
+    (SDL_Video_Palette_Access_t'Access, SDL.Video.Palette_Access_t'Size),
+    (SDL_Video_Palette_t'Access, SDL.Video.Palette_t'Size),
+    (SDL_Video_Pixel_Format_Access_t'Access, SDL.Video.Pixel_Format_Access_t'Size),
+    (SDL_Video_Pixel_Format_t'Access, SDL.Video.Pixel_Format_t'Size),
+    (SDL_Video_Rect_Access_t'Access, SDL.Video.Rect_Access_t'Size),
+    (SDL_Video_Rect_t'Access, SDL.Video.Rect_t'Size),
+    (SDL_Video_Surface_Access_t'Access, SDL.Video.Surface_Access_t'Size),
+    (SDL_Video_Surface_t'Access, SDL.Video.Surface_t'Size),
+    (SDL_Video_Video_Info_Access_t'Access, SDL.Video.Video_Info_Access_t'Size),
+    (SDL_Video_Video_Info_t'Access, SDL.Video.Video_Info_t'Size)
   );
 
-  procedure find (name : string) is
+  procedure Find (Name : String) is
   begin
-    for index in types'range loop
-      if types (index).name.all = name then
-        io.put_line (natural'image (types (index).size));
+    for Index in Types'Range loop
+      if Types (Index).Name.all = Name then
+        IO.Put_Line (Natural'Image (Types (Index).Size));
         return;
       end if;
     end loop;
-    raise program_error with "fatal: unknown ada type";
-  end find;
+    raise Program_Error with "fatal: unknown ada type";
+  end Find;
 
 begin
-  if cmdline.argument_count /= 1 then
-    raise program_error with "fatal: incorrect number of args";
+  if Command_Line.Argument_Count /= 1 then
+    raise Program_Error with "fatal: incorrect number of args";
   end if;
-  find (cmdline.argument (1));
-end ada_size;
+  Find (Command_Line.Argument (1));
+end Ada_Size;

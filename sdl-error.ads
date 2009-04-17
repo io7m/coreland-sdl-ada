@@ -1,43 +1,43 @@
-with interfaces.C;
-with interfaces.C.strings;
+with Interfaces.C;
+with Interfaces.C.Strings;
 
-package sdl.error is
-  package c renames interfaces.C;
-  package cs renames interfaces.C.strings;
+package SDL.Error is
+  package C renames Interfaces.C;
+  package CS renames Interfaces.C.Strings;
 
-  type code_t is new c.int;
+  type Code_t is new C.int;
 
-  enomem    : constant code_t := 0;
-  efread    : constant code_t := 1;
-  efwrite   : constant code_t := 2;
-  efseek    : constant code_t := 3;
-  lasterror : constant code_t := 4;
+  ENOMEM    : constant Code_t := 0;
+  EFREAD    : constant Code_t := 1;
+  EFWRITE   : constant Code_t := 2;
+  EFSEEK    : constant Code_t := 3;
+  LastError : constant Code_t := 4;
 
   -- Gets SDL error string
-  function geterror return cs.chars_ptr;
-  function get_error return cs.chars_ptr renames geterror;
-  pragma import (c, geterror, "SDL_GetError");
+  function GetError return  CS.chars_ptr;
+  function Get_Error return  CS.chars_ptr renames GetError;
+  pragma Import (C, GetError, "SDL_GetError");
 
-  function geterror return string;
-  function get_error return string renames geterror;
-  pragma inline (geterror);
+  function GetError return String;
+  function Get_Error return String renames GetError;
+  pragma Inline (GetError);
 
   -- Sets SDL error string
-  procedure seterror (msg : cs.chars_ptr);
-  procedure set_error (msg : cs.chars_ptr) renames seterror;
-  pragma import (c, seterror, "SDL_SetError");
+  procedure SetError (Message : CS.chars_ptr);
+  procedure Set_Error (Message : CS.chars_ptr) renames SetError;
+  pragma Import (C, SetError, "SDL_SetError");
 
-  procedure seterror (msg : string);
-  procedure set_error (msg : string) renames seterror;
-  pragma inline (seterror);
+  procedure SetError (Message : String);
+  procedure Set_Error (Message : String) renames SetError;
+  pragma Inline (SetError);
 
   -- Sets the SDL error message to one of several predefined strings.
-  procedure error (code : code_t);
-  pragma import (c, error, "SDL_Error");
+  procedure Error (Code : Code_t);
+  pragma Import (C, Error, "SDL_Error");
 
   -- Clear the current SDL error
-  procedure clearerror;
-  procedure clear_error renames clearerror;
-  pragma import (c, clearerror, "SDL_ClearError");
+  procedure ClearError;
+  procedure Clear_Error renames ClearError;
+  pragma Import (C, ClearError, "SDL_ClearError");
 
-end sdl.error;
+end SDL.Error;

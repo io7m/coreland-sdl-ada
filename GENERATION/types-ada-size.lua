@@ -40,7 +40,7 @@ if not fd_gen then fatal (112, "open: " .. msg) end
 
 io.write ([[
   -- generic types
-  -- type generic_t is new integer;
+  -- type generic_t is new Integer;
   -- type generic_access_t is access all generic_t;
 
 ]])
@@ -71,19 +71,19 @@ for line in fd_map:lines () do
     names_strings [full_path] = full_string
     names_pkg     [full_path] = pkg_name
     names_type    [full_path] = base_type
-    io.write ("  "..full_string.." : aliased string := \""..full_path.."\";\n")
+    io.write ("  "..full_string.." : aliased String := \""..full_path.."\";\n")
   end
 end
 
 io.write ([[
 
-  type type_t is record
-    name : access string;
-    size : natural;
+  type Type_t is record
+    Name : access String;
+    Size : Natural;
   end record;
-  type type_lookup_t is array (natural range <>) of type_t;
+  type Type_Lookup_t is array (Natural range <>) of Type_t;
 
-  types : aliased constant type_lookup_t := (
+  Types : aliased constant Type_Lookup_t := (
 ]])
 
 for index = 1, table.maxn (names_ordered) do
@@ -93,9 +93,9 @@ for index = 1, table.maxn (names_ordered) do
 
   if generic_packages[name_pkg] then
     local gen_name = names_generic[name_pkg].."."..names_type[full_path]
-    io.write ("    ("..name_string.."'access, "..gen_name.."'size)")
+    io.write ("    ("..name_string.."'Access, "..gen_name.."'Size)")
   else
-    io.write ("    ("..name_string.."'access, "..full_path.."'size)")
+    io.write ("    ("..name_string.."'Access, "..full_path.."'Size)")
   end
 
   if not (index == table.maxn (names_ordered)) then

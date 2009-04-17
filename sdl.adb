@@ -1,23 +1,21 @@
-package body sdl is
-  use type c.int;
+package body SDL is
+  use type C.int;
 
-  function initsubsystem
-   (flags : init_flags_t) return boolean
-  is
-    ret : constant c.int := initsubsystem (flags);
+  function InitSubSystem (Flags : Init_Flags_t) return Boolean is
+    Ret : constant C.int := InitSubSystem (Flags);
   begin
-    return ret /= -1;
-  end initsubsystem;
+    return Ret /= -1;
+  end InitSubSystem;
 
-  function wasinit (flags : init_flags_t) return boolean is
-    ret : constant init_flags_t := wasinit (flags);
-    rfa : constant init_flags_t := ret and flags;
+  function WasInit (Flags : Init_Flags_t) return Boolean is
+    Ret : constant Init_Flags_t := WasInit (Flags);
+    Rfa : constant Init_Flags_t := Ret and Flags;
   begin
-    if rfa = flags then
-      return true;
+    if Rfa = Flags then
+      return True;
     else
-      return false;
+      return False;
     end if;
-  end wasinit;
+  end WasInit;
 
-end sdl;
+end SDL;

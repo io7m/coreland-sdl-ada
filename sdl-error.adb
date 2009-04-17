@@ -1,16 +1,16 @@
-package body sdl.error is
+package body SDL.Error is
 
   -- Gets SDL error string
-  function geterror return string is
+  function GetError return String is
   begin
-    return cs.value (geterror);
-  end geterror;
+    return CS.Value (GetError);
+  end GetError;
 
   -- Sets SDL error string
-  procedure seterror (msg : string) is
-    ch_array : aliased c.char_array := c.to_c (msg);
+  procedure SetError (Message : String) is
+    Ch_Array : aliased C.char_array := C.To_C (Message);
   begin
-    seterror (cs.to_chars_ptr (ch_array'unchecked_access));
-  end seterror;
+    SetError (CS.To_Chars_Ptr (Ch_Array'Unchecked_Access));
+  end SetError;
 
-end sdl.error;
+end SDL.Error;

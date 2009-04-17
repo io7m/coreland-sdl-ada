@@ -1,190 +1,184 @@
-package sdl.audio is
+package SDL.Audio is
 
   -- Callback function for filling the audio buffer.
-  type callback_t is access procedure
-   (userdata : void_ptr_t;
-    stream   : uint8_ptr_t;
-    length   : c.int);
+  type Callback_t is access procedure
+    (User_Data : Void_Ptr_t;
+     Stream    : Uint8_Ptr_t;
+     Length    : C.int);
 
   -- Audio data format.
-  type format_t is new uint16_t;
-  pragma convention (c, format_t);
+  type Format_t is new Uint16_t;
+  pragma Convention (C, Format_t);
 
-  audio_u8     : constant format_t := 16#0008#;
-  audio_s8     : constant format_t := 16#8008#;
-  audio_u16lsb : constant format_t := 16#0010#;
-  audio_s16lsb : constant format_t := 16#8010#;
-  audio_u16msb : constant format_t := 16#1010#;
-  audio_s16msb : constant format_t := 16#9010#;
-  audio_u16    : constant format_t := audio_u16lsb;
-  audio_s16    : constant format_t := audio_s16lsb;
+  Audio_U8     : constant Format_t := 16#0008#;
+  Audio_S8     : constant Format_t := 16#8008#;
+  Audio_U16LSB : constant Format_t := 16#0010#;
+  Audio_S16LSB : constant Format_t := 16#8010#;
+  Audio_U16MSB : constant Format_t := 16#1010#;
+  Audio_S16MSB : constant Format_t := 16#9010#;
+  Audio_U16    : constant Format_t := Audio_U16LSB;
+  Audio_S16    : constant Format_t := Audio_S16LSB;
 
-  function audio_u16sys return format_t;
-  function audio_s16sys return format_t;
+  function Audio_U16SYS return Format_t;
+  function Audio_S16SYS return Format_t;
 
   -- Audio Specification Structure.
-  type spec_t is record
-    freq     : c.int;
-    format   : format_t;
-    channels : uint8_t;
-    silence  : uint8_t;
-    samples  : uint16_t;
-    size     : uint32_t;
-    callback : callback_t;
-    userdata : void_ptr_t;
+  type Spec_t is record
+    Freq      : C.int;
+    Format    : Format_t;
+    Channels  : Uint8_t;
+    Silence   : Uint8_t;
+    Samples   : Uint16_t;
+    Size      : Uint32_t;
+    Callback  : Callback_t;
+    User_Data : Void_Ptr_t;
   end record;
-  type spec_access_t is access all spec_t;
-  pragma convention (c, spec_t);
-  pragma convention (c, spec_access_t);
+  type Spec_Access_t is access all Spec_t;
+  pragma Convention (C, Spec_t);
+  pragma Convention (C, Spec_Access_t);
 
   -- Get the current audio state.
-  type status_t is (audio_stopped, audio_playing, audio_paused);
-  for status_t use
-   (audio_stopped => 0,
-    audio_playing => 1,
-    audio_paused  => 2);
-  for status_t'size use c.unsigned'size;
-  pragma convention (c, status_t);
+  type Status_t is (Audio_Stopped, Audio_Playing, Audio_Paused);
+  for Status_t use (Audio_Stopped => 0, Audio_Playing => 1, Audio_Paused => 2);
+  for Status_t'Size use C.unsigned'Size;
+  pragma Convention (C, Status_t);
 
-  type cvt_filter_t is access procedure
-   (cvt    : void_ptr_t;
-    format : format_t);
-  pragma convention (c, cvt_filter_t);
-  type cvt_filter_array_t is array (0 .. 9) of cvt_filter_t;
-  pragma convention (c, cvt_filter_array_t);
+  type CVT_Filter_t is access procedure
+    (CVT    : Void_Ptr_t;
+     Format : Format_t);
+  pragma Convention (C, CVT_Filter_t);
+
+  type CVT_Filter_Array_t is array (0 .. 9) of CVT_Filter_t;
+  pragma Convention (C, CVT_Filter_Array_t);
 
   -- Audio Conversion Structure.
-  type cvt_t is record
-    needed       : c.int;
-    src_format   : format_t;
-    dst_format   : format_t;
-    rate_incr    : c.double;
-    buf          : uint8_ptr_t;
-    len          : c.int;
-    len_cvt      : c.int;
-    len_mult     : c.int;
-    len_ratio    : c.double;
-    filters      : cvt_filter_array_t;
-    filter_index : c.int;
+  type CVT_t is record
+    Needed       : C.int;
+    Src_Format   : Format_t;
+    Dst_Format   : Format_t;
+    Rate_Incr    : C.double;
+    Buf          : Uint8_Ptr_t;
+    Len          : C.int;
+    Len_CVT      : C.int;
+    Len_Mult     : C.int;
+    Len_Ratio    : C.double;
+    Filters      : CVT_Filter_Array_t;
+    Filter_Index : C.int;
   end record;
-  type cvt_access_t is access all cvt_t;
-  pragma convention (c, cvt_t);
-  pragma convention (c, cvt_access_t);
+  type CVT_Access_t is access all CVT_t;
+  pragma Convention (C, CVT_t);
+  pragma Convention (C, CVT_Access_t);
 
   -- Shuts down audio processing and closes the audio device.
-  procedure close;
-  pragma import (c, close, "SDL_CloseAudio");
+  procedure Close;
+  pragma Import (C, Close, "SDL_CloseAudio");
 
   -- Initializes an SDL_AudioCVT structure for conversion.
-  function buildaudiocvt
-   (cvt          : cvt_access_t;
-    src_format   : format_t;
-    src_channels : uint8_t;
-    src_rate     : c.int;
-    dst_format   : format_t;
-    dst_channels : uint8_t;
-    dst_rate     : c.int) return c.int;
+  function BuildAudioCVT
+   (CVT          : CVT_Access_t;
+    Src_Format   : Format_t;
+    Src_Channels : Uint8_t;
+    Src_Rate     : C.int;
+    Dst_Format   : Format_t;
+    Dst_Channels : Uint8_t;
+    Dst_Rate     : C.int)
+    return         C.int;
 
-  function build_audio_cvt
-   (cvt          : cvt_access_t;
-    src_format   : format_t;
-    src_channels : uint8_t;
-    src_rate     : c.int;
-    dst_format   : format_t;
-    dst_channels : uint8_t;
-    dst_rate     : c.int) return c.int renames buildaudiocvt;
-  pragma import (c, buildaudiocvt, "SDL_BuildAudioCVT");
+  function Build_Audio_CVT
+   (CVT          : CVT_Access_t;
+    Src_Format   : Format_t;
+    Src_Channels : Uint8_t;
+    Src_Rate     : C.int;
+    Dst_Format   : Format_t;
+    Dst_Channels : Uint8_t;
+    Dst_Rate     : C.int)
+    return         C.int renames BuildAudioCVT;
+  pragma Import (C, BuildAudioCVT, "SDL_BuildAudioCVT");
 
-  function buildaudiocvt
-   (cvt          : cvt_access_t;
-    src_format   : format_t;
-    src_channels : positive;
-    src_rate     : positive;
-    dst_format   : format_t;
-    dst_channels : positive;
-    dst_rate     : positive) return boolean;
+  function BuildAudioCVT
+   (CVT          : CVT_Access_t;
+    Src_Format   : Format_t;
+    Src_Channels : Positive;
+    Src_Rate     : Positive;
+    Dst_Format   : Format_t;
+    Dst_Channels : Positive;
+    Dst_Rate     : Positive)
+    return         Boolean;
 
-  function build_audio_cvt
-   (cvt          : cvt_access_t;
-    src_format   : format_t;
-    src_channels : positive;
-    src_rate     : positive;
-    dst_format   : format_t;
-    dst_channels : positive;
-    dst_rate     : positive) return boolean renames buildaudiocvt;
-  pragma inline (buildaudiocvt);
+  function Build_Audio_CVT
+   (CVT          : CVT_Access_t;
+    Src_Format   : Format_t;
+    Src_Channels : Positive;
+    Src_Rate     : Positive;
+    Dst_Format   : Format_t;
+    Dst_Channels : Positive;
+    Dst_Rate     : Positive)
+    return         Boolean renames BuildAudioCVT;
+  pragma Inline (BuildAudioCVT);
 
   -- Converts audio data to a desired audio format.
-  function convertaudio (cvt : cvt_access_t) return c.int;
-  function convert_audio (cvt : cvt_access_t) return c.int renames convertaudio;
-  pragma import (c, convertaudio, "SDL_ConvertAudio");
+  function ConvertAudio (CVT : CVT_Access_t) return C.int;
+  function Convert_Audio (CVT : CVT_Access_t) return C.int renames ConvertAudio;
+  pragma Import (C, ConvertAudio, "SDL_ConvertAudio");
 
-  function convertaudio (cvt : cvt_access_t) return boolean;
-  function convert_audio (cvt : cvt_access_t) return boolean renames convertaudio;
-  pragma inline (convertaudio);
+  function ConvertAudio (CVT : CVT_Access_t) return Boolean;
+  function Convert_Audio (CVT : CVT_Access_t) return Boolean renames ConvertAudio;
+  pragma Inline (ConvertAudio);
 
   -- Frees previously opened WAV data.
-  procedure freewav (audio_buf : uint8_ptr_t);
-  procedure free_wav (audio_buf : uint8_ptr_t) renames freewav;
-  pragma import (c, freewav, "SDL_FreeWAV");
+  procedure FreeWAV (Audio_Buf : Uint8_Ptr_t);
+  procedure Free_Wav (Audio_Buf : Uint8_Ptr_t) renames FreeWAV;
+  pragma Import (C, FreeWAV, "SDL_FreeWAV");
 
   -- Get the current audio state.
-  function getaudiostatus return status_t;
-  function get_audio_status return status_t renames getaudiostatus;
-  pragma import (c, getaudiostatus, "SDL_GetAudioStatus");
+  function GetAudioStatus return Status_t;
+  function Get_Audio_Status return Status_t renames GetAudioStatus;
+  pragma Import (C, GetAudioStatus, "SDL_GetAudioStatus");
 
   -- missing: LoadWAV (macro wrapper)
 
-  -- Locks out the callback function.
-  procedure lockaudio;
-  procedure lock_audio renames lockaudio;
-  pragma import (c, lockaudio, "SDL_LockAudio");
+-- Locks out the callback function.
+  procedure LockAudio;
+  procedure Lock_Audio renames LockAudio;
+  pragma Import (C, LockAudio, "SDL_LockAudio");
 
   -- Mix audio data.
-  procedure mixaudio
-   (dst    : uint8_ptr_t;
-    src    : uint8_ptr_t;
-    len    : uint32_t;
-    volume : c.int);
+  procedure Mixaudio
+   (Dst    : Uint8_Ptr_t;
+    Src    : Uint8_Ptr_t;
+    Len    : Uint32_t;
+    Volume : C.int);
 
-  procedure mix_audio
-   (dst    : uint8_ptr_t;
-    src    : uint8_ptr_t;
-    len    : uint32_t;
-    volume : c.int) renames mixaudio;
-  pragma import (c, mixaudio, "SDL_MixAudio");
+  procedure Mix_Audio
+   (Dst    : Uint8_Ptr_t;
+    Src    : Uint8_Ptr_t;
+    Len    : Uint32_t;
+    Volume : C.int) renames Mixaudio;
+  pragma Import (C, Mixaudio, "SDL_MixAudio");
 
   -- Opens the audio device with the desired parameters.
-  function openaudio
-   (desired  : spec_t;
-    obtained : spec_access_t) return c.int;
+  function OpenAudio (Desired : Spec_t; Obtained : Spec_Access_t) return C.int;
 
-  function open_audio
-   (desired  : spec_t;
-    obtained : spec_access_t) return c.int renames openaudio;
-  pragma import (c, openaudio, "SDL_OpenAudio");
+  function Open_Audio (Desired : Spec_t; Obtained : Spec_Access_t) return C.int renames OpenAudio;
+  pragma Import (C, OpenAudio, "SDL_OpenAudio");
 
-  function openaudio
-   (desired  : spec_t;
-    obtained : spec_access_t) return boolean;
+  function OpenAudio (Desired : Spec_t; Obtained : Spec_Access_t) return Boolean;
 
-  function open_audio
-   (desired  : spec_t;
-    obtained : spec_access_t) return boolean renames openaudio;
-  pragma inline (openaudio);
+  function Open_Audio (Desired : Spec_t; Obtained : Spec_Access_t) return Boolean renames OpenAudio;
+  pragma Inline (OpenAudio);
 
   -- Pauses and unpauses the audio callback processing.
-  procedure pauseaudio (pause_on : c.int);
-  procedure pause_audio (pause_on : c.int) renames pauseaudio;
-  pragma import (c, pauseaudio, "SDL_PauseAudio");
+  procedure PauseAudio (Pause_On : C.int);
+  procedure Pause_Audio (Pause_On : C.int) renames PauseAudio;
+  pragma Import (C, PauseAudio, "SDL_PauseAudio");
 
-  procedure pauseaudio (pause_on : boolean);
-  procedure pause_audio (pause_on : boolean) renames pauseaudio;
-  pragma inline (pauseaudio);
+  procedure PauseAudio (Pause_On : Boolean);
+  procedure Pause_Audio (Pause_On : Boolean) renames PauseAudio;
+  pragma Inline (PauseAudio);
 
   -- Unlocks the callback function.
-  procedure unlockaudio;
-  procedure unlock_audio renames unlockaudio;
-  pragma import (c, unlockaudio, "SDL_UnlockAudio");
+  procedure UnlockAudio;
+  procedure Unlock_Audio renames UnlockAudio;
+  pragma Import (C, UnlockAudio, "SDL_UnlockAudio");
 
-end sdl.audio;
+end SDL.Audio;

@@ -1,230 +1,228 @@
-package body sdl.video is
-  use type c.int;
+package body SDL.Video is
+  use type C.int;
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_access_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean
+  function BlitSurface
+   (Src      : Surface_Access_T;
+    Src_Rect : Rect_Access_T;
+    Dst      : Surface_Access_T;
+    Dst_Rect : Rect_Access_T)
+    return     Boolean
   is
-    ret : constant c.int := blitsurface (src, src_rect, dst, dst_rect);
+    Return_Code : constant C.int := BlitSurface (Src, Src_Rect, Dst, Dst_Rect);
   begin
-    return ret /= -1;
-  end blitsurface;
+    return Return_Code /= -1;
+  end BlitSurface;
 
-  function blitsurface
-   (src      : surface_access_t;
-    src_rect : rect_t;
-    dst      : surface_access_t;
-    dst_rect : rect_access_t) return boolean
+  function BlitSurface
+   (Src      : Surface_Access_T;
+    Src_Rect : Rect_T;
+    Dst      : Surface_Access_T;
+    Dst_Rect : Rect_Access_T)
+    return     Boolean
   is
-    ret : constant c.int := blitsurface (src, src_rect, dst, dst_rect);
+    Return_Code : constant C.int := BlitSurface (Src, Src_Rect, Dst, Dst_Rect);
   begin
-    return ret /= -1;
-  end blitsurface;
+    return Return_Code /= -1;
+  end BlitSurface;
 
-  function creatergbsurfacefrom
-   (pixels : void_ptr_t;
-    width  : natural;
-    height : natural;
-    bpp    : positive;
-    pitch  : positive;
-    rmask  : uint32_t;
-    gmask  : uint32_t;
-    bmask  : uint32_t;
-    amask  : uint32_t) return surface_access_t is
+  function CreateRGBSurfaceFrom
+   (Pixels : Void_Ptr_T;
+    Width  : Natural;
+    Height : Natural;
+    Bpp    : Positive;
+    Pitch  : Positive;
+    Rmask  : Uint32_T;
+    Gmask  : Uint32_T;
+    Bmask  : Uint32_T;
+    Amask  : Uint32_T)
+    return   Surface_Access_T is
   begin
-    return creatergbsurfacefrom
-     (pixels => pixels,
-      width  => c.int (width),
-      height => c.int (height),
-      bpp    => c.int (bpp),
-      pitch  => c.int (pitch),
-      rmask  => rmask,
-      gmask  => gmask,
-      bmask  => bmask,
-      amask  => amask);
-  end creatergbsurfacefrom;
+    return CreateRGBSurfaceFrom
+            (Pixels => Pixels,
+             Width  => C.int (Width),
+             Height => C.int (Height),
+             Bpp    => C.int (Bpp),
+             Pitch  => C.int (Pitch),
+             Rmask  => Rmask,
+             Gmask  => Gmask,
+             Bmask  => Bmask,
+             Amask  => Amask);
+  end CreateRGBSurfaceFrom;
 
-  function fillrect
-   (dst   : surface_access_t;
-    r     : rect_access_t;
-    color : uint32_t) return boolean
+  function FillRect
+   (Dst   : Surface_Access_T;
+    R     : Rect_Access_T;
+    Color : Uint32_T)
+    return  Boolean
   is
-    ret : constant c.int := fillrect (dst, r, color);
+    Return_Code : constant C.int := FillRect (Dst, R, Color);
   begin
-    return ret /= -1;
-  end fillrect;
+    return Return_Code /= -1;
+  end FillRect;
 
-  function flip (surf : surface_access_t) return boolean is
-    ret : constant c.int := flip (surf);
+  function Flip (Surface : Surface_Access_T) return Boolean is
+    Return_Code : constant C.int := Flip (Surface);
   begin
-    return ret /= -1;
-  end flip;
+    return Return_Code /= -1;
+  end Flip;
 
-  function getgammaramp
-   (red   : uint16_ptr_t;
-    green : uint16_ptr_t;
-    blue  : uint16_ptr_t) return boolean
+  function GetGammaRamp
+   (Red   : Uint16_Ptr_T;
+    Green : Uint16_Ptr_T;
+    Blue  : Uint16_Ptr_T)
+    return  Boolean
   is
-    ret : constant c.int := getgammaramp (red, green, blue);
+    Return_Code : constant C.int := GetGammaRamp (Red, Green, Blue);
   begin
-    return ret /= -1;
-  end getgammaramp;
+    return Return_Code /= -1;
+  end GetGammaRamp;
 
-  function locksurface (surf : surface_access_t) return boolean is
-    ret : constant c.int := locksurface (surf);
+  function LockSurface (Surface : Surface_Access_T) return Boolean is
+    Return_Code : constant C.int := LockSurface (Surface);
   begin
-    return ret /= -1;
-  end locksurface;
+    return Return_Code /= -1;
+  end LockSurface;
 
-  function setalpha
-   (surf  : surface_access_t;
-    flags : uint32_t;
-    alpha : uint8_t) return boolean
+  function SetAlpha
+   (Surface  : Surface_Access_T;
+    Flags : Uint32_T;
+    Alpha : Uint8_T)
+    return  Boolean
   is
-    ret : constant c.int := setalpha (surf, flags, alpha);
+    Return_Code : constant C.int := SetAlpha (Surface, Flags, Alpha);
   begin
-    return ret /= -1;
-  end setalpha;
+    return Return_Code /= -1;
+  end SetAlpha;
 
-  function setcolorkey
-   (surf : surface_access_t;
-    flag : uint32_t;
-    key  : uint32_t) return boolean
+  function SetColorKey
+   (Surface : Surface_Access_T;
+    Flag : Uint32_T;
+    Key  : Uint32_T)
+    return Boolean
   is
-    ret : constant c.int := setcolorkey (surf, flag, key);
+    Return_Code : constant C.int := SetColorKey (Surface, Flag, Key);
   begin
-    return ret /= -1;
-  end setcolorkey;
+    return Return_Code /= -1;
+  end SetColorKey;
 
-  function sdl_setcolors
-   (surf        : surface_access_t;
-    colors      : color_array_t;
-    first_color : c.int;
-    num_colors  : c.int) return c.int;
-  pragma import (c, sdl_setcolors, "SDL_SetColors");
+  function SDL_SetColors
+   (Surface        : Surface_Access_T;
+    Colors      : Color_Array_T;
+    First_Color : C.int;
+    Num_Colors  : C.int)
+    return        C.int;
+  pragma Import (C, SDL_SetColors, "SDL_SetColors");
 
-  function setcolors
-   (surf        : surface_access_t;
-    colors      : color_array_t;
-    first_color : natural;
-    num_colors  : natural) return boolean
+  function SetColors
+   (Surface        : Surface_Access_T;
+    Colors      : Color_Array_T;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean
   is
-    ret : constant c.int := sdl_setcolors
-      (surf        => surf,
-       colors      => colors,
-       first_color => c.int (first_color),
-       num_colors  => c.int (num_colors));
+    Return_Code : constant C.int :=
+      SDL_SetColors (Surface => Surface, Colors => Colors, First_Color => C.int (First_Color), Num_Colors => C.int (Num_Colors));
   begin
-    return ret /= 0;
-  end setcolors;
+    return Return_Code /= 0;
+  end SetColors;
 
-  function setgamma
-   (red   : float;
-    green : float;
-    blue  : float) return boolean
+  function SetGamma
+   (Red   : Float;
+    Green : Float;
+    Blue  : Float)
+    return  Boolean
   is
-    ret : constant c.int := setgamma
-     (red   => c.c_float (red),
-      green => c.c_float (green),
-      blue  => c.c_float (blue));
+    Return_Code : constant C.int := SetGamma (Red => C.C_float (Red), Green => C.C_float (Green), Blue => C.C_float (Blue));
   begin
-    return ret /= -1;
-  end setgamma;
+    return Return_Code /= -1;
+  end SetGamma;
 
-  function sdl_setgammaramp
-    (red   : gamma_table_t;
-     green : gamma_table_t;
-     blue  : gamma_table_t) return c.int;
-  pragma import (c, sdl_setgammaramp, "SDL_SetGammaRamp");
+  function SDL_SetGammaRamp
+   (Red   : Gamma_Table_T;
+    Green : Gamma_Table_T;
+    Blue  : Gamma_Table_T)
+    return  C.int;
+  pragma Import (C, SDL_SetGammaRamp, "SDL_SetGammaRamp");
 
-  function setgammaramp
-    (red   : gamma_table_t;
-     green : gamma_table_t;
-     blue  : gamma_table_t) return boolean
+  function SetGammaRamp
+   (Red   : Gamma_Table_T;
+    Green : Gamma_Table_T;
+    Blue  : Gamma_Table_T)
+    return  Boolean
   is
-    ret : constant c.int := sdl_setgammaramp (red, green, blue);
+    Return_Code : constant C.int := SDL_SetGammaRamp (Red, Green, Blue);
   begin
-    return ret /= -1;
-  end setgammaramp;
+    return Return_Code /= -1;
+  end SetGammaRamp;
 
-  function sdl_setpalette
-   (surf        : surface_access_t;
-    flags       : c.int;
-    colors      : color_array_t;
-    first_color : c.int;
-    num_colors  : c.int) return c.int;
-  pragma import (c, sdl_setpalette, "SDL_SetPalette");
+  function SDL_SetPalette
+   (Surface        : Surface_Access_T;
+    Flags       : C.int;
+    Colors      : Color_Array_T;
+    First_Color : C.int;
+    Num_Colors  : C.int)
+    return        C.int;
+  pragma Import (C, SDL_SetPalette, "SDL_SetPalette");
 
-  function setpalette
-   (surf        : surface_access_t;
-    flags       : c.int;
-    colors      : color_array_t;
-    first_color : natural;
-    num_colors  : natural) return boolean
+  function SetPalette
+   (Surface        : Surface_Access_T;
+    Flags       : C.int;
+    Colors      : Color_Array_T;
+    First_Color : Natural;
+    Num_Colors  : Natural)
+    return        Boolean
   is
-    ret : constant c.int := sdl_setpalette
-     (surf        => surf,
-      flags       => flags,
-      colors      => colors,
-      first_color => c.int (first_color),
-      num_colors  => c.int (num_colors));
+    Return_Code : constant C.int :=
+      SDL_SetPalette
+       (Surface        => Surface,
+        Flags       => Flags,
+        Colors      => Colors,
+        First_Color => C.int (First_Color),
+        Num_Colors  => C.int (Num_Colors));
   begin
-    return ret /= 0;
-  end setpalette;
+    return Return_Code /= 0;
+  end SetPalette;
 
-  function setvideomode
-   (width  : positive;
-    height : positive;
-    bpp    : natural;
-    flags  : surface_flags_t) return surface_access_t
+  function SetVideoMode
+   (Width  : Positive;
+    Height : Positive;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_T)
+    return   Surface_Access_T
   is
   begin
-    return setvideomode
-     (width  => c.int (width),
-      height => c.int (height),
-      bpp    => c.int (bpp),
-      flags  => flags);
-  end setvideomode;
+    return SetVideoMode (Width => C.int (Width), Height => C.int (Height), Bpp => C.int (Bpp), Flags => Flags);
+  end SetVideoMode;
 
-  procedure sdl_updaterects
-   (surf  : surface_access_t;
-    num   : c.int;
-    rects : rect_array_t);
-  pragma import (c, sdl_updaterects, "SDL_UpdateRects");
+  procedure SDL_UpdateRects (Surface : Surface_Access_T; Num : C.int; Rects : Rect_Array_T);
+  pragma Import (C, SDL_UpdateRects, "SDL_UpdateRects");
 
-  procedure updaterects
-   (surf  : surface_access_t;
-    rects : rect_array_t) is
+  procedure UpdateRects (Surface : Surface_Access_T; Rects : Rect_Array_T) is
   begin
-    sdl_updaterects (surf, c.int (rects'length), rects);
-  end updaterects;
+    SDL_UpdateRects (Surface, C.int (Rects'Length), Rects);
+  end UpdateRects;
 
-  function videomodeok
-   (width  : natural;
-    height : natural;
-    bpp    : natural;
-    flags  : surface_flags_t) return boolean
+  function VideoModeOK
+   (Width  : Natural;
+    Height : Natural;
+    Bpp    : Natural;
+    Flags  : Surface_Flags_T)
+    return   Boolean
   is
-    ret : constant c.int := videomodeok
-     (width  => c.int (width),
-      height => c.int (height),
-      bpp    => c.int (bpp),
-      flags  => uint32_t (flags));
+    Return_Code : constant C.int :=
+      VideoModeOK (Width => C.int (Width), Height => C.int (Height), Bpp => C.int (Bpp), Flags => Uint32_T (Flags));
   begin
-    return ret /= 0;
-  end videomodeok;
+    return Return_Code /= 0;
+  end VideoModeOK;
 
-  function mustlock (surf : surface_access_t) return boolean is
-    check_flags : constant surface_flags_t := hwsurface or asyncblit or rleaccel;
+  function MustLock (Surface : Surface_Access_T) return Boolean is
+    Check_Flags : constant Surface_Flags_T := Hwsurface or Asyncblit or Rleaccel;
   begin
-    if (surf.offset /= 0) or ((surf.flags and check_flags) /= 0)
-    then
-      return true;
+    if (Surface.all.Offset /= 0) or ((Surface.all.Flags and Check_Flags) /= 0) then
+      return True;
     else
-      return false;
+      return False;
     end if;
-  end mustlock;
+  end MustLock;
 
-end sdl.video;
+end SDL.Video;

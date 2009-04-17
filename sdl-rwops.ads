@@ -1,161 +1,157 @@
-with interfaces.C_Streams;
-with interfaces.C.strings;
+with Interfaces.C_Streams;
+with Interfaces.C.Strings;
 
-package sdl.rwops is
-  package c_streams renames interfaces.C_Streams;
-  package cs renames interfaces.C.strings;
+package SDL.RWops is
+  package C_Streams renames Interfaces.C_Streams;
+  package CS renames Interfaces.C.Strings;
 
-  type stdio_file_t is new c_streams.FILEs;
-  type rwops_t;
-  type rwops_access_t is access all rwops_t;
+  type Stdio_File_t is new C_Streams.FILEs;
+  type RWops_t;
+  type RWops_Access_t is access all RWops_t;
 
-  type seek_callback_t is access function
-   (ctx    : rwops_access_t;
-    off    : c.int;
-    whence : c.int) return c.int;
+  type Seek_Callback_t is access function
+   (Context    : RWops_Access_t;
+    Off    : C.int;
+    Whence : C.int)
+  return     C.int;
 
-  type read_callback_t is access function
-   (ctx    : rwops_access_t;
-    ptr    : void_ptr_t;
-    size   : c.int;
-    maxnum : c.int) return c.int;
+  type Read_Callback_t is access function
+   (Context    : RWops_Access_t;
+    Ptr    : Void_Ptr_t;
+    Size   : C.int;
+    Maxnum : C.int)
+  return     C.int;
 
-  type write_callback_t is access function
-   (ctx  : rwops_access_t;
-    ptr  : void_ptr_t;
-    size : c.int;
-    num  : c.int) return c.int;
+  type Write_Callback_t is access function
+   (Context  : RWops_Access_t;
+    Ptr  : Void_Ptr_t;
+    Size : C.int;
+    Num  : C.int)
+  return   C.int;
 
-  type close_callback_t is access function (ctx : rwops_access_t) return c.int;
+  type Close_Callback_t is access function (Context : RWops_Access_t) return C.int;
 
-  pragma convention (c, seek_callback_t);
-  pragma convention (c, read_callback_t);
-  pragma convention (c, write_callback_t);
-  pragma convention (c, close_callback_t);
+  pragma Convention (C, Seek_Callback_t);
+  pragma Convention (C, Read_Callback_t);
+  pragma Convention (C, Write_Callback_t);
+  pragma Convention (C, Close_Callback_t);
 
-  type io_stdio_t is record
-    auto_close : c.int;
-    fp         : stdio_file_t;
+  type Io_Stdio_t is record
+    Auto_Close : C.int;
+    Fp         : Stdio_File_t;
   end record;
-  pragma convention (c, io_stdio_t);
+  pragma Convention (C, Io_Stdio_t);
 
-  type io_mem_t is record
-    base : uint8_ptr_t;
-    here : uint8_ptr_t;
-    stop : uint8_ptr_t;
+  type Io_Mem_t is record
+    Base : Uint8_Ptr_t;
+    Here : Uint8_Ptr_t;
+    Stop : Uint8_Ptr_t;
   end record;
-  pragma convention (c, io_mem_t);
+  pragma Convention (C, Io_Mem_t);
 
-  type io_unknown_t is record
-    data : void_ptr_t;
+  type Io_Unknown_t is record
+    Data : Void_Ptr_t;
   end record;
-  pragma convention (c, io_unknown_t);
+  pragma Convention (C, Io_Unknown_t);
 
-  type type_selector is (t_stdio, t_mem, t_unknown);
-  type io_union_t (selector : type_selector := t_stdio) is record
-    case selector is
-      when t_stdio   => stdio   : io_stdio_t;
-      when t_mem     => mem     : io_mem_t;
-      when t_unknown => unknown : io_unknown_t;
+  type Type_Selector is (T_Stdio, T_Mem, T_Unknown);
+  type Io_Union_t (Selector : Type_Selector := T_Stdio) is record
+    case Selector is
+      when T_Stdio =>
+        Stdio : Io_Stdio_t;
+      when T_Mem =>
+        Mem : Io_Mem_t;
+      when T_Unknown =>
+        Unknown : Io_Unknown_t;
     end case;
   end record;
-  pragma convention (c, io_union_t);
-  pragma unchecked_union (io_union_t);
+  pragma Convention (C, Io_Union_t);
+  pragma Unchecked_Union (Io_Union_t);
 
-  type rwops_t is record
-    seek       : seek_callback_t;
-    read       : read_callback_t;
-    write      : write_callback_t;
-    close      : close_callback_t;
-    type_union : uint32_t;
-    hidden     : io_union_t;
+  type RWops_t is record
+    Seek       : Seek_Callback_t;
+    Read       : Read_Callback_t;
+    Write      : Write_Callback_t;
+    Close      : Close_Callback_t;
+    Type_Union : Uint32_t;
+    Hidden     : Io_Union_t;
   end record;
-  pragma convention (c, rwops_t);
+  pragma Convention (C, RWops_t);
 
-  seek_set : constant c.int := 0;
-  seek_cur : constant c.int := 1;
-  seek_end : constant c.int := 2;
+  Seek_Set : constant C.int := 0;
+  Seek_Cur : constant C.int := 1;
+  Seek_End : constant C.int := 2;
 
-  function rwfromfile
-   (file : cs.chars_ptr;
-    mode : cs.chars_ptr) return rwops_access_t;
-  function rw_from_file
-   (file : cs.chars_ptr;
-    mode : cs.chars_ptr) return rwops_access_t renames rwfromfile;
-  pragma import (c, rwfromfile, "SDL_RWFromFile");
+  function RWFromFile (File : CS.chars_ptr; Mode : CS.chars_ptr) return RWops_Access_t;
+  function RW_From_File (File : CS.chars_ptr; Mode : CS.chars_ptr) return RWops_Access_t renames RWFromFile;
+  pragma Import (C, RWFromFile, "SDL_RWFromFile");
 
-  function rwfromfile
-   (file : string;
-    mode : string) return rwops_access_t;
-  function rw_from_file
-   (file : string;
-    mode : string) return rwops_access_t renames rwfromfile;
-  pragma inline (rwfromfile);
+  function RWFromFile (File : String; Mode : String) return RWops_Access_t;
+  function RW_From_File (File : String; Mode : String) return RWops_Access_t renames RWFromFile;
+  pragma Inline (RWFromFile);
 
-  function rwfromfp
-   (file       : stdio_file_t;
-    auto_close : c.int) return rwops_access_t;
-  function rw_from_fp
-   (file       : stdio_file_t;
-    auto_close : c.int) return rwops_access_t renames rwfromfp;
-  pragma import (c, rwfromfp, "SDL_RWFromFP");
+  function RWFromFP (File : Stdio_File_t; Auto_Close : C.int) return RWops_Access_t;
+  function RW_From_Fp (File : Stdio_File_t; Auto_Close : C.int) return RWops_Access_t renames RWFromFP;
+  pragma Import (C, RWFromFP, "SDL_RWFromFP");
 
-  function rwfrommem
-   (mem  : void_ptr_t;
-    size : c.int) return rwops_access_t;
-  function rw_from_mem
-   (mem  : void_ptr_t;
-    size : c.int) return rwops_access_t renames rwfrommem;
-  pragma import (c, rwfrommem, "SDL_RWFromMem");
+  function RWFromMem (Mem : Void_Ptr_t; Size : C.int) return RWops_Access_t;
+  function RW_From_Mem (Mem : Void_Ptr_t; Size : C.int) return RWops_Access_t renames RWFromMem;
+  pragma Import (C, RWFromMem, "SDL_RWFromMem");
 
-  function allocrw return rwops_access_t;
-  function alloc_rw return rwops_access_t renames allocrw;
-  pragma import (c, allocrw, "SDL_AllocRW");
+  function AllocRW return RWops_Access_t;
+  function Alloc_RW return RWops_Access_t renames AllocRW;
+  pragma Import (C, AllocRW, "SDL_AllocRW");
 
-  procedure freerw (area : rwops_access_t);
-  procedure free_rw (area : rwops_access_t) renames freerw;
-  pragma import (c, freerw, "SDL_FreeRW");
+  procedure FreeRW (Area : RWops_Access_t);
+  procedure Free_RW (Area : RWops_Access_t) renames FreeRW;
+  pragma Import (C, FreeRW, "SDL_FreeRW");
 
-  function rwseek
-   (ctx    : rwops_access_t;
-    offset : c.int;
-    whence : c.int) return c.int;
-  function rw_seek
-   (ctx    : rwops_access_t;
-    offset : c.int;
-    whence : c.int) return c.int renames rwseek;
-  pragma inline (rwseek);
+  function RWSeek
+   (Context    : RWops_Access_t;
+    Offset : C.int;
+    Whence : C.int)
+    return   C.int;
+  function RW_Seek
+   (Context    : RWops_Access_t;
+    Offset : C.int;
+    Whence : C.int)
+    return   C.int renames RWSeek;
+  pragma Inline (RWSeek);
 
-  function rwtell (ctx : rwops_access_t) return c.int;
-  function rw_tell (ctx : rwops_access_t) return c.int renames rwtell;
-  pragma inline (rwtell);
+  function RWTell (Context : RWops_Access_t) return C.int;
+  function RW_Tell (Context : RWops_Access_t) return C.int renames RWTell;
+  pragma Inline (RWTell);
 
-  function rwread
-   (ctx  : rwops_access_t;
-    ptr  : void_ptr_t;
-    size : c.int;
-    num  : c.int) return c.int;
-  function rw_read
-   (ctx  : rwops_access_t;
-    ptr  : void_ptr_t;
-    size : c.int;
-    num  : c.int) return c.int renames rwread;
-  pragma inline (rwread);
+  function RWRead
+   (Context  : RWops_Access_t;
+    Ptr  : Void_Ptr_t;
+    Size : C.int;
+    Num  : C.int)
+    return C.int;
+  function RW_Read
+   (Context  : RWops_Access_t;
+    Ptr  : Void_Ptr_t;
+    Size : C.int;
+    Num  : C.int)
+    return C.int renames RWRead;
+  pragma Inline (RWRead);
 
-  function rwwrite
-   (ctx  : rwops_access_t;
-    ptr  : void_ptr_t;
-    size : c.int;
-    num  : c.int) return c.int;
-  function rw_write
-   (ctx  : rwops_access_t;
-    ptr  : void_ptr_t;
-    size : c.int;
-    num  : c.int) return c.int renames rwwrite;
-  pragma inline (rwwrite);
+  function RWWrite
+   (Context : RWops_Access_t;
+    Ptr     : Void_Ptr_t;
+    Size    : C.int;
+    Num     : C.int)
+    return C.int;
+  function RW_Write
+   (Context  : RWops_Access_t;
+    Ptr  : Void_Ptr_t;
+    Size : C.int;
+    Num  : C.int)
+    return C.int renames RWWrite;
+  pragma Inline (RWWrite);
 
-  function rwclose (ctx : rwops_access_t) return c.int;
-  function rw_close (ctx : rwops_access_t) return c.int renames rwclose;
-  pragma inline (rwclose);
+  function RWClose (Context : RWops_Access_t) return C.int;
+  function RW_Close (Context : RWops_Access_t) return C.int renames RWClose;
+  pragma Inline (RWClose);
 
-end sdl.rwops;
+end SDL.RWops;

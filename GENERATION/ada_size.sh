@@ -12,8 +12,8 @@ gen="$2"
 (cat <<EOF
 -- auto generated, do not edit
 
-with ada.text_io;
-with ada.command_line;
+with Ada.Text_IO;
+with Ada.Command_Line;
 
 with SDL;
 EOF
@@ -26,9 +26,9 @@ done
 
 (cat <<EOF
 
-procedure ada_size is
-  package io renames ada.text_io;
-  package cmdline renames ada.command_line;
+procedure Ada_Size is
+  package IO renames Ada.Text_IO;
+  package Command_Line renames Ada.Command_Line;
 
 EOF
 ) || exit 112
@@ -36,22 +36,22 @@ EOF
 ./types-ada-size.lua "${map}" "${gen}" || exit 112
 
 (cat <<EOF
-  procedure find (name : string) is
+  procedure Find (Name : String) is
   begin
-    for index in types'range loop
-      if types (index).name.all = name then
-        io.put_line (natural'image (types (index).size));
+    for Index in Types'Range loop
+      if Types (Index).Name.all = Name then
+        IO.Put_Line (Natural'Image (Types (Index).Size));
         return;
       end if;
     end loop;
-    raise program_error with "fatal: unknown ada type";
-  end find;
+    raise Program_Error with "fatal: unknown ada type";
+  end Find;
 
 begin
-  if cmdline.argument_count /= 1 then
-    raise program_error with "fatal: incorrect number of args";
+  if Command_Line.Argument_Count /= 1 then
+    raise Program_Error with "fatal: incorrect number of args";
   end if;
-  find (cmdline.argument (1));
-end ada_size;
+  Find (Command_Line.Argument (1));
+end Ada_Size;
 EOF
 ) || exit 112
