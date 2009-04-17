@@ -6,7 +6,7 @@ SDL.Audio.Spec_Access_t:SDL_AudioSpec *
 SDL.Audio.Spec_Access_t:struct SDL_AudioSpec *
 SDL.Audio.Spec_t:SDL_AudioSpec
 SDL.Audio.Spec_t:struct SDL_AudioSpec
-SDL.Audio.Status_t:SDL_Audiostatus
+SDL.Audio.Status_t:SDL_audiostatus
 SDL.Error.Code_t:SDL_errorcode
 SDL.Events.Action_t:SDL_eventaction
 SDL.Events.Active_Event_Access_t:SDL_ActiveEvent *
@@ -67,12 +67,12 @@ SDL.Events.User_Event_Access_t:struct SDL_UserEvent *
 SDL.Events.User_Event_t:SDL_UserEvent
 SDL.Events.User_Event_t:struct SDL_UserEvent
 SDL.Joystick.Joystick_Access_t:SDL_Joystick *
-SDL.Keyboard.Keysym_Const_Access_t:SDL_Keysym *
-SDL.Keyboard.Keysym_Const_Access_t:struct SDL_Keysym *
-SDL.Keyboard.Keysym_Access_t:SDL_Keysym *
-SDL.Keyboard.Keysym_Access_t:struct SDL_Keysym *
-SDL.Keyboard.Keysym_t:SDL_Keysym
-SDL.Keyboard.Keysym_t:struct SDL_Keysym
+SDL.Keyboard.Keysym_Const_Access_t:SDL_keysym *
+SDL.Keyboard.Keysym_Const_Access_t:struct SDL_keysym *
+SDL.Keyboard.Keysym_Access_t:SDL_keysym *
+SDL.Keyboard.Keysym_Access_t:struct SDL_keysym *
+SDL.Keyboard.Keysym_t:SDL_keysym
+SDL.Keyboard.Keysym_t:struct SDL_keysym
 SDL.Keysym.Key_t:SDLKey
 SDL.Keysym.ModKey_t:SDLMod
 SDL.Mouse.Cursor_Access_t:SDL_Cursor *

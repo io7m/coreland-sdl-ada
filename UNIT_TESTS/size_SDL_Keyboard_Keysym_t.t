@@ -3,10 +3,10 @@
 
 size_ada=`./ada_size "SDL.Keyboard.Keysym_t"`
 if [ $? -ne 0 ]; then exit 2; fi
-size_c=`./c_size "struct SDL_Keysym"`
+size_c=`./c_size "struct SDL_keysym"`
 if [ $? -ne 0 ]; then exit 2; fi
 
-printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "SDL.Keyboard.Keysym_t" "struct SDL_Keysym"
+printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "SDL.Keyboard.Keysym_t" "struct SDL_keysym"
 
 if [ ${size_ada} -ne ${size_c} ]
 then
