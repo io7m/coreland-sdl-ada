@@ -62,6 +62,9 @@ package SDL is
   function Init (Flags : Init_Flags_t) return C.int;
   pragma Import (C, Init, "SDL_Init");
 
+  function Init (Flags : Init_Flags_t) return Boolean;
+  pragma Inline (Init);
+
   -- Initializes subsystems
   function InitSubSystem (Flags : Init_Flags_t) return C.int;
   function Init_Sub_System (Flags : Init_Flags_t) return C.int renames InitSubSystem;

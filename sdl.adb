@@ -18,4 +18,9 @@ package body SDL is
     end if;
   end WasInit;
 
+  function Init (Flags : Init_Flags_t) return Boolean is
+  begin
+    return C.int'(Init (Flags)) /= -1;
+  end Init;
+
 end SDL;
