@@ -44,6 +44,25 @@ package SDL.Video is
   SRCALPHA    : constant Surface_Flags_t := 16#00010000#;
   PREALLOC    : constant Surface_Flags_t := 16#01000000#;
 
+  -- GL attributes
+  GL_Red_Size            : constant := 0;
+  GL_Green_Size          : constant := 1;
+  GL_Blue_Size           : constant := 2;
+  GL_Alpha_Size          : constant := 3;
+  GL_Buffer_Size         : constant := 4;
+  GL_Double_Buffer       : constant := 5;
+  GL_Depth_Size          : constant := 6;
+  GL_Stencil_Size        : constant := 7;
+  GL_Accum_Red_Size      : constant := 8;
+  GL_Accum_Green_Size    : constant := 9;
+  GL_Accum_Blue_Size     : constant := 10;
+  GL_Accum_Alpha_Size    : constant := 11;
+  GL_Stereo              : constant := 12;
+  GL_Multisample_Buffers : constant := 13;
+  GL_Multisample_Samples : constant := 14;
+  GL_Accelerated_Visual  : constant := 15;
+  GL_Swap_Control        : constant := 16;
+
   -- Defines a rectangular area.
   type Rect_t is record
     X : Int16_t;
