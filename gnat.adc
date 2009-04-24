@@ -3,6 +3,10 @@
 pragma source_file_name(sdl.audio, spec_file_name => "sdl-audio.ads");
 pragma source_file_name(sdl.audio, body_file_name => "sdl-audio.adb");
 
+-- ./sdl-error-ext.apk
+pragma source_file_name(SDL.Error.Ext, spec_file_name => "sdl-error-ext.ads");
+pragma source_file_name(SDL.Error.Ext, body_file_name => "sdl-error-ext.adb");
+
 -- ./sdl-error.apk
 pragma source_file_name(sdl.error, spec_file_name => "sdl-error.ads");
 pragma source_file_name(sdl.error, body_file_name => "sdl-error.adb");
@@ -28,6 +32,10 @@ pragma source_file_name(sdl.rwops, body_file_name => "sdl-rwops.adb");
 
 -- ./sdl-timer.apk
 pragma source_file_name(sdl.timer, spec_file_name => "sdl-timer.ads");
+
+-- ./sdl-video-utilities.apk
+pragma source_file_name(SDL.Video.Utilities, spec_file_name => "sdl-video-utilities.ads");
+pragma source_file_name(SDL.Video.Utilities, body_file_name => "sdl-video-utilities.adb");
 
 -- ./sdl-video.apk
 pragma source_file_name(sdl.video, spec_file_name => "sdl-video.ads");

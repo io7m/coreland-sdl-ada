@@ -1,4 +1,5 @@
 sdl-audio.o
+sdl-error-ext.o
 sdl-error.o
 sdl-events.o
 sdl-joystick.o
@@ -7,5 +8,6 @@ sdl-keysym.o
 sdl-mouse.o
 sdl-rwops.o
 sdl-timer.o
+sdl-video-utilities.o
 sdl-video.o
 sdl.o
