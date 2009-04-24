@@ -8,12 +8,11 @@ UNIT_TESTS/c_size UNIT_TESTS/c_size.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o \
 ctxt/incdir.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o deinstaller \
 deinstaller.o install-core.o install-error.o install-posix.o install-win32.o \
 install.a installer installer.o instchk instchk.o insthier.o sdl-ada-conf \
-sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error-ext.ali \
-sdl-error-ext.o sdl-error.ali sdl-error.o sdl-events.ali sdl-events.o \
-sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali \
-sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o sdl-timer.ali \
-sdl-timer.o sdl-video-utilities.ali sdl-video-utilities.o sdl-video.ali \
-sdl-video.o sdl.ali sdl.o
+sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali sdl-error.o \
+sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali \
+sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o \
+sdl-rwops.ali sdl-rwops.o sdl-timer.ali sdl-timer.o sdl-video.ali sdl-video.o \
+sdl.ali sdl.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -276,12 +275,12 @@ cc-compile sdl-ada-conf.c ctxt.h
 	./cc-compile sdl-ada-conf.c
 
 sdl-ada.a:\
-cc-slib sdl-ada.sld sdl-audio.o sdl-error-ext.o sdl-error.o sdl-events.o \
-sdl-joystick.o sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o \
-sdl-video-utilities.o sdl-video.o sdl.o
-	./cc-slib sdl-ada sdl-audio.o sdl-error-ext.o sdl-error.o sdl-events.o \
-	sdl-joystick.o sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o \
-	sdl-video-utilities.o sdl-video.o sdl.o
+cc-slib sdl-ada.sld sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
+sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o sdl-video.o \
+sdl.o
+	./cc-slib sdl-ada sdl-audio.o sdl-error.o sdl-events.o sdl-joystick.o \
+	sdl-keyboard.o sdl-keysym.o sdl-mouse.o sdl-rwops.o sdl-timer.o sdl-video.o \
+	sdl.o
 
 sdl-audio.ads:\
 sdl.ali
@@ -292,16 +291,6 @@ ada-compile sdl-audio.adb sdl.ali sdl-audio.ads
 
 sdl-audio.o:\
 sdl-audio.ali
-
-sdl-error-ext.ads:\
-sdl-error.ali
-
-sdl-error-ext.ali:\
-ada-compile sdl-error-ext.adb sdl-error.ali sdl-error-ext.ads
-	./ada-compile sdl-error-ext.adb
-
-sdl-error-ext.o:\
-sdl-error-ext.ali
 
 sdl-error.ads:\
 sdl.ali
@@ -366,16 +355,6 @@ ada-compile sdl-timer.ads sdl.ali sdl-timer.ads
 sdl-timer.o:\
 sdl-timer.ali
 
-sdl-video-utilities.ads:\
-sdl-video.ali
-
-sdl-video-utilities.ali:\
-ada-compile sdl-video-utilities.adb sdl-video.ali sdl-video-utilities.ads
-	./ada-compile sdl-video-utilities.adb
-
-sdl-video-utilities.o:\
-sdl-video-utilities.ali
-
 sdl-video.ads:\
 sdl.ali
 
@@ -402,12 +381,11 @@ obj_clean:
 	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
 	deinstaller deinstaller.o install-core.o install-error.o install-posix.o \
 	install-win32.o install.a installer installer.o instchk instchk.o insthier.o \
-	sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o \
-	sdl-error-ext.ali sdl-error-ext.o sdl-error.ali sdl-error.o sdl-events.ali \
-	sdl-events.o sdl-joystick.ali sdl-joystick.o sdl-keyboard.ali sdl-keyboard.o \
-	sdl-keysym.ali sdl-keysym.o sdl-mouse.ali sdl-mouse.o sdl-rwops.ali sdl-rwops.o \
-	sdl-timer.ali sdl-timer.o sdl-video-utilities.ali sdl-video-utilities.o \
-	sdl-video.ali sdl-video.o sdl.ali sdl.o
+	sdl-ada-conf sdl-ada-conf.o sdl-ada.a sdl-audio.ali sdl-audio.o sdl-error.ali \
+	sdl-error.o sdl-events.ali sdl-events.o sdl-joystick.ali sdl-joystick.o \
+	sdl-keyboard.ali sdl-keyboard.o sdl-keysym.ali sdl-keysym.o sdl-mouse.ali \
+	sdl-mouse.o sdl-rwops.ali sdl-rwops.o sdl-timer.ali sdl-timer.o sdl-video.ali \
+	sdl-video.o sdl.ali sdl.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
