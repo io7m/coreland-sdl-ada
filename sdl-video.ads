@@ -452,6 +452,10 @@ package SDL.Video is
   procedure Flip (Surface : Surface_Access_t);
   pragma Import (C, Flip, "SDL_Flip");
 
+  -- Swap OpenGL buffers.
+  procedure GL_Swap_Buffers;
+  pragma Import (C, GL_Swap_Buffers, "SDL_GL_SwapBuffers");
+
   function Flip (Surface : Surface_Access_t) return Boolean;
   pragma Inline (Flip);
 
