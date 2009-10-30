@@ -3,3 +3,4 @@
                to more literal equivalents.
 20090417 code: Src* -> Source*
 20090417 code: Dst* -> Target*
+20091030 code: update sysdeps to 3.0.0b
