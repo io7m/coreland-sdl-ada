@@ -5,3 +5,4 @@
 20090417 code: Dst* -> Target*
 20091030 code: updated sysdeps to 3.0.0b
 20091030 code: updated installer to 2.3.0
+20091030 version: sdl-ada 1.2.14
