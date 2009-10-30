@@ -1,0 +1,62 @@
+#!/bin/sh
+
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
+exec 1> "$1"
+
+args=""
+path="${SYSDEP_STDLIB}"
+lib="libSDLmain.a"
+
+case ${SYSDEP_OS} in
+  SD_SYSINFO_OS_DARWIN)
+    if [ -d "/Library/Frameworks/SDL.framework" ]
+    then
+      SYSDEP_INFO "using SDL frameworks"
+      args="-bind_at_load"    # darwin linker bug
+      args="${args} -framework SDL -framework Cocoa -framework OpenGL -lobjc"
+      ${SYSDEP_UTIL_ECHO} "${args}"
+      ${SYSDEP_UTIL_EXIT} 0
+    else
+      SYSDEP_INFO "using SDL 'unix style'" 
+    fi
+    ;;
+  *)
+    ;;
+esac
+
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "sdl-config" "--libs"`
+if [ $? -eq 0 ]
+then
+  ${SYSDEP_UTIL_ECHO} ${FLAGS} ${args}
+  ${SYSDEP_UTIL_EXIT} 0
+fi
+SYSDEP_ERROR "custom configuration binary failed"
+
+FLAGS=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "--libs"`
+if [ $? -eq 0 ]
+then
+  ${SYSDEP_UTIL_ECHO} ${FLAGS} ${args}
+  ${SYSDEP_UTIL_EXIT} 0
+else
+  SYSDEP_ERROR "custom pkg-config failed"
+fi
+
+FLAGS=`${SYSDEP_TRY_MANUAL} "${lib}" "${path}" "-L"`
+if [ $? -eq 0 ]
+then
+  case ${SYSDEP_OS} in
+    SD_SYSINFO_OS_DARWIN)
+      ${SYSDEP_UTIL_ECHO} ${args}
+      ${SYSDEP_UTIL_EXIT} 0
+      ;;
+    *)
+      ${SYSDEP_UTIL_ECHO} ${FLAGS} ${args}
+      ${SYSDEP_UTIL_EXIT} 0
+      ;;
+    esac
+else
+  SYSDEP_ERROR "custom manual search failed"
+fi
+
+${SYSDEP_UTIL_EXIT} 0
