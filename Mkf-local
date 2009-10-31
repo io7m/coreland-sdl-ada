@@ -1,0 +1,6 @@
+local: flags-sdl libs-sdl
+	./check-deps
+
+local_pre:
+local_clean:
+
